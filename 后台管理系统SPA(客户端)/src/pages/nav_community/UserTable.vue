@@ -1,47 +1,95 @@
 <template>
-<el-table
-    :data="tableData"
-    style="width: 100%">
-    <el-table-column
-    prop="date"
-    label="日期"
-    width="180">
-    </el-table-column>
-    <el-table-column
-    prop="name"
-    label="姓名"
-    width="180">
-    </el-table-column>
-    <el-table-column
-    prop="address"
-    label="地址">
-    </el-table-column>
-</el-table>
+    <section>
+        <!--工具条-->
+        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
+            <el-form :inline="true" :model="filters">
+                <el-form-item>
+                    <el-input v-model="filters.user" placeholder="住户"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-input v-model="filters.location" placeholder="住址"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" v-on:click="getUsers">查询</el-button>
+                </el-form-item>
+            </el-form>
+        </el-col>
+
+        <!--列表-->
+        <el-table :data="users" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
+            <el-table-column type="selection" width="55">
+            </el-table-column>
+            <el-table-column type="index" width="60">
+            </el-table-column>
+            <el-table-column prop="user" label="住户" width="200" sortable>
+            </el-table-column>
+            <el-table-column prop="room" label="住址" width="500" sortable>
+            </el-table-column>
+                        <el-table-column label="操作" width="150">
+                <template slot-scope="scope">
+                    <!-- <el-button size="small" @click="handleEdit(scope.$index, scope.row)">check</el-button> -->
+                    <el-button type="info" size="small" @click="alert('NOT YET!');">详情</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+
+        <!--工具条-->
+        <el-col :span="24" class="toolbar">
+            <el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size="20" :total="total" style="float:right;">
+            </el-pagination>
+        </el-col>
+    </section>
 </template>
 
 <script>
-export default {
-    name: 'user-table',
-    data(){
-    return {
-        tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
-        }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
-        }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
-        }]
+    import util from '../../common/js/util'
+    import { getUserListPages } from '../../api/api';
+
+    export default {
+        data() {
+            return {
+                filters: {
+                    user: '',
+                    room: '',
+                },
+                users: [],
+                total: 0,
+                page: 1,
+                listLoading: false,
+                sels: [],//列表选中列
+            }
+        },
+        methods: {
+            handleCurrentChange(val) {
+                this.page = val;
+                this.getUsers();
+            },
+            //获取用户列表
+            getUsers() {
+                let para = {
+                    page: this.page,
+                    user: this.filters.user,
+                    room: this.filters.room,
+                };
+                this.listLoading = true;
+                getUsersListPage(para).then((res) => {
+                    this.total = res.data.total;
+                    this.users = res.data.users;
+                    this.listLoading = false;
+                });
+            },
+
+            selsChange: function (sels) {
+                this.sels = sels;
+            },
+        },
+        mounted() {
+            this.getUsers();
+        }
     }
-    }
-}
+
 </script>
+
+<style scoped>
+
+</style>

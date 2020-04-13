@@ -31,9 +31,9 @@
             </el-table-column>
             <el-table-column prop="goods_id" label="物资ID" width="200" sortable>
             </el-table-column>
-            <el-table-column prop="location" label="地点" width="200" sortable>
+            <el-table-column prop="location" label="住址" width="200" sortable>
             </el-table-column>
-            <el-table-column prop="time" label="时间" width="200" sortable>
+            <el-table-column prop="time" label="期限" width="200" sortable>
             </el-table-column>
             <el-table-column label="操作" width="150">
                 <template slot-scope="scope">

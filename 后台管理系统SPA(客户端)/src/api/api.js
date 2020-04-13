@@ -31,3 +31,5 @@ export const batchRemoveGoods = params => { return axios.get(`${base}/goods/batc
 export const editGoods = params => { return axios.get(`${base}/goods/edit`, { params: params }); };
 
 export const addGoods = params => { return axios.get(`${base}/goods/add`, { params: params }); };
+
+export const getUsersListPage = params => { return axios.get(`${base}/users/listpage`, { params: params }); };
