@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-let base = '';
+let base = 'http://localhost:8443';
 
-export const requestLogin = params => { return axios.post(`${base}/login`, params).then(res => res.data); };
+export const requestLogin = params => { return axios.post(`/login`, params).then(res => res.data); };
 
 export const getUserList = params => { return axios.get(`${base}/user/list`, { params: params }); };
 
@@ -28,8 +28,8 @@ export const removeGoods = params => { return axios.get(`${base}/goods/remove`, 
 
 export const batchRemoveGoods = params => { return axios.get(`${base}/goods/batchremove`, { params: params }); };
 
-export const editGoods = params => { return axios.get(`${base}/goods/edit`, { params: params }); };
+export const editGoods = params => { return axios.post(`${base}/goods/edit`, { params: params }); };
 
-export const addGoods = params => { return axios.get(`${base}/goods/add`, { params: params }); };
+export const addGoods = params => { return axios.post(`${base}/goods/add`, { params: params }); };
 
 export const getUsersListPage = params => { return axios.get(`${base}/users/listpage`, { params: params }); };

@@ -4,7 +4,7 @@
         <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
             <el-form :inline="true" :model="filters">
                 <el-form-item>
-                    <el-input v-model="filters.user" placeholder="住户"></el-input>
+                    <el-input v-model="filters.name" placeholder="住户"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-input v-model="filters.location" placeholder="住址"></el-input>
@@ -21,7 +21,7 @@
             </el-table-column>
             <el-table-column type="index" width="60">
             </el-table-column>
-            <el-table-column prop="user" label="住户" width="200" sortable>
+            <el-table-column prop="name" label="住户" width="200" sortable>
             </el-table-column>
             <el-table-column prop="room" label="住址" width="500" sortable>
             </el-table-column>
@@ -43,13 +43,13 @@
 
 <script>
     import util from '../../common/js/util'
-    import { getUserListPages } from '../../api/api';
+    import { getUsersListPage } from '../../api/api';
 
     export default {
         data() {
             return {
                 filters: {
-                    user: '',
+                    name: '',
                     room: '',
                 },
                 users: [],
@@ -68,7 +68,7 @@
             getUsers() {
                 let para = {
                     page: this.page,
-                    user: this.filters.user,
+                    name: this.filters.name,
                     room: this.filters.room,
                 };
                 this.listLoading = true;

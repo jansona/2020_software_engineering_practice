@@ -1,7 +1,9 @@
 package software.practice.distribution.controller;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -15,5 +17,12 @@ public class HelloController {
     @RequestMapping("/hello")
     public String hello(){
         return "Hello SpringBoot ... ";
+    }
+
+    @GetMapping("/users/listpage")
+    public String test(int page, String name, String room)
+    {
+        System.out.println(page);
+        return "WTF";
     }
 }

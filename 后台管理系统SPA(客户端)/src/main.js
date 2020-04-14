@@ -8,7 +8,7 @@ import store from './vuex/store'
 import Vuex from 'vuex'
 import routes from './router'
 import Mock from './mock'
-Mock.bootstrap();
+// Mock.bootstrap();
 import 'font-awesome/css/font-awesome.min.css'
 
 

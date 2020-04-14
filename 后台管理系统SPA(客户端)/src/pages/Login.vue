@@ -44,6 +44,19 @@
         this.$refs.ruleForm2.resetFields();
       },
       handleSubmit2(ev) {
+        // temp
+        sessionStorage.setItem('user',
+          JSON.stringify({
+            id: 1,
+            username: 'admin',
+            password: undefined,
+            avatar: 'https://avatars3.githubusercontent.com/u/24268919?s=60&v=4',
+            name: '王大爷'
+          }));
+        this.$router.push({ path: '/arrangements' });
+        return;
+        // shame
+
         var _this = this;
         this.$refs.ruleForm2.validate((valid) => {
           if (valid) {

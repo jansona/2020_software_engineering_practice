@@ -19,7 +19,7 @@
                     <el-button type="primary" @click="handleAdd">新增</el-button>
                 </el-form-item>
                 <el-form-item>
-                    <el-upload class="upload-demo" action="">
+                    <el-upload class="upload-demo" action="/goods/import">
                         <el-button type="primary" plain>导入文件<i class="el-icon-upload el-icon--right"></i></el-button>
                         <!-- <div slot="tip" class="el-upload__tip">只能上传xls/xlsx</div> -->
                     </el-upload>
@@ -187,7 +187,6 @@
             handleAdd: function () {
                 this.addFormVisible = true;
                 this.addForm = {
-                    id: '',
                     user: '',
                     content: '',
                 };
@@ -200,7 +199,6 @@
                             this.editLoading = true;
                             //NProgress.start();
                             let para = Object.assign({}, this.editForm);
-                            para.birth = (!para.birth || para.birth == '') ? '' : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd');
                             editGoods(para).then((res) => {
                                 this.editLoading = false;
                                 //NProgress.done();
@@ -224,7 +222,6 @@
                             this.addLoading = true;
                             //NProgress.start();
                             let para = Object.assign({}, this.addForm);
-                            para.birth = (!para.birth || para.birth == '') ? '' : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd');
                             addGoods(para).then((res) => {
                                 this.addLoading = false;
                                 //NProgress.done();
