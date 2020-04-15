@@ -19,7 +19,7 @@ public class LoginController {
         String username = requestUser.getUserName();
         username = HtmlUtils.htmlEscape(username);
 
-        if (!Objects.equals("admin", username) || !Objects.equals("123456", requestUser.getPassword())) {
+        if (!Objects.equals("admin", username) || !Objects.equals("123456", requestUser.getUserPassword())) {
             String message = "账号密码错误";
             System.out.println("test");
             return new Result(400);

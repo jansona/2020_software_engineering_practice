@@ -41,12 +41,16 @@
         </javaClientGenerator>
 
         <!-- 指定数据表 -->
-        <table tableName="user"/>
         <table tableName="application"/>
+        <table tableName="application_response"/>
+        <table tableName="arrangement"/>
         <table tableName="community"/>
+        <table tableName="deal"/>
+        <table tableName="deal_response"/>
+        <table tableName="notification"/>
         <table tableName="package"/>
         <table tableName="property"/>
-        <table tableName="notification"/>
+        <table tableName="user"/>
 
     </context>
 </generatorConfiguration>
