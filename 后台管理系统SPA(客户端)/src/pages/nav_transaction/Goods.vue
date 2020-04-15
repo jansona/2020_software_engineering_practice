@@ -96,7 +96,7 @@
             return {
                 filters: {
                     id: 0,
-                    user: 0,
+                    user: "",
                     content: '',
                 },
                 goods: [],

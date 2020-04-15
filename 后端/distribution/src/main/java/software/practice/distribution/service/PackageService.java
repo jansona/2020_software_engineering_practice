@@ -5,7 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import software.practice.distribution.entity.Package;
 import software.practice.distribution.entity.PackageExample;
+import software.practice.distribution.entity.User;
+import software.practice.distribution.entity.UserExample;
 import software.practice.distribution.mapper.PackageMapper;
+import software.practice.distribution.mapper.UserMapper;
 
 import java.util.List;
 
@@ -18,20 +21,35 @@ import java.util.List;
 public class PackageService {
     @Autowired
     PackageMapper packageMapper;
+    @Autowired
+    UserMapper userMapper;
 
-    public List<Package> getPackages(int page, int id, int user, String content){
+    public List<Package> getPackages(int page, int id, String user, String content){
+        UserExample userExample = new UserExample();
+        UserExample.Criteria uc = userExample.createCriteria();
+        uc.andUserNameEqualTo(user);
+        List<User> users = userMapper.selectByExample(userExample);
+        if (users == null || users.isEmpty()){
+            return null;
+        }
+        User user1 = users.get(0);
+
         PackageExample example = new PackageExample();
         PackageExample.Criteria criteria = example.createCriteria();
         if(id != 0){
             criteria.andPackageIdEqualTo(id);
         }
-        else if(user != 0){
-            criteria.andPackageUserEqualTo(user);
+        else if(user != null){
+            criteria.andPackageUserEqualTo(user1.getUserId());
         }
         if (content != null){
             criteria.andPackageContentLike("%"+content+"%");
         }
 
         return packageMapper.selectByExampleWithRowbounds(example,new RowBounds((page-1)*10,10));
+    }
+
+    public long getTotalPage(){
+        return packageMapper.countByExample(new PackageExample())/10;
     }
 }

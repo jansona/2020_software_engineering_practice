@@ -20,10 +20,11 @@ public class PackageController {
 
     @CrossOrigin
     @GetMapping(value = "/package/listpage")
-    public Result getPackage(int page, int id, int user, String content) {
+    public Result getPackage(int page, int id, String user, String content) {
         List<Package> packages = packageService.getPackages(page,id,user,content);
+        long total = packageService.getTotalPage();
         if(packages != null){
-            return new Result(200,null,packages);
+            return new Result(200,total,packages);
         }
         return new Result(400,"未找到");
     }
