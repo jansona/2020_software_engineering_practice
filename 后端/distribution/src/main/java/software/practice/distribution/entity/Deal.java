@@ -165,4 +165,15 @@ public class Deal {
     public void setDealIsdone(Byte dealIsdone) {
         this.dealIsdone = dealIsdone;
     }
+
+    @Override
+    public String toString() {
+        return "Deal{" +
+                "dealId=" + dealId +
+                ", dealUser=" + dealUser +
+                ", dealPackage=" + dealPackage +
+                ", dealContent='" + dealContent + '\'' +
+                ", dealIsdone=" + dealIsdone +
+                '}';
+    }
 }
