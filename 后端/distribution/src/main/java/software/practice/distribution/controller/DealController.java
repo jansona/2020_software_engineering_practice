@@ -1,16 +1,12 @@
 package software.practice.distribution.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.HtmlUtils;
 import software.practice.distribution.entity.Deal;
-import software.practice.distribution.entity.User;
 import software.practice.distribution.result.Result;
 import software.practice.distribution.service.DealService;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @author ：Chang Jiaxin
