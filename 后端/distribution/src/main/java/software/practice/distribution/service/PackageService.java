@@ -49,6 +49,25 @@ public class PackageService {
         return packageMapper.selectByExampleWithRowbounds(example,new RowBounds((page-1)*10,10));
     }
 
+    public boolean addPackage(Package p){
+        return packageMapper.insert(p)==1;
+    }
+
+    public boolean editPackage(Package p){
+        return packageMapper.updateByPrimaryKey(p)==1;
+    }
+
+    public boolean removePackage(int id){
+        return packageMapper.deleteByPrimaryKey(id)==1;
+    }
+
+    public boolean removePackages(List<Integer> ids){
+        for (int id : ids) {
+            userMapper.deleteByPrimaryKey(id);
+        }
+        return true;
+    }
+
     public long getTotalPage(){
         return packageMapper.countByExample(new PackageExample())/10;
     }

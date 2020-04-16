@@ -28,4 +28,40 @@ public class PackageController {
         }
         return new Result(400,"未找到");
     }
+
+    @CrossOrigin
+    @PostMapping(value = "/package/add")
+    public Result addPackage(@RequestBody Package p) {
+        if (packageService.addPackage(p)) {
+            return new Result(200);
+        }
+        return new Result(400,"添加失败");
+    }
+
+    @CrossOrigin
+    @PostMapping(value = "/package/edit")
+    public Result editPackage(@RequestBody Package p) {
+        if (packageService.editPackage(p)) {
+            return new Result(200);
+        }
+        return new Result(400,"编辑失败");
+    }
+
+    @CrossOrigin
+    @GetMapping(value = "/package/remove")
+    public Result removePackage(int id) {
+        if (packageService.removePackage(id)) {
+            return new Result(200);
+        }
+        return new Result(400,"删除失败");
+    }
+
+    @CrossOrigin
+    @GetMapping(value = "/package/batchremove")
+    public Result removePackages(List<Integer> ids) {
+        if (packageService.removePackages(ids)) {
+            return new Result(200);
+        }
+        return new Result(400,"删除失败");
+    }
 }
