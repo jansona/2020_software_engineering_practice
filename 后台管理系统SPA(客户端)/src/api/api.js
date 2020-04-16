@@ -22,7 +22,7 @@ export const removeArrangement = params => { return axios.get(`${base}/arrangeme
 
 export const batchRemoveArrangement = params => { return axios.get(`${base}/arrangement/batchremove`, { params: params }); };
 
-export const getGoodsListPage = params => { return axios.get(`${base}/goods/listpage`, { params: params }); };
+export const getGoodsListPage = params => { return axios.get(`${base}/package/listpage`, { params: params }); };
 
 export const removeGoods = params => { return axios.get(`${base}/goods/remove`, { params: params }); };
 

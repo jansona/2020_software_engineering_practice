@@ -1,10 +1,7 @@
 package software.practice.distribution.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import software.practice.distribution.entity.Package;
 import software.practice.distribution.result.Result;
 import software.practice.distribution.service.PackageService;
@@ -22,8 +19,8 @@ public class PackageController {
     PackageService packageService;
 
     @CrossOrigin
-    @PostMapping(value = "/package/listpage")
-    public Result getPackage(@RequestBody int page, int id, String user, String content) {
+    @GetMapping(value = "/package/listpage")
+    public Result getPackage(int page, int id, String user, String content) {
         List<Package> packages = packageService.getPackages(page,id,user,content);
         long total = packageService.getTotalPage();
         if(packages != null){

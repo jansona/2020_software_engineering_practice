@@ -95,8 +95,8 @@
         data() {
             return {
                 filters: {
-                    id: '',
-                    user: '',
+                    id: 0,
+                    user: "",
                     content: '',
                 },
                 goods: [],
