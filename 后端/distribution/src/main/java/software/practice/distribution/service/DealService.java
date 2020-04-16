@@ -18,13 +18,17 @@ public class DealService {
     @Autowired
     DealMapper dealMapper;
 
+    @Autowired
+    DealExample example;
+
+    @Autowired
+    DealExample.Criteria criteria;
+
     public boolean addDeal(Deal deal){
         return dealMapper.insert(deal) == 1;
     }
 
-    public List<Deal> getDealsByUser(int user_id){
-        DealExample example = new DealExample();
-        DealExample.Criteria criteria = example.createCriteria();
+    public List<Deal> getDealsByUserId(int user_id){
         criteria.andDealUserEqualTo(user_id);
         return dealMapper.selectByExample(example);
     }

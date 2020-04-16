@@ -30,6 +30,6 @@ public class DealTests {
     @Test
     public void getByUser(){
         int user = 1;
-        System.out.println(dealService.getDealsByUser(user));
+        System.out.println(dealService.getDealsByUserId(user));
     }
 }

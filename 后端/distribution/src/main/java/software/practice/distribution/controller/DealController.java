@@ -29,8 +29,8 @@ public class DealController {
 
     @CrossOrigin
     @PostMapping(value = "/deal/list")
-    public Result getDealByUser(@RequestBody int user_id){
-        List<Deal> list = dealService.getDealsByUser(user_id);
+    public Result getDealByUser(int user_id){
+        List<Deal> list = dealService.getDealsByUserId(user_id);
         if(list != null){
             return new Result(200,null,list);
         }
