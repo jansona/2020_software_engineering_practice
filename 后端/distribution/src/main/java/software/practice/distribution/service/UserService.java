@@ -14,15 +14,8 @@ public class UserService {
     @Autowired
     UserMapper userMapper;
 
-    @Autowired
-    UserExample example;
-
-    @Autowired
-    UserExample.Criteria criteria;
-
     public User getUserByUserId(int userId){
-        criteria.andUserIdEqualTo(userId);
-        return userMapper.selectByExample(example).get(0);
+        return userMapper.selectByPrimaryKey(userId);
     }
 
     public Boolean createUser(User user){

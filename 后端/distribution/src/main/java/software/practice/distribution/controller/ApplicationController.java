@@ -3,6 +3,7 @@ package software.practice.distribution.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import software.practice.distribution.entity.Application;
 import software.practice.distribution.entity.Community;
@@ -17,8 +18,7 @@ public class ApplicationController {
 
     @CrossOrigin
     @PostMapping(value = "/application/add")
-    public Result createApplication(int application_user,int community_id){
-        Application application = new Application(application_user,community_id);
+    public Result createApplication(@RequestBody Application application){
         if(applicationService.createApplication(application)){
             return new Result(200,null);
         }

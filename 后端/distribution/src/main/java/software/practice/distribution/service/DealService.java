@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import software.practice.distribution.entity.Deal;
 import software.practice.distribution.entity.DealExample;
+import software.practice.distribution.entity.UserExample;
 import software.practice.distribution.mapper.DealMapper;
 
 import java.util.List;
@@ -18,17 +19,13 @@ public class DealService {
     @Autowired
     DealMapper dealMapper;
 
-    @Autowired
-    DealExample example;
-
-    @Autowired
-    DealExample.Criteria criteria;
-
     public boolean addDeal(Deal deal){
         return dealMapper.insert(deal) == 1;
     }
 
     public List<Deal> getDealsByUserId(int user_id){
+        DealExample example = new DealExample();
+        DealExample.Criteria criteria = example.createCriteria();
         criteria.andDealUserEqualTo(user_id);
         return dealMapper.selectByExample(example);
     }

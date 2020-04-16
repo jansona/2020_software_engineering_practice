@@ -14,13 +14,6 @@ public class ApplicationService {
     @Autowired
     ApplicationMapper mapper;
 
-    @Autowired
-    ApplicationExample example;
-
-    @Autowired
-    ApplicationExample.Criteria criteria;
-
-
     public Boolean createApplication(Application application){
         return mapper.insert(application) == 1;
     }
