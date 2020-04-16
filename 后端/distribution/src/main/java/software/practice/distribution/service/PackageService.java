@@ -39,7 +39,7 @@ public class PackageService {
         if(id != 0){
             criteria.andPackageIdEqualTo(id);
         }
-        else if(user != null){
+        if(user != null){
             criteria.andPackageUserEqualTo(user1.getUserId());
         }
         if (content != null){
@@ -63,7 +63,7 @@ public class PackageService {
 
     public boolean removePackages(List<Integer> ids){
         for (int id : ids) {
-            userMapper.deleteByPrimaryKey(id);
+            packageMapper.deleteByPrimaryKey(id);
         }
         return true;
     }
