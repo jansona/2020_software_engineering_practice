@@ -61,10 +61,10 @@ public class ArrangementService {
 
         ArrangementExample example = new ArrangementExample();
         ArrangementExample.Criteria criteria = example.createCriteria();
-        if(id != 0){
+        if (id != 0){
             criteria.andArrangementIdEqualTo(id);
         }
-        if(!packageIds.isEmpty()){
+        if (user != null && !user.isEmpty()){
             criteria.andArrangementPackageIn(packageIds);
         }
         if (package_id != 0){

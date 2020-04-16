@@ -5,12 +5,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import software.practice.distribution.entity.Community;
 import software.practice.distribution.entity.User;
 import software.practice.distribution.result.Result;
 import software.practice.distribution.service.UserService;
-
-import java.util.Date;
 
 @RestController
 public class UserController {
@@ -34,4 +31,6 @@ public class UserController {
         }
         return new Result(400,"未找到");
     }
+
+
 }

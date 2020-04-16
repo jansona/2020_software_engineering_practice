@@ -10,6 +10,7 @@ import software.practice.distribution.entity.UserExample;
 import software.practice.distribution.mapper.PackageMapper;
 import software.practice.distribution.mapper.UserMapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,22 +26,27 @@ public class PackageService {
     UserMapper userMapper;
 
     public List<Package> getPackages(int page, int id, String user, String content){
-        UserExample userExample = new UserExample();
-        UserExample.Criteria uc = userExample.createCriteria();
-        uc.andUserNameEqualTo(user);
-        List<User> users = userMapper.selectByExample(userExample);
-        if (users == null || users.isEmpty()){
-            return null;
+        List<Integer> userIds = new ArrayList<>();
+        if (user != null && !user.isEmpty()){
+            UserExample userExample = new UserExample();
+            UserExample.Criteria uc = userExample.createCriteria();
+            uc.andUserNameEqualTo(user);
+            List<User> users = userMapper.selectByExample(userExample);
+            if (users == null || users.isEmpty()){
+                return null;
+            }
+            for (User user1 : users){
+                userIds.add(user1.getUserId());
+            }
         }
-        User user1 = users.get(0);
 
         PackageExample example = new PackageExample();
         PackageExample.Criteria criteria = example.createCriteria();
-        if(id != 0){
+        if (id != 0){
             criteria.andPackageIdEqualTo(id);
         }
-        if(user != null){
-            criteria.andPackageUserEqualTo(user1.getUserId());
+        if (user != null && !user.isEmpty()){
+            criteria.andPackageUserIn(userIds);
         }
         if (content != null){
             criteria.andPackageContentLike("%"+content+"%");
