@@ -26,7 +26,7 @@ public class UserService {
         return userMapper.insert(user) == 1;
     }
 
-    public List<User> getUserByNameOrHome(int page, String name, String home){
+    public List<User> getUsers(int page, Integer id,  String name, String home){
         List<Integer> communitiesIds = new ArrayList<>();
         if (home != null && !home.isEmpty()){
             CommunityExample communityExample = new CommunityExample();
@@ -42,6 +42,9 @@ public class UserService {
         }
         UserExample example = new UserExample();
         UserExample.Criteria criteria = example.createCriteria();
+        if (id != null && id != 0){
+            criteria.andUserIdEqualTo(id);
+        }
         if (name != null && !name.isEmpty()){
             criteria.andUserNameEqualTo(name);
         }

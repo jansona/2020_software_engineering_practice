@@ -1,19 +1,28 @@
 package software.practice.distribution.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import software.practice.distribution.entity.User;
 import software.practice.distribution.result.Result;
 import software.practice.distribution.service.UserService;
+
+import java.util.List;
 
 @RestController
 public class UserController {
     @Autowired
     UserService userService;
 
+    @CrossOrigin
+    @GetMapping(value = "/user/listpage")
+    public Result getUser(int page, Integer id, String name, String home){
+        List<User> users = userService.getUsers(page, id, name, home);
+        if(users != null && !users.isEmpty()){
+            return new Result(200,null,users);
+        }
+        return new Result(400,"未找到");
+    }
+    
     @CrossOrigin
     @PostMapping(value = "/user/create")
     public Result createUser(@RequestBody User user){
@@ -31,6 +40,4 @@ public class UserController {
         }
         return new Result(400,"未找到");
     }
-
-
 }

@@ -30,7 +30,7 @@ public class ArrangementService {
     @Autowired
     PackageMapper packageMapper;
 
-    public List<Arrangement> getArrangement(int page, int id, String user, int package_id, String location, Time time){
+    public List<Arrangement> getArrangement(int page, Integer id, String user, int package_id, String location, Time time){
         List<Integer> packageIds = new ArrayList<>();
         if (user != null && !user.isEmpty()){
             //根据user查package
@@ -61,7 +61,7 @@ public class ArrangementService {
 
         ArrangementExample example = new ArrangementExample();
         ArrangementExample.Criteria criteria = example.createCriteria();
-        if (id != 0){
+        if (id != null && id != 0){
             criteria.andArrangementIdEqualTo(id);
         }
         if (user != null && !user.isEmpty()){
