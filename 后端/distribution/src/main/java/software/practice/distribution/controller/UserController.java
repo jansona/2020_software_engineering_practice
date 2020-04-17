@@ -17,8 +17,9 @@ public class UserController {
     @GetMapping(value = "/user/listpage")
     public Result getUser(int page, Integer id, String name, String home){
         List<User> users = userService.getUsers(page, id, name, home);
+        long total = userService.getTotalPage();
         if(users != null && !users.isEmpty()){
-            return new Result(200,null,users);
+            return new Result(200,total,users);
         }
         return new Result(400,"未找到");
     }

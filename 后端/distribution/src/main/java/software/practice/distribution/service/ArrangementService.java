@@ -3,8 +3,8 @@ package software.practice.distribution.service;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import software.practice.distribution.entity.*;
 import software.practice.distribution.entity.Package;
+import software.practice.distribution.entity.*;
 import software.practice.distribution.mapper.ArrangementMapper;
 import software.practice.distribution.mapper.PackageMapper;
 import software.practice.distribution.mapper.UserMapper;
@@ -77,7 +77,13 @@ public class ArrangementService {
             criteria.andArrangementTimeEqualTo(time);
         }
 
-        return arrangementMapper.selectByExampleWithRowbounds(example,new RowBounds((page-1)*10,10));
+        List<Arrangement> arrangements = arrangementMapper.selectByExampleWithRowbounds(example,new RowBounds((page-1)*10,10));
+        for(Arrangement arrangement : arrangements){
+            int pid = arrangement.getArrangementPackage();
+            Package p = packageMapper.selectByPrimaryKey(pid);
+            arrangement.setArrangementUser(p.getPackageUser());
+        }
+        return arrangements;
     }
 
     public boolean removeArrangement(int id){
