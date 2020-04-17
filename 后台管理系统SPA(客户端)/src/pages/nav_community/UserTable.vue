@@ -68,6 +68,7 @@
             getUsers() {
                 let para = {
                     page: this.page,
+                    id: '',
                     name: this.filters.name,
                     room: this.filters.room,
                 };

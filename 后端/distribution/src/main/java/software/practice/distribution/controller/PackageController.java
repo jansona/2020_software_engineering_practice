@@ -24,7 +24,10 @@ public class PackageController {
     @GetMapping(value = "/package/listpage")
     public Result getPackage(int page, String id, String user, String content) {
 
-        List<Package> packages = packageService.getPackages(page, BasicUtil.covertStrInt(id), user, content);
+        List<Package> packages = packageService.getPackages(page,
+                BasicUtil.covertStrInt(id),
+                user,
+                content);
         long total = packageService.getTotalPage();
         if(packages != null){
             return new Result(200,total,packages);

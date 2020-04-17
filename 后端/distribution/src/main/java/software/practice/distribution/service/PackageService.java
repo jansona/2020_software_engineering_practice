@@ -42,7 +42,7 @@ public class PackageService {
 
         PackageExample example = new PackageExample();
         PackageExample.Criteria criteria = example.createCriteria();
-        if (id != null){
+        if (id != null && id != 0){
             criteria.andPackageIdEqualTo(id);
         }
         if (user != null && !user.isEmpty()){

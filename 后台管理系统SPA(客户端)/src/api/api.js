@@ -24,12 +24,12 @@ export const batchRemoveArrangement = params => { return axios.get(`${base}/arra
 
 export const getGoodsListPage = params => { return axios.get(`${base}/package/listpage`, { params: params }); };
 
-export const removeGoods = params => { return axios.get(`${base}/goods/remove`, { params: params }); };
+export const removeGoods = params => { return axios.get(`${base}/package/remove`, { params: params }); };
 
-export const batchRemoveGoods = params => { return axios.get(`${base}/goods/batchremove`, { params: params }); };
+export const batchRemoveGoods = params => { return axios.get(`${base}/package/batchremove`, { params: params }); };
 
-export const editGoods = params => { return axios.post(`${base}/goods/edit`, { params: params }); };
+export const editGoods = params => { return axios.post(`${base}/package/edit`, { params: params }); };
 
-export const addGoods = params => { return axios.post(`${base}/goods/add`, { params: params }); };
+export const addGoods = params => { return axios.post(`${base}/package/add`, { params: params }); };
 
 export const getUsersListPage = params => { return axios.get(`${base}/users/listpage`, { params: params }); };

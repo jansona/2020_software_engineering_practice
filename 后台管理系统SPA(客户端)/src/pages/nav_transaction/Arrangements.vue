@@ -29,11 +29,11 @@
             </el-table-column>
             <el-table-column prop="user" label="住户" width="120" sortable>
             </el-table-column>
-            <el-table-column prop="goods_id" label="物资ID" width="200" sortable>
+            <el-table-column prop="arrangementPackage" label="物资ID" width="200" sortable>
             </el-table-column>
-            <el-table-column prop="location" label="住址" width="200" sortable>
+            <el-table-column prop="arrangementLocation" label="住址" width="200" sortable>
             </el-table-column>
-            <el-table-column prop="time" label="期限" width="200" sortable>
+            <el-table-column prop="arrangementTime" label="期限" width="200" sortable>
             </el-table-column>
             <el-table-column label="操作" width="150">
                 <template slot-scope="scope">
@@ -81,7 +81,7 @@
             getArrangements() {
                 let para = {
                     page: this.page,
-                    id: "",
+                    id: '',
                     user: this.filters.user,
                     package_id: this.filters.goods_id,
                     location: this.filters.location,

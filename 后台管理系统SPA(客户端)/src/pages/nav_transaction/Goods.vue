@@ -71,11 +71,11 @@
         <!--新增界面-->
         <el-dialog title="新增" v-model="addFormVisible" :close-on-click-modal="false">
             <el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
-                <el-form-item label="住户" prop="user">
-                    <el-input v-model="addForm.user" auto-complete="off"></el-input>
+                <el-form-item label="物主账号">
+                    <el-input v-model="addForm.packageUser" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="内容">
-                    <el-input v-model="addForm.content" auto-complete="off"></el-input>
+                    <el-input v-model="addForm.packageContent" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
@@ -128,9 +128,9 @@
                 },
                 //新增界面数据
                 addForm: {
-                    id: '',
-                    user: '',
-                    content: '',
+                    packageId: '',
+                    packageUser: '',
+                    packageContent: '',
                 },
 
             }
@@ -188,8 +188,9 @@
             handleAdd: function () {
                 this.addFormVisible = true;
                 this.addForm = {
-                    user: '',
-                    content: '',
+                    packageId: '',
+                    packageUser: '',
+                    packageContent: '',
                 };
             },
             //编辑
@@ -223,6 +224,7 @@
                             this.addLoading = true;
                             //NProgress.start();
                             let para = Object.assign({}, this.addForm);
+                            debugger;
                             addGoods(para).then((res) => {
                                 this.addLoading = false;
                                 //NProgress.done();
