@@ -67,7 +67,7 @@ public class PackageService {
         return packageMapper.deleteByPrimaryKey(id)==1;
     }
 
-    public boolean removePackages(List<Integer> ids){
+    public boolean removePackages(Integer[] ids){
         for (int id : ids) {
             packageMapper.deleteByPrimaryKey(id);
         }

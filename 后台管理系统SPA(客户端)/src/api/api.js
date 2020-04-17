@@ -28,8 +28,8 @@ export const removeGoods = params => { return axios.get(`${base}/package/remove`
 
 export const batchRemoveGoods = params => { return axios.get(`${base}/package/batchremove`, { params: params }); };
 
-export const editGoods = params => { return axios.post(`${base}/package/edit`, { params: params }); };
+export const editGoods = params => { return axios.post(`${base}/package/edit`, params); };
 
-export const addGoods = params => { return axios.post(`${base}/package/add`, { p: {params: params} }); };
+export const addGoods = params => { return axios.post(`${base}/package/add`, params); };
 
 export const getUsersListPage = params => { return axios.get(`${base}/users/listpage`, { params: params }); };

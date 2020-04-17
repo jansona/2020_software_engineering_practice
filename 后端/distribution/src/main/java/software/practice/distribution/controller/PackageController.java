@@ -64,7 +64,7 @@ public class PackageController {
 
     @CrossOrigin
     @GetMapping(value = "/package/batchremove")
-    public Result removePackages(List<Integer> ids) {
+    public Result removePackages(Integer[] ids) {
         if (packageService.removePackages(ids)) {
             return new Result(200);
         }

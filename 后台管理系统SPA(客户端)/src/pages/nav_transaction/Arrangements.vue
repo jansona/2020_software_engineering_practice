@@ -89,7 +89,6 @@
                 };
                 this.listLoading = true;
                 getArrangementListPage(para).then((res) => {
-                    debugger;
                     this.total = res.data.total;
                     this.arrangements = res.data.content;
                     this.listLoading = false;
@@ -102,7 +101,7 @@
                 }).then(() => {
                     this.listLoading = true;
                     //NProgress.start();
-                    let para = { id: row.id };
+                    let para = { id: row.arrangementId };
                     removeArrangement(para).then((res) => {
                         this.listLoading = false;
                         //NProgress.done();
@@ -122,12 +121,14 @@
             },
             //批量删除
             batchRemove() {
-                var ids = this.sels.map(item => item.id).toString();
+                var ids = this.sels.map(item => item.arrangementId).toString();
+                // var ids = this.sels.map(item => item.arrangementId);
                 this.$confirm('确认删除选中记录吗？', '提示', {
                     type: 'warning'
                 }).then(() => {
                     this.listLoading = true;
                     let para = { ids: ids };
+                    debugger;
                     batchRemoveArrangement(para).then((res) => {
                         this.listLoading = false;
                         this.$message({

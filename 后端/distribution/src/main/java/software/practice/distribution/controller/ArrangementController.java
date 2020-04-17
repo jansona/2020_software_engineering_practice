@@ -10,6 +10,7 @@ import software.practice.distribution.result.Result;
 import software.practice.distribution.service.ArrangementService;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,7 +51,7 @@ public class ArrangementController {
 
     @CrossOrigin
     @GetMapping(value = "/arrangement/batchremove")
-    public Result removePackages(List<Integer> ids) {
+    public Result removePackages(Integer[] ids) {
         if (arrangementService.removeArrangements(ids)) {
             return new Result(200);
         }

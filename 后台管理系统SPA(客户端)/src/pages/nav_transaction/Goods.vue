@@ -55,11 +55,11 @@
         <!--编辑界面-->
         <el-dialog title="编辑" v-model="editFormVisible" :close-on-click-modal="false">
             <el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
-                <el-form-item label="住户" prop="user">
-                    <el-input v-model="editForm.user" auto-complete="off"></el-input>
+                <el-form-item label="物主账号">
+                    <el-input v-model="editForm.packageUser" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="内容">
-                    <el-input v-model="editForm.content" auto-complete="off"></el-input>
+                    <el-input v-model="editForm.packageContent" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
@@ -114,9 +114,9 @@
                 },
                 //编辑界面数据
                 editForm: {
-                    id: '',
-                    user: '',
-                    content: '',
+                    pakageId: '',
+                    packageUser: '',
+                    packageContent: '',
                 },
 
                 addFormVisible: false,//新增界面是否显示
@@ -128,7 +128,6 @@
                 },
                 //新增界面数据
                 addForm: {
-                    packageId: '',
                     packageUser: '',
                     packageContent: '',
                 },
@@ -151,7 +150,6 @@
                 this.listLoading = true;
                 //NProgress.start();
                 getGoodsListPage(para).then((res) => {
-                    debugger;
                     this.total = res.data.total;
                     this.goods = res.data.content;
                     this.listLoading = false;
@@ -165,7 +163,7 @@
                 }).then(() => {
                     this.listLoading = true;
                     //NProgress.start();
-                    let para = { id: row.id };
+                    let para = { id: row.packageId };
                     removeGoods(para).then((res) => {
                         this.listLoading = false;
                         //NProgress.done();
@@ -188,9 +186,8 @@
             handleAdd: function () {
                 this.addFormVisible = true;
                 this.addForm = {
-                    packageId: '',
-                    packageUser: '',
-                    packageContent: '',
+                    packageUser: "",
+                    packageContent: "",
                 };
             },
             //编辑
@@ -201,6 +198,7 @@
                             this.editLoading = true;
                             //NProgress.start();
                             let para = Object.assign({}, this.editForm);
+                            debugger;
                             editGoods(para).then((res) => {
                                 this.editLoading = false;
                                 //NProgress.done();
@@ -224,8 +222,8 @@
                             this.addLoading = true;
                             //NProgress.start();
                             let para = Object.assign({}, this.addForm);
-                            debugger;
                             addGoods(para).then((res) => {
+                                debugger;
                                 this.addLoading = false;
                                 //NProgress.done();
                                 this.$message({
@@ -245,7 +243,7 @@
             },
             //批量删除
             batchRemove: function () {
-                var ids = this.sels.map(item => item.id).toString();
+                var ids = this.sels.map(item => item.packageId).toString();
                 this.$confirm('确认删除选中记录吗？', '提示', {
                     type: 'warning'
                 }).then(() => {

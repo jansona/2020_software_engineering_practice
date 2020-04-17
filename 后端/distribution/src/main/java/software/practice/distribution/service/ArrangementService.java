@@ -91,7 +91,7 @@ public class ArrangementService {
         return arrangementMapper.deleteByPrimaryKey(id)==1;
     }
 
-    public boolean removeArrangements(List<Integer> ids){
+    public boolean removeArrangements(Integer[] ids){
         for (int id : ids) {
             arrangementMapper.deleteByPrimaryKey(id);
         }
