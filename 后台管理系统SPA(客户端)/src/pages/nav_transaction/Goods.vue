@@ -31,11 +31,11 @@
         <el-table :data="goods" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
             <el-table-column type="selection" width="55">
             </el-table-column>
-            <el-table-column prop="id" label="物资ID" width="200" sortable>
+            <el-table-column prop="packageId" label="物资ID" width="200" sortable>
             </el-table-column>
-            <el-table-column prop="user" label="住户" width="100" sortable>
+            <el-table-column prop="packageUser" label="住户" width="100" sortable>
             </el-table-column>
-            <el-table-column prop="content" label="内容" width="500" sortable>
+            <el-table-column prop="packageContent" label="内容" width="500" sortable>
             </el-table-column>
             <el-table-column label="操作" width="150">
                 <template slot-scope="scope">
@@ -95,7 +95,7 @@
         data() {
             return {
                 filters: {
-                    id: 0,
+                    id: undefined,
                     user: "",
                     content: '',
                 },
@@ -151,8 +151,9 @@
                 this.listLoading = true;
                 //NProgress.start();
                 getGoodsListPage(para).then((res) => {
+                    debugger;
                     this.total = res.data.total;
-                    this.goods = res.data.goods;
+                    this.goods = res.data.content;
                     this.listLoading = false;
                     //NProgress.done();
                 });
