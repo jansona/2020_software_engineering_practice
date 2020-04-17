@@ -51,5 +51,10 @@ public class UserService {
         if (home != null && !home.isEmpty()){
             criteria.andUserCommunityIn(communitiesIds);
         }
-        return userMapper.selectByExampleWithRowbounds(example,new RowBounds((page-1)*10,10));    }
+        return userMapper.selectByExampleWithRowbounds(example,new RowBounds((page-1)*10,10));
+    }
+
+    public long getTotalPage(){
+        return userMapper.countByExample(new UserExample())/10;
+    }
 }

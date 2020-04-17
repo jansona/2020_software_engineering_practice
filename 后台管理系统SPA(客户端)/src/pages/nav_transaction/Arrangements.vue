@@ -27,7 +27,7 @@
             </el-table-column>
             <el-table-column type="index" width="60">
             </el-table-column>
-            <el-table-column prop="user" label="住户" width="120" sortable>
+            <el-table-column prop="arrangementUser" label="住户" width="120" sortable>
             </el-table-column>
             <el-table-column prop="arrangementPackage" label="物资ID" width="200" sortable>
             </el-table-column>
