@@ -34,7 +34,7 @@ public class ArrangementController {
     }
 
     @CrossOrigin
-    @GetMapping(value = "/package/remove")
+    @GetMapping(value = "/arrangement/remove")
     public Result removePackage(int id) {
         if (arrangementService.removeArrangement(id)) {
             return new Result(200);
@@ -43,7 +43,7 @@ public class ArrangementController {
     }
 
     @CrossOrigin
-    @GetMapping(value = "/package/batchremove")
+    @GetMapping(value = "/arrangement/batchremove")
     public Result removePackages(List<Integer> ids) {
         if (arrangementService.removeArrangements(ids)) {
             return new Result(200);

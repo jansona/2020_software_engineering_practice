@@ -22,7 +22,6 @@ public class DealTests {
         Deal deal = new Deal();
         deal.setDealContent("aaa");
         deal.setDealId(1);
-        deal.setDealUser(1);
         deal.setDealPackage(1);
         dealService.addDeal(deal);
     }
