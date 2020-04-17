@@ -25,7 +25,7 @@ public class PackageService {
     @Autowired
     UserMapper userMapper;
 
-    public List<Package> getPackages(int page, int id, String user, String content){
+    public List<Package> getPackages(int page, Integer id, String user, String content){
         List<Integer> userIds = new ArrayList<>();
         if (user != null && !user.isEmpty()){
             UserExample userExample = new UserExample();
@@ -42,7 +42,7 @@ public class PackageService {
 
         PackageExample example = new PackageExample();
         PackageExample.Criteria criteria = example.createCriteria();
-        if (id != 0){
+        if (id != null){
             criteria.andPackageIdEqualTo(id);
         }
         if (user != null && !user.isEmpty()){
