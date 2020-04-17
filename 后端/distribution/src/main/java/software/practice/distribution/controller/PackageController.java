@@ -2,9 +2,11 @@ package software.practice.distribution.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import software.practice.distribution.Utils.BasicUtil;
 import software.practice.distribution.entity.Package;
 import software.practice.distribution.result.Result;
 import software.practice.distribution.service.PackageService;
+import software.practice.distribution.Utils.BasicUtil.*;
 
 import java.util.List;
 
@@ -20,8 +22,9 @@ public class PackageController {
 
     @CrossOrigin
     @GetMapping(value = "/package/listpage")
-    public Result getPackage(int page, Integer id, String user, String content) {
-        List<Package> packages = packageService.getPackages(page, id, user, content);
+    public Result getPackage(int page, String id, String user, String content) {
+
+        List<Package> packages = packageService.getPackages(page, BasicUtil.covertStrInt(id), user, content);
         long total = packageService.getTotalPage();
         if(packages != null){
             return new Result(200,total,packages);

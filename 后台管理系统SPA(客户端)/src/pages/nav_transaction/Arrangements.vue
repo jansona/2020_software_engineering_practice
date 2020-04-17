@@ -81,15 +81,17 @@
             getArrangements() {
                 let para = {
                     page: this.page,
+                    id: "",
                     user: this.filters.user,
-                    goods_id: this.filters.goods_id,
+                    package_id: this.filters.goods_id,
                     location: this.filters.location,
                     time: this.filters.time,
                 };
                 this.listLoading = true;
                 getArrangementListPage(para).then((res) => {
+                    debugger;
                     this.total = res.data.total;
-                    this.arrangements = res.data.arrangements;
+                    this.arrangements = res.data.content;
                     this.listLoading = false;
                 });
             },

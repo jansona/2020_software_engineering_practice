@@ -75,6 +75,6 @@ public class PackageService {
     }
 
     public long getTotalPage(){
-        return packageMapper.countByExample(new PackageExample())/10;
+        return packageMapper.countByExample(new PackageExample());
     }
 }
