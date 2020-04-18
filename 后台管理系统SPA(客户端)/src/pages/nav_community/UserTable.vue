@@ -21,9 +21,9 @@
             </el-table-column>
             <el-table-column type="index" width="60">
             </el-table-column>
-            <el-table-column prop="name" label="住户" width="200" sortable>
+            <el-table-column prop="userName" label="住户" width="200" sortable>
             </el-table-column>
-            <el-table-column prop="room" label="住址" width="500" sortable>
+            <el-table-column prop="userAddress" label="住址" width="500" sortable>
             </el-table-column>
                         <el-table-column label="操作" width="150">
                 <template slot-scope="scope">
@@ -68,13 +68,14 @@
             getUsers() {
                 let para = {
                     page: this.page,
+                    id: '',
                     name: this.filters.name,
                     room: this.filters.room,
                 };
                 this.listLoading = true;
                 getUsersListPage(para).then((res) => {
                     this.total = res.data.total;
-                    this.users = res.data.users;
+                    this.users = res.data.content;
                     this.listLoading = false;
                 });
             },

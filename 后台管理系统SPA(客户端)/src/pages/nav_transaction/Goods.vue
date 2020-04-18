@@ -48,18 +48,18 @@
         <!--工具条-->
         <el-col :span="24" class="toolbar">
             <el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">批量删除</el-button>
-            <el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size="20" :total="total" style="float:right;">
+            <el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size="10" :total="total" style="float:right;">
             </el-pagination>
         </el-col>
 
         <!--编辑界面-->
         <el-dialog title="编辑" v-model="editFormVisible" :close-on-click-modal="false">
             <el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
-                <el-form-item label="住户" prop="user">
-                    <el-input v-model="editForm.user" auto-complete="off"></el-input>
+                <el-form-item label="物主账号">
+                    <el-input v-model="editForm.packageUser" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="内容">
-                    <el-input v-model="editForm.content" auto-complete="off"></el-input>
+                    <el-input v-model="editForm.packageContent" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
@@ -71,11 +71,11 @@
         <!--新增界面-->
         <el-dialog title="新增" v-model="addFormVisible" :close-on-click-modal="false">
             <el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
-                <el-form-item label="住户" prop="user">
-                    <el-input v-model="addForm.user" auto-complete="off"></el-input>
+                <el-form-item label="物主账号">
+                    <el-input v-model="addForm.packageUser" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="内容">
-                    <el-input v-model="addForm.content" auto-complete="off"></el-input>
+                    <el-input v-model="addForm.packageContent" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
@@ -95,7 +95,7 @@
         data() {
             return {
                 filters: {
-                    id: undefined,
+                    id: "",
                     user: "",
                     content: '',
                 },
@@ -114,9 +114,9 @@
                 },
                 //编辑界面数据
                 editForm: {
-                    id: '',
-                    user: '',
-                    content: '',
+                    pakageId: '',
+                    packageUser: '',
+                    packageContent: '',
                 },
 
                 addFormVisible: false,//新增界面是否显示
@@ -128,9 +128,8 @@
                 },
                 //新增界面数据
                 addForm: {
-                    id: '',
-                    user: '',
-                    content: '',
+                    packageUser: '',
+                    packageContent: '',
                 },
 
             }
@@ -151,7 +150,6 @@
                 this.listLoading = true;
                 //NProgress.start();
                 getGoodsListPage(para).then((res) => {
-                    debugger;
                     this.total = res.data.total;
                     this.goods = res.data.content;
                     this.listLoading = false;
@@ -165,7 +163,7 @@
                 }).then(() => {
                     this.listLoading = true;
                     //NProgress.start();
-                    let para = { id: row.id };
+                    let para = { id: row.packageId };
                     removeGoods(para).then((res) => {
                         this.listLoading = false;
                         //NProgress.done();
@@ -188,8 +186,8 @@
             handleAdd: function () {
                 this.addFormVisible = true;
                 this.addForm = {
-                    user: '',
-                    content: '',
+                    packageUser: "",
+                    packageContent: "",
                 };
             },
             //编辑
@@ -200,6 +198,7 @@
                             this.editLoading = true;
                             //NProgress.start();
                             let para = Object.assign({}, this.editForm);
+                            debugger;
                             editGoods(para).then((res) => {
                                 this.editLoading = false;
                                 //NProgress.done();
@@ -224,6 +223,7 @@
                             //NProgress.start();
                             let para = Object.assign({}, this.addForm);
                             addGoods(para).then((res) => {
+                                debugger;
                                 this.addLoading = false;
                                 //NProgress.done();
                                 this.$message({
@@ -243,7 +243,7 @@
             },
             //批量删除
             batchRemove: function () {
-                var ids = this.sels.map(item => item.id).toString();
+                var ids = this.sels.map(item => item.packageId).toString();
                 this.$confirm('确认删除选中记录吗？', '提示', {
                     type: 'warning'
                 }).then(() => {

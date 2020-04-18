@@ -2,6 +2,7 @@ package software.practice.distribution.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import software.practice.distribution.Utils.BasicUtil;
 import software.practice.distribution.entity.User;
 import software.practice.distribution.result.Result;
 import software.practice.distribution.service.UserService;
@@ -14,9 +15,9 @@ public class UserController {
     UserService userService;
 
     @CrossOrigin
-    @GetMapping(value = "/user/listpage")
-    public Result getUser(int page, Integer id, String name, String home){
-        List<User> users = userService.getUsers(page, id, name, home);
+    @GetMapping(value = "/users/listpage")
+    public Result getUser(int page, String id, String name, String home){
+        List<User> users = userService.getUsers(page, BasicUtil.covertStrInt(id), name, home);
         long total = userService.getTotalPage();
         if(users != null && !users.isEmpty()){
             return new Result(200,total,users);

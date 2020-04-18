@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import software.practice.distribution.Utils.BasicUtil;
 import software.practice.distribution.entity.Arrangement;
 import software.practice.distribution.result.Result;
 import software.practice.distribution.service.ArrangementService;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,8 +26,13 @@ public class ArrangementController {
 
     @CrossOrigin
     @GetMapping(value = "/arrangement/listpage")
-    public Result getArrangement(int page, int id, String user, int package_id, String location, Time time) {
-        List<Arrangement> arrangements = arrangementService.getArrangement(page,id,user,package_id,location,time);
+    public Result getArrangement(int page, String id, String user, String package_id, String location, String time) {
+        List<Arrangement> arrangements = arrangementService.getArrangement(page,
+                BasicUtil.covertStrInt(id),
+                user,
+                BasicUtil.covertStrInt(package_id),
+                location,
+                BasicUtil.covertStrTime(time));
         long total = arrangementService.getTotalPage();
         if(arrangements != null){
             return new Result(200,total,arrangements);
@@ -44,7 +51,7 @@ public class ArrangementController {
 
     @CrossOrigin
     @GetMapping(value = "/arrangement/batchremove")
-    public Result removePackages(List<Integer> ids) {
+    public Result removePackages(Integer[] ids) {
         if (arrangementService.removeArrangements(ids)) {
             return new Result(200);
         }

@@ -27,13 +27,13 @@
             </el-table-column>
             <el-table-column type="index" width="60">
             </el-table-column>
-            <el-table-column prop="user" label="住户" width="120" sortable>
+            <el-table-column prop="arrangementUser" label="住户" width="120" sortable>
             </el-table-column>
-            <el-table-column prop="goods_id" label="物资ID" width="200" sortable>
+            <el-table-column prop="arrangementPackage" label="物资ID" width="200" sortable>
             </el-table-column>
-            <el-table-column prop="location" label="住址" width="200" sortable>
+            <el-table-column prop="arrangementLocation" label="住址" width="200" sortable>
             </el-table-column>
-            <el-table-column prop="time" label="期限" width="200" sortable>
+            <el-table-column prop="arrangementTime" label="期限" width="200" sortable>
             </el-table-column>
             <el-table-column label="操作" width="150">
                 <template slot-scope="scope">
@@ -81,15 +81,16 @@
             getArrangements() {
                 let para = {
                     page: this.page,
+                    id: '',
                     user: this.filters.user,
-                    goods_id: this.filters.goods_id,
+                    package_id: this.filters.goods_id,
                     location: this.filters.location,
                     time: this.filters.time,
                 };
                 this.listLoading = true;
                 getArrangementListPage(para).then((res) => {
                     this.total = res.data.total;
-                    this.arrangements = res.data.arrangements;
+                    this.arrangements = res.data.content;
                     this.listLoading = false;
                 });
             },
@@ -100,7 +101,7 @@
                 }).then(() => {
                     this.listLoading = true;
                     //NProgress.start();
-                    let para = { id: row.id };
+                    let para = { id: row.arrangementId };
                     removeArrangement(para).then((res) => {
                         this.listLoading = false;
                         //NProgress.done();
@@ -120,12 +121,14 @@
             },
             //批量删除
             batchRemove() {
-                var ids = this.sels.map(item => item.id).toString();
+                var ids = this.sels.map(item => item.arrangementId).toString();
+                // var ids = this.sels.map(item => item.arrangementId);
                 this.$confirm('确认删除选中记录吗？', '提示', {
                     type: 'warning'
                 }).then(() => {
                     this.listLoading = true;
                     let para = { ids: ids };
+                    debugger;
                     batchRemoveArrangement(para).then((res) => {
                         this.listLoading = false;
                         this.$message({

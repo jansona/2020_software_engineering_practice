@@ -1,5 +1,7 @@
 package software.practice.distribution.entity;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class Package {
     /**
      *
