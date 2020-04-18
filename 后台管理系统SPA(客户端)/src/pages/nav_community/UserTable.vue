@@ -17,8 +17,8 @@
 
         <!--列表-->
         <el-table :data="users" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
-            <el-table-column type="selection" width="55">
-            </el-table-column>
+            <!-- <el-table-column type="selection" width="55">
+            </el-table-column> -->
             <el-table-column type="index" width="60">
             </el-table-column>
             <el-table-column prop="userName" label="住户" width="200" sortable>
@@ -35,7 +35,7 @@
 
         <!--工具条-->
         <el-col :span="24" class="toolbar">
-            <el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size="20" :total="total" style="float:right;">
+            <el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size="10" :total="total" style="float:right;">
             </el-pagination>
         </el-col>
     </section>
