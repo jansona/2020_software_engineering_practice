@@ -1,7 +1,7 @@
 <!--特殊处理详情界面-->
 <mp-form id="form">
 	<mp-cells title="特殊处理表单">
-		<mp-cell title="标题" ext-class="">
+		<mp-cell title="处理状态" ext-class="">
 			<input class="weui-input" value="{{title}}" disabled="{{true}}" />
 		</mp-cell>
 	</mp-cells>
@@ -11,7 +11,7 @@
 		</mp-cell>
   </mp-cells>
   	<mp-cells title="回复表单">
-		<mp-cell title="回复标题" ext-class="">
+		<mp-cell title="处理结果" ext-class="">
 			<input class="weui-input" value="{{response_title}}" disabled="{{true}}" />
 		</mp-cell>
 	</mp-cells>

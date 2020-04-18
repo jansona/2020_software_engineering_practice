@@ -1,26 +1,26 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
     "pages/userInfo/userInfo",
     "pages/dealList/dealList",
-    "pages/packageList/packageList",
+    "pages/notificationList/notificationList",
     "pages/dealInfo/dealInfo",
-    "pages/packageInfo/packageInfo",
+    "pages/notificationInfo/notificationInfo",
     "pages/dealAdd/dealAdd",
-    "pages/register/register"
+    "pages/register/register",
+    "pages/components/tabs/tabs"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "小区物资自提系统",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "black"
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json",
-
   "usingComponents": {
     "l-icon": "/dist/icon/index",
-    "l-input":"/dist/input/index",
-    "l-button":"/dist/button/index" 
+    "l-input": "/dist/input/index",
+    "l-button": "/dist/button/index"
   }
 }

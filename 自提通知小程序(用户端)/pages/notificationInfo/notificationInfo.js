@@ -1,24 +1,35 @@
-// pages/dealInfo/dealInfo.js
+// pages/packageInfo/packageInfo.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    content: "",
-    title: "请求标题",
-    response_title: "回复标题",
-    response_content: "回复内容"
+    package_id:0,
+    name:"西红柿土豆",
+    time:"12:00",
+    content:"请于12点到13点之间取用",
+    location:"小区门口"
+  },
+
+  dealAdd: function(){
+    var id = this.data.package_id
+    wx.navigateTo({
+      url: '/pages/dealAdd/dealAdd?package_id=' + id,
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options)
     this.setData({
-      content:options.deal_content,
+      package_id: options.package_id,
+      name: options.package_name,
+      time: options.time,
+      location: options.location
     })
-    console.log(this.data.content)
   },
 
   /**

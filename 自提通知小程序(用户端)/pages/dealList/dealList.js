@@ -5,14 +5,43 @@ Page({
    * 页面的初始数据
    */
   data: {
+    dealList:[
+      {
+        deal_id:1,
+        deal_isdone:true,
+        deal_content:"第一条"
+      },
+      {
+        deal_id:2,
+        deal_isdone:true,
+        deal_content:"第二条"
+      },
+      {
+        deal_id:3,
+        deal_isdone:true,
+        deal_content:"第三条"
+      },
+      {
+        deal_id:4,
+        deal_isdone:true,
+        deal_content:"第四条"
+      },
+  ]
+  },
 
+  //总页数
+  pagesTotal:1,
+
+  
+  changeTabs: function(e){
+    console.log(e)
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+        
   },
 
   /**
@@ -54,7 +83,6 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
   },
 
   /**

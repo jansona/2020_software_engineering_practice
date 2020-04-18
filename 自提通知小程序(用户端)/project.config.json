@@ -34,13 +34,35 @@
 			"current": -1,
 			"list": []
 		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
 		"game": {
 			"currentL": -1,
 			"list": []
 		},
-		"miniprogram": {
+		"gamePlugin": {
 			"current": -1,
 			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": -1,
+					"name": "特殊申请列表",
+					"pathName": "pages/dealList/dealList",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "物资自提通知列表",
+					"pathName": "pages/notificationList/notificationList",
+					"scene": null
+				}
+			]
 		}
 	}
 }

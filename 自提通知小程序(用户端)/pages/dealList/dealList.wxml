@@ -1,2 +1,21 @@
 <!--特殊申请列表界面-->
-<text>pages/dealList/dealList.wxml</text>
+<l-tabs bind:linchange="changeTabs">
+	<l-tabpanel tab="全部" key="one" slot="one">
+  		<view class="first_tab">
+	  <navigator class="deal_item" wx:for="{{dealList}}" wx:key="{{deal_id}}" 
+	  url="/pages/dealInfo/dealInfo?deal_id={{item.deal_id}}&deal_content={{item.deal_content}}">
+        <view class = "deal_info_wrap">
+          <view class="deal_state">{{item.deal_isdone?"已完成":"待处理"}}</view>
+          <view class="content">{{item.deal_content}}</view>
+        </view>
+      </navigator>
+    </view>
+	</l-tabpanel>
+	<l-tabpanel tab="已处理" key="two" slot="two">
+		<view class="tab-content">已处理</view>
+	</l-tabpanel>
+	<l-tabpanel tab="待处理" key="three" slot="three">
+		<view class="tab-content">待处理</view>
+	</l-tabpanel>
+</l-tabs>
+

@@ -1,4 +1,4 @@
-// pages/packageList/packageList.js
+// pages/components/tabs/tabs.js
 Page({
 
   /**

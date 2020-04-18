@@ -1,20 +1,29 @@
-// pages/packageInfo/packageInfo.js
+// pages/packageList/packageList.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    name:"西红柿土豆",
-    time:"12:00",
-    content:"请于12点到13点之间取用",
-    location:"小区门口"
-  },
-
-  dealAdd: function(){
-    wx.navigateTo({
-      url: '/pages/dealAdd/dealAdd',
-    })
+    notificationList: [{
+        package_id: 1,
+        package_name: "西红柿",
+        location: "小区门口",
+        time: "12:01"
+      },
+      {
+        package_id: 2,
+        package_name: "土豆",
+        location: "小区超市",
+        time: "12:02"
+      },
+      {
+        package_id: 3,
+        package_name: "黄瓜",
+        location: "小区居委会",
+        time: "12:03"
+      },
+    ]
   },
 
   /**
