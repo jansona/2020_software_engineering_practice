@@ -1,0 +1,24 @@
+<!--特殊处理详情界面-->
+<mp-form id="form">
+	<mp-cells title="特殊处理表单">
+		<mp-cell title="标题" ext-class="">
+			<input class="weui-input" value="{{title}}" disabled="{{true}}" />
+		</mp-cell>
+	</mp-cells>
+	<mp-cells title="内容">
+		<mp-cell  has-header="{{false}}" has-footer="{{false}}" title="" ext-class="">
+			<textarea class="weui-textarea" value="{{content}}" style="height: 10em" disabled="{{true}}"/>
+		</mp-cell>
+  </mp-cells>
+  	<mp-cells title="回复表单">
+		<mp-cell title="回复标题" ext-class="">
+			<input class="weui-input" value="{{response_title}}" disabled="{{true}}" />
+		</mp-cell>
+	</mp-cells>
+	<mp-cells title="回复内容">
+		<mp-cell  has-header="{{false}}" has-footer="{{false}}" title="" ext-class="">
+			<textarea class="weui-textarea" value="{{response_content}}" style="height: 10em" disabled="{{true}}"/>
+		</mp-cell>
+  </mp-cells>
+ </mp-form>
+

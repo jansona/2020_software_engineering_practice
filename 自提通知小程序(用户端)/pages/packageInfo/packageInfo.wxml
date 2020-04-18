@@ -1,0 +1,21 @@
+<!--物资自提通知详情界面-->
+<mp-form id="form">
+	<mp-cells title="物资信息表单">
+		<mp-cell title="物资名称" ext-class="">
+			<input class="weui-input" value="{{name}}" disabled="{{true}}" />
+		</mp-cell>
+    <mp-cell title="取用时间" ext-class="">
+			<input class="weui-input" value="{{time}}" disabled="{{true}}" />
+		</mp-cell>
+    <mp-cell title="取用地点" ext-class="">
+			<input class="weui-input" value="{{location}}" disabled="{{true}}" />
+		</mp-cell>
+	</mp-cells>
+	<mp-cells title="详细内容">
+		<mp-cell  has-header="{{false}}" has-footer="{{false}}" title="" ext-class="">
+			<textarea class="weui-textarea" value="{{content}}" style="height: 13em" disabled="{{true}}"/>
+		</mp-cell>
+  </mp-cells>
+ </mp-form>
+
+<l-button size="large" bindtap="dealAdd">提出特殊申请</l-button>
