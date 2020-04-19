@@ -5,10 +5,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    content: "",
-    title: "请求标题",
-    response_title: "回复标题",
-    response_content: "回复内容"
+    deal_content: "",
+    deal_type: -1,
+    deal_time:"",
+    deal_response: "",
+    deal_state:""
   },
 
   /**
@@ -16,9 +17,12 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      content:options.deal_content,
+      deal_content:options.content,
+      deal_type:options.type,
+      deal_time:options.time,
+      deal_response:options.response,
+      deal_state:options.state
     })
-    console.log(this.data.content)
   },
 
   /**

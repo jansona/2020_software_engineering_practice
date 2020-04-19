@@ -1,35 +1,25 @@
-<!--用户信息界面-->
-<mp-toptips msg="{{error}}" type="error" show="{{error}}"></mp-toptips>
+<!--pages/userInfo/userInfo.wxml-->
+<mp-form id="form" rules="{{rules}}" models="{{formData}}">
+	<mp-cells title="住户基本信息">
+		<mp-cell title="姓名" ext-class="">
+			<input disabled="{{true}}" value="{{name}}" class="weui-input"/>
+		</mp-cell>
+		<mp-cell title="地址" ext-class="">
+			<input disabled="{{true}}" value="{{address}}" class="weui-input"/>
+		</mp-cell>
+		<mp-cell title="身份证号" ext-class="">
+			<input disabled="{{true}}" value="{{idcard}}" class="weui-input"/>
+		</mp-cell>
+				<mp-cell title="开始时间" ext-class="">
+			<input disabled="{{true}}" value="{{starttime}}" class="weui-input"/>
+		</mp-cell>
+				<mp-cell title="结束时间" ext-class="">
+			<input disabled="{{true}}" value="{{endtime}}" class="weui-input"/>
+		</mp-cell>
+				<mp-cell title="居民集群" ext-class="">
+			<input disabled="{{true}}" value="{{community}}" class="weui-input"/>
+		</mp-cell>
+	</mp-cells>
+</mp-form>
 
-    <mp-form id="form" rules="{{rules}}" models="{{formData}}">
-        <mp-cells title="住户基本信息">
-            <mp-cell prop="name" title="姓名" ext-class="">
-                <input bindinput="formInputChange" data-field="name" class="weui-input" placeholder="请输入姓名"/>
-            </mp-cell>
-            <mp-cell prop="address" title="地址" ext-class="">
-                <input bindinput="formInputChange" data-field="address" class="weui-input" placeholder="请输入地址"/>
-            </mp-cell>
-            <mp-cell prop="starttime" title="开始时间" ext-class="">
-                <picker data-field="starttime" mode="time" value="{{starttime}}" start="00:00" end="{{endtime}}" bindchange="bindStartTimeChange">
-                    <view class="weui-input">{{starttime}}</view>
-                </picker>
-            </mp-cell>
-            <mp-cell prop="endtime" title="结束时间" ext-class="">
-                <picker data-field="endtime" mode="time" value="{{endtime}}" start="{{starttime}}" end="23:59" bindchange="bindEndTimeChange">
-                    <view class="weui-input">{{endtime}}</view>
-                </picker>
-            </mp-cell>
-        </mp-cells>
-        <mp-cells title="用户集群">
-            <mp-cell ext-class="weui-cell_select weui-cell_select-after">
-                <view slot="title" class="weui-label">居民集群</view>
-                <picker bindchange="bindCommunityChange" value="{{communityIndex}}" range="{{communities}}">
-                    <view class="weui-select">{{communities[communityIndex]}}</view>
-                </picker>
-            </mp-cell>
-        </mp-cells>
-    </mp-form>
-
-    <view slot="button">
-        <button class="weui-btn" type="primary" bindtap="submitForm">确定</button>
-    </view>
+<l-button class="edit"  size="large" bindtap="btnTap" >修改</l-button>

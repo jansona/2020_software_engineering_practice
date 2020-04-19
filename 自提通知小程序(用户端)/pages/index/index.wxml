@@ -1,16 +1,19 @@
 <!--主页面-->
 <view class="parentView">
-  <!--背景图片-->
-  <view class = "parentImg">
-    <image style="width:100%" src ='https://tva1.sinaimg.cn/large/00831rSTgy1gcnzqq3ws8j30lw0g7gm6.jpg'></image>
-  </view>
-  <!--用户头像-->
-  <view class="avatarImg">
-    <l-avatar size = "160" placement="bottom" open-data="{{['userAvatarUrl','userNickName']}}" />
-  </view>
- </view>
+	<l-button wx:if="{{!hasUserInfo && canIUse}}" class="userButton" size="medium" open-type="getUserInfo" bind:getUserInfo="getUserInfo">获取微信头像昵称</l-button>
+	<block wx:else>
+		<!--背景图片-->
+		<view class="parentImg">
+			<image class="userImage" src='{{userInfo.avatarUrl}}'></image>
+		</view>
+		<!--用户头像-->
+		<view class="avatarImg">
+			<l-avatar size="160" placement="bottom" open-data="{{['userAvatarUrl','userNickName']}}" />
+		</view>
+	</block>
+</view>
 
-  <l-list title="个人信息" url = "/pages/userInfo/userInfo" icon="setting"/>
-  <l-list title="自提通知" url = "/pages/notificationList/notificationList" icon="notification" badge-count="{{package_count}}" badge-position="right" />
-  <l-list title="特殊申请"  url = "/pages/dealList/dealList" icon="order" badge-count="{{deal_count}}" badge-position="right" />
-
+<l-list title="个人信息" url="/pages/userInfo/userInfo" icon="user" />
+<l-list title="集群管理" url="/pages/community/community" icon="edit" />
+<l-list title="自提通知" url="/pages/notificationList/notificationList" icon="notification" badge-count="{{package_count}}" badge-position="right" />
+<l-list title="特殊申请" url="/pages/dealList/dealList" icon="order" badge-count="{{deal_count}}" badge-position="right" />

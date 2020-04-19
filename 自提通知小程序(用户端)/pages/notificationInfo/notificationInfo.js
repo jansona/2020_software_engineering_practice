@@ -6,10 +6,10 @@ Page({
    */
   data: {
     package_id:0,
-    name:"西红柿土豆",
-    time:"12:00",
-    content:"请于12点到13点之间取用",
-    location:"小区门口"
+    name:"",
+    time:"",
+    content:"请于半小时之内取走物资",
+    location:""
   },
 
   dealAdd: function(){
@@ -23,7 +23,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options)
     this.setData({
       package_id: options.package_id,
       name: options.package_name,

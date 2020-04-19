@@ -1,19 +1,17 @@
 <!--添加特殊处理-->
 <mp-form id="form" rules="{{rules}}" models="{{formData}}">
-	<mp-cells title="特殊处理表单">
-		<mp-cell title="标题文字" ext-class="">
-			<input class="weui-input" placeholder="请输入文本" />
-		</mp-cell>
-	</mp-cells>
-	<mp-cells title="内容">
-		<mp-cell prop = "content" has-header="{{false}}" has-footer="{{false}}" title="" ext-class="">
-			<textarea class="weui-textarea" placeholder="请输入文本" bindblur="bindTextAreaBlur"  bindinput="getValueLength" value="{{content}}" style="height: 13em"  maxlength="{{max}}" minlength="{{min}}"/>
-      <text class="minWord">{{minWord}}</text>
-			<view class="weui-textarea-counter">{{currentWordNumber|0}}/{{max}}</view>
-            </mp-cell>
+        <mp-cells title="特殊处理类型">
+            <mp-checkbox-group prop="radio" multi="{{false}}" bindchange="radioChange">
+                <mp-checkbox wx:for="{{radioItems}}" wx:key="value" label="{{item.name}}" value="{{item.value}}" checked="{{item.checked}}"></mp-checkbox>
+            </mp-checkbox-group>
         </mp-cells>
-    </mp-form>
+	<mp-cells title="内容">
+		<mp-cell prop="deal_content" has-header="{{false}}" has-footer="{{false}}" title="" ext-class="">
+			<textarea class="weui-textarea" placeholder="至少输入10个字" bindblur="bindTextAreaBlur" bindinput="getValueLength" value="{{content}}" style="height: 13em" maxlength="{{max}}" minlength="{{min}}" />
+			<text class="minWord">{{minWord}}</text>
+			<view class="weui-textarea-counter">{{currentWordNumber|0}}/{{max}}</view>
+    </mp-cell>
+  </mp-cells>
+</mp-form>
 
-    <view slot="button">
-        <button id="sumbit" class="weui-btn" type="primary" bindtap="submitForm" disabled="{{disable}}">提交</button>
-    </view>
+<l-button class="submit"  size="large" bindtap="submitForm" disabled="{{disable}}" >提交</l-button>
