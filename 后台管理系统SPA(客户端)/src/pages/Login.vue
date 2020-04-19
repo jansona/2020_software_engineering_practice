@@ -23,7 +23,7 @@
       return {
         logining: false,
         ruleForm2: {
-          account: 'admin',
+          account: '1',
           checkPass: '123456'
         },
         rules2: {
@@ -45,33 +45,42 @@
       },
       handleSubmit2(ev) {
         // temp
-        sessionStorage.setItem('user',
-          JSON.stringify({
-            id: 1,
-            username: 'admin',
-            password: undefined,
-            avatar: 'https://avatars3.githubusercontent.com/u/24268919?s=60&v=4',
-            name: '王大爷'
-          }));
-        this.$router.push({ path: '/arrangements' });
-        return;
+        // sessionStorage.setItem('user',
+        //   JSON.stringify({
+        //     communityId: 1,
+        //     username: 'admin',
+        //     password: undefined,
+        //     avatar: 'https://avatars3.githubusercontent.com/u/24268919?s=60&v=4',
+        //     name: '王大爷'
+        //   }));
+        // sessionStorage.setItem('communityId', 1);
+        // this.$router.push({ path: '/arrangements' });
+        // return;
         // shame
 
         var _this = this;
         this.$refs.ruleForm2.validate((valid) => {
           if (valid) {
             this.logining = true;
-            var loginParams = { username: this.ruleForm2.account, password: this.ruleForm2.checkPass };
+            var loginParams = { id: this.ruleForm2.account, password: this.ruleForm2.checkPass };
             requestLogin(loginParams).then(data => {
               this.logining = false;
-              let { msg, code, user } = data;
+              let code = data.data.code;
+              debugger;
               if (code !== 200) {
                 this.$message({
-                  message: msg,
                   type: 'error'
                 });
               } else {
-                sessionStorage.setItem('user', JSON.stringify(user));
+                // sessionStorage.setItem('user', JSON.stringify(user));
+                sessionStorage.setItem('user',
+                JSON.stringify({
+                  communityId: 1,
+                  username: 'admin',
+                  password: undefined,
+                  avatar: 'https://avatars3.githubusercontent.com/u/24268919?s=60&v=4',
+                  name: '王大爷'
+                }));
                 this.$router.push({ path: '/arrangements' });
               }
             });

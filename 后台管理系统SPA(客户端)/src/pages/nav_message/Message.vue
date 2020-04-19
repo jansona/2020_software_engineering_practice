@@ -33,12 +33,14 @@
 <script>
     // import { getGoodsListPage, removeGoods, batchRemoveGoods, editGoods, addGoods } from '../../api/api';
     import Timeline from '../../components/Timeline'
+    import { getEnrollQuitMessage, checkEnroll, checkQuit } from '../../api/api';
 
     export default {
         components: { Timeline },
         data() {
             return {
                 activeName: 'first',
+                communityMessage: [],
                 timeline: [
                     {
                         timestamp: '2019/4/20 20:46',
@@ -64,18 +66,33 @@
             }
         },
         methods: {
+            getEnrollQuitMessage() {
+                sessionStorage.setItem('communityId', 1);
+                getEnrollQuitMessage().then(res => {
+                    this.communityMessage = res.data.messages;
+                })
+            },
             enrollAdmit(item) {
-                
+                let para = { id: item.content.id, admit: true };
+                checkEnroll(para).then((res) => {
+                    this.getEnrollQuitMessage();
+                });
             },
             enrollRefuse(item) {
-                
+                let para = { id: item.content.id, admit: false };
+                checkEnroll(para).then((res) => {
+                    this.getEnrollQuitMessage();
+                });
             },
             quitCheck(item) {
-                
+                let para = { id: item.content.id };
+                checkQuit(para).then((res) => {
+                    this.getEnrollQuitMessage();
+                });
             },
         },
         mounted() {
-            
+            this.getEnrollQuitMessage();
         }
     }
 

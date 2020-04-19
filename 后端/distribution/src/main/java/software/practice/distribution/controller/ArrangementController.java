@@ -9,8 +9,7 @@ import software.practice.distribution.entity.Arrangement;
 import software.practice.distribution.result.Result;
 import software.practice.distribution.service.ArrangementService;
 
-import java.sql.Time;
-import java.util.ArrayList;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -26,13 +25,15 @@ public class ArrangementController {
 
     @CrossOrigin
     @GetMapping(value = "/arrangement/listpage")
-    public Result getArrangement(int page, String id, String user, String package_id, String location, String time) {
+    public Result getArrangement(int page, String id, String user, String package_id, String location, String time, HttpServletRequest request) {
+        int communityId = (int) request.getSession().getAttribute("communityId");
         List<Arrangement> arrangements = arrangementService.getArrangement(page,
                 BasicUtil.covertStrInt(id),
                 user,
                 BasicUtil.covertStrInt(package_id),
                 location,
-                BasicUtil.covertStrTime(time));
+                BasicUtil.covertStrTime(time),
+                communityId);
         long total = arrangementService.getTotalPage();
         if(arrangements != null){
             return new Result(200,total,arrangements);

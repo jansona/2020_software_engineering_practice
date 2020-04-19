@@ -10,6 +10,7 @@ import software.practice.distribution.mapper.DealMapper;
 import software.practice.distribution.mapper.PackageMapper;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,6 +27,7 @@ public class DealService {
     PackageMapper packageMapper;
 
     public boolean addDeal(Deal deal){
+        deal.setDealTime(new Date());
         return dealMapper.insert(deal) == 1;
     }
 

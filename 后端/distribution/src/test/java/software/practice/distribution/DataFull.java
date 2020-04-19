@@ -61,6 +61,7 @@ public class DataFull {
                 // 每人发一条申请
                 Application application = new Application();
                 application.setApplicationId(j + 20 * i + 1);
+                application.setApplicationTime(new Date());
                 application.setApplicationUser(j + 20 * i + 1);
                 application.setApplicationCommunity(i + 1);
                 application.setApplicationIspass((byte)1);
@@ -81,8 +82,10 @@ public class DataFull {
         for (int i = 0; i < 30; i++) {
             Deal deal = new Deal();
             deal.setDealId(i + 1);
+            deal.setDealTime(new Date());
             deal.setDealPackage(10 * i + 1);
             deal.setDealContent("我想晚点拿");
+            deal.setDealType((byte)0);
             if (i % 3 == 0){
                 deal.setDealIspass((byte)1);
                 deal.setDealResponse("可以，凌晨3点来拿吧");
