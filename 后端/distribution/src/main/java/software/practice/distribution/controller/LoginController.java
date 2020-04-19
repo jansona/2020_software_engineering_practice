@@ -3,6 +3,7 @@ package software.practice.distribution.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import software.practice.distribution.Utils.BasicUtil;
 import software.practice.distribution.result.Result;
@@ -11,14 +12,21 @@ import software.practice.distribution.service.LoginService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+
+class LoginInfo {
+
+}
+
 @RestController
 public class LoginController {
     @Autowired
     LoginService loginService;
 
     @CrossOrigin
-    @PostMapping(value = "/server/login")
-    public Result serverLogin(String id, String password, HttpServletRequest request) {
+    @PostMapping(value = "/login")
+    public Result serverLogin(@RequestParam(name = "id") String id,
+                              @RequestParam(name = "password") String password,
+                              HttpServletRequest request) {
         int res = loginService.CommunityLogin(id,password);
         if (res == 1){
             HttpSession session = request.getSession();

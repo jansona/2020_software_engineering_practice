@@ -7,6 +7,7 @@ import software.practice.distribution.result.Result;
 import software.practice.distribution.service.ApplicationService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -26,6 +27,7 @@ public class ApplicationController {
     @CrossOrigin
     @GetMapping(value = "/application/community")
     public Result getApplicationList(HttpServletRequest request){
+        HttpSession s =  request.getSession();
         int id = (int) request.getSession().getAttribute("communityId");
         List<Application> applications = applicationService.getApplications(id);
         long total = applicationService.getTotalPage();
