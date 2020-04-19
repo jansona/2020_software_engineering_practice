@@ -1,10 +1,13 @@
 <template>
   <div class="block">
     <el-timeline>
-      <el-timeline-item v-for="(item,index) of timeline" :key="index" :timestamp="item.timestamp" placement="top">
+      <el-timeline-item v-for="(item, index) of timeline" :key="index" :timestamp="item.timestamp" placement="top">
         <el-card>
-          <h4>{{ item.title }}</h4>
-          <p>{{ item.content }}</p>
+          <p><b>{{ item.title }}</b> {{ item.timestamp }}</p>
+          <el-row>
+            <el-col :span="20"><slot name="content" v-bind="item"></slot></el-col>
+            <el-col :span="4"><slot name="buttons" v-bind="item"></slot></el-col>
+          </el-row>
         </el-card>
       </el-timeline-item>
     </el-timeline>

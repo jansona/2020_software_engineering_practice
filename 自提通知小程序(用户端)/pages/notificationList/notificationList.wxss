@@ -1,0 +1,21 @@
+/* pages/packageList/packageList.wxss */
+.first_tab .notification_item {
+  border-bottom: 1rpx solid #ccc;
+}
+.first_tab .notification_item .notification_info_wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.first_tab .notification_item .notification_info_wrap .package_name {
+  color: red;
+  font-size: 32rpx;
+}
+.first_tab .notification_item .notification_info_wrap .notification_time {
+  color: green;
+  font-size: 32rpx;
+}
+.first_tab .notification_item .notification_info_wrap .notification_location {
+  color: blue;
+  font-size: 32rpx;
+}
