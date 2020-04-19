@@ -11,7 +11,7 @@
  Target Server Version : 80017
  File Encoding         : 65001
 
- Date: 19/04/2020 11:01:31
+ Date: 19/04/2020 12:23:38
 */
 
 SET NAMES utf8mb4;
@@ -27,7 +27,6 @@ CREATE TABLE `application`  (
   `application_user` int(11) NOT NULL,
   `application_isPass` tinyint(4) NULL DEFAULT -1,
   `application_time` datetime(0) NOT NULL,
-  `application_type` tinyint(4) NOT NULL,
   PRIMARY KEY (`application_id`) USING BTREE,
   INDEX `application_user_id_idx`(`application_user`) USING BTREE,
   INDEX `application_community_id_idx`(`application_community`) USING BTREE,
@@ -72,6 +71,7 @@ CREATE TABLE `deal`  (
   `deal_isPass` tinyint(4) NULL DEFAULT -1,
   `deal_response` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `deal_time` datetime(0) NOT NULL,
+  `deal_type` tinyint(4) NOT NULL,
   PRIMARY KEY (`deal_id`) USING BTREE,
   INDEX `deal_package_id_idx`(`deal_package`) USING BTREE,
   CONSTRAINT `deal_package_id` FOREIGN KEY (`deal_package`) REFERENCES `package` (`package_id`) ON DELETE CASCADE ON UPDATE CASCADE
