@@ -7,6 +7,7 @@ import software.practice.distribution.entity.User;
 import software.practice.distribution.result.Result;
 import software.practice.distribution.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -16,8 +17,9 @@ public class UserController {
 
     @CrossOrigin
     @GetMapping(value = "/users/listpage")
-    public Result getUser(int page, String id, String name, String home){
-        List<User> users = userService.getUsers(page, BasicUtil.covertStrInt(id), name, home);
+    public Result getUser(int page, String id, String name, String home, HttpServletRequest request){
+        int communityId = (int) request.getSession().getAttribute("communityId");
+        List<User> users = userService.getUsers(page, BasicUtil.covertStrInt(id), name, home, communityId);
         long total = userService.getTotalPage();
         if(users != null && !users.isEmpty()){
             return new Result(200,total,users);

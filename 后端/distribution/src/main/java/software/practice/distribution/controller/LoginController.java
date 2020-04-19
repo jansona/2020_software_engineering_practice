@@ -1,30 +1,46 @@
 package software.practice.distribution.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.HtmlUtils;
-import software.practice.distribution.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+import software.practice.distribution.Utils.BasicUtil;
 import software.practice.distribution.result.Result;
+import software.practice.distribution.service.LoginService;
 
-import java.util.Objects;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
-@Controller
+@RestController
 public class LoginController {
+    @Autowired
+    LoginService loginService;
 
     @CrossOrigin
     @PostMapping(value = "/server/login")
-    @ResponseBody
-    public Result login(@RequestBody User requestUser) {
-        // 对 html 标签进行转义，防止 XSS 攻击
-        String username = requestUser.getUserName();
-        username = HtmlUtils.htmlEscape(username);
-
-        if (!Objects.equals("admin", username) || !Objects.equals("123456", requestUser.getUserPassword())) {
-            String message = "账号密码错误";
-            System.out.println("test");
-            return new Result(400);
-        } else {
+    public Result serverLogin(String id, String password, HttpServletRequest request) {
+        int res = loginService.CommunityLogin(id,password);
+        if (res == 1){
+            HttpSession session = request.getSession();
+            session.setAttribute("communityId", BasicUtil.covertStrInt(id));
             return new Result(200);
+        } else if (res == -2){
+            return new Result(400,"无此账号");
         }
+        return new Result(400,"密码错误");
+    }
+
+    @CrossOrigin
+    @PostMapping(value = "/user/login")
+    public Result userLogin(String id, String password, HttpServletRequest request) {
+        int res = loginService.UserLogin(id,password);
+        if (res == 1){
+            HttpSession session = request.getSession();
+            session.setAttribute("userId",BasicUtil.covertStrInt(id));
+            return new Result(200);
+        } else if (res == -2){
+            return new Result(400,"无此账号");
+        }
+        return new Result(400,"密码错误");
     }
 }

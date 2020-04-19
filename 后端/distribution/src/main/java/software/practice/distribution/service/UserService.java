@@ -3,11 +3,11 @@ package software.practice.distribution.service;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import software.practice.distribution.entity.*;
+import software.practice.distribution.entity.User;
+import software.practice.distribution.entity.UserExample;
 import software.practice.distribution.mapper.CommunityMapper;
 import software.practice.distribution.mapper.UserMapper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,22 +26,11 @@ public class UserService {
         return userMapper.insert(user) == 1;
     }
 
-    public List<User> getUsers(int page, Integer id, String name, String home){
-        List<Integer> communitiesIds = new ArrayList<>();
-        if (home != null && !home.isEmpty()){
-            CommunityExample communityExample = new CommunityExample();
-            CommunityExample.Criteria cc = communityExample.createCriteria();
-            cc.andCommunityNameEqualTo(home);
-            List<Community> communities = communityMapper.selectByExample(communityExample);
-            if (communities == null || communities.isEmpty()){
-                return null;
-            }
-            for(Community community :communities){
-                communitiesIds.add(community.getCommunityId());
-            }
-        }
+    public List<User> getUsers(int page, Integer id, String name, String home, int communityId){
+
         UserExample example = new UserExample();
         UserExample.Criteria criteria = example.createCriteria();
+        criteria.andUserCommunityEqualTo(communityId);
         if (id != null && id != 0){
             criteria.andUserIdEqualTo(id);
         }
@@ -49,7 +38,7 @@ public class UserService {
             criteria.andUserNameEqualTo(name);
         }
         if (home != null && !home.isEmpty()){
-            criteria.andUserCommunityIn(communitiesIds);
+            criteria.andUserAddressLike("%" + home + "%");
         }
         return userMapper.selectByExampleWithRowbounds(example,new RowBounds((page-1)*10,10));
     }

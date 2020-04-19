@@ -25,56 +25,58 @@ public class PackageService {
     @Autowired
     UserMapper userMapper;
 
-    public List<Package> getPackages(int page, Integer id, String user, String content){
+    public List<Package> getPackages(int page, Integer id, String user, String content, int communityId) {
         List<Integer> userIds = new ArrayList<>();
-        if (user != null && !user.isEmpty()){
-            UserExample userExample = new UserExample();
-            UserExample.Criteria uc = userExample.createCriteria();
+        UserExample userExample = new UserExample();
+        UserExample.Criteria uc = userExample.createCriteria();
+        if (user != null && !user.isEmpty()) {
             uc.andUserNameEqualTo(user);
-            List<User> users = userMapper.selectByExample(userExample);
-            if (users == null || users.isEmpty()){
-                return null;
-            }
-            for (User user1 : users){
-                userIds.add(user1.getUserId());
-            }
         }
+        uc.andUserCommunityEqualTo(communityId);
+        List<User> users = userMapper.selectByExample(userExample);
+        if (users == null || users.isEmpty()) {
+            return null;
+        }
+        for (User user1 : users) {
+            userIds.add(user1.getUserId());
+        }
+
 
         PackageExample example = new PackageExample();
         PackageExample.Criteria criteria = example.createCriteria();
-        if (id != null && id != 0){
+        if (id != null && id != 0) {
             criteria.andPackageIdEqualTo(id);
         }
-        if (user != null && !user.isEmpty()){
+        if (user != null && !user.isEmpty()) {
             criteria.andPackageUserIn(userIds);
         }
-        if (content != null){
-            criteria.andPackageContentLike("%"+content+"%");
+        if (content != null) {
+            criteria.andPackageContentLike("%" + content + "%");
         }
 
-        return packageMapper.selectByExampleWithRowbounds(example,new RowBounds((page-1)*10,10));
+        return packageMapper.selectByExampleWithRowbounds(example, new RowBounds((page - 1) * 10, 10));
     }
 
-    public boolean addPackage(Package p){
-        return packageMapper.insert(p)==1;
+    public boolean addPackage(Package p) {
+        return packageMapper.insert(p) == 1;
     }
 
-    public boolean editPackage(Package p){
-        return packageMapper.updateByPrimaryKey(p)==1;
+    public boolean editPackage(Package p) {
+        return packageMapper.updateByPrimaryKey(p) == 1;
     }
 
-    public boolean removePackage(int id){
-        return packageMapper.deleteByPrimaryKey(id)==1;
+    public boolean removePackage(int id) {
+        return packageMapper.deleteByPrimaryKey(id) == 1;
     }
 
-    public boolean removePackages(Integer[] ids){
+    public boolean removePackages(Integer[] ids) {
         for (int id : ids) {
             packageMapper.deleteByPrimaryKey(id);
         }
         return true;
     }
 
-    public long getTotalPage(){
+    public long getTotalPage() {
         return packageMapper.countByExample(new PackageExample());
     }
 }
