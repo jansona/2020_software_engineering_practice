@@ -36,4 +36,11 @@ public class ApplicationService {
     public long getTotalPage(){
         return applicationMapper.countByExample(new ApplicationExample());
     }
+
+    public List<Application> getApplicationByUserId(int userId){
+        ApplicationExample example = new ApplicationExample();
+        ApplicationExample.Criteria criteria = example.createCriteria();
+        criteria.andApplicationUserEqualTo(userId);
+        return applicationMapper.selectByExample(example);
+    }
 }

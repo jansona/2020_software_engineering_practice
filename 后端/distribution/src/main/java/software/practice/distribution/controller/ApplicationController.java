@@ -27,12 +27,24 @@ public class ApplicationController {
     @CrossOrigin
     @GetMapping(value = "/application/community")
     public Result getApplicationList(HttpServletRequest request){
-        HttpSession s =  request.getSession();
         int id = (int) request.getSession().getAttribute("communityId");
         List<Application> applications = applicationService.getApplications(id);
         long total = applicationService.getTotalPage();
         if(applications != null){
             return new Result(200,total,applications);
+        }
+        return new Result(400,"未找到");
+    }
+    /*
+    小程序端
+     */
+    @CrossOrigin
+    @GetMapping(value = "/application/info")
+    public Result getApplicationList2(HttpServletRequest request){
+        int userId = (int) request.getSession().getAttribute("userId");
+        List<Application> applications = applicationService.getApplicationByUserId(userId);
+        if(applications != null){
+            return new Result(200,null,applications);
         }
         return new Result(400,"未找到");
     }

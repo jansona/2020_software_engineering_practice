@@ -22,4 +22,9 @@ public class CommunityService {
         Integer communityId = user.getUserCommunity();
         return communityMapper.selectByPrimaryKey(communityId);
     }
+
+    public List<Community> getCommunityList(){
+        CommunityExample example = new CommunityExample();
+        return communityMapper.selectByExample(example);
+    }
 }

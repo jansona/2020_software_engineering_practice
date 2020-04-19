@@ -30,6 +30,15 @@ public class ArrangementService {
     @Autowired
     PackageMapper packageMapper;
 
+    /*
+    小程序端
+     */
+    public List<Arrangement> getArrangement(int page) {
+        ArrangementExample example = new ArrangementExample();
+        return arrangementMapper.selectByExampleWithRowbounds(example,
+                new RowBounds((page - 1) * 10, 10));
+    }
+
     public List<Arrangement> getArrangement(int page, Integer id, String user, Integer package_id, String location, Time time, int communityId) {
         List<Integer> packageIds = new ArrayList<>();
 
