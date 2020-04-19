@@ -65,7 +65,6 @@ public class DataFull {
                 application.setApplicationUser(j + 20 * i + 1);
                 application.setApplicationCommunity(i + 1);
                 application.setApplicationIspass((byte)1);
-                application.setApplicationType((byte)1);
                 applicationMapper.insert(application);
 
                 // 每个人3个包裹，共300个包裹
@@ -86,6 +85,7 @@ public class DataFull {
             deal.setDealTime(new Date());
             deal.setDealPackage(10 * i + 1);
             deal.setDealContent("我想晚点拿");
+            deal.setDealType((byte)0);
             if (i % 3 == 0){
                 deal.setDealIspass((byte)1);
                 deal.setDealResponse("可以，凌晨3点来拿吧");
