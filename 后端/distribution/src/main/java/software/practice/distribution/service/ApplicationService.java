@@ -3,11 +3,9 @@ package software.practice.distribution.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import software.practice.distribution.entity.Application;
-import software.practice.distribution.entity.ApplicationExample;
-import software.practice.distribution.entity.User;
-import software.practice.distribution.entity.UserExample;
 import software.practice.distribution.mapper.ApplicationMapper;
-import software.practice.distribution.mapper.UserMapper;
+
+import java.util.Date;
 
 @Service
 public class ApplicationService {
@@ -15,6 +13,7 @@ public class ApplicationService {
     ApplicationMapper mapper;
 
     public Boolean createApplication(Application application){
+        application.setApplicationTime(new Date());
         return mapper.insert(application) == 1;
     }
 }

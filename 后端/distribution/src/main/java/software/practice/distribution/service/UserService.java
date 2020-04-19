@@ -26,7 +26,7 @@ public class UserService {
         return userMapper.insert(user) == 1;
     }
 
-    public List<User> getUsers(int page, Integer id,  String name, String home){
+    public List<User> getUsers(int page, Integer id, String name, String home){
         List<Integer> communitiesIds = new ArrayList<>();
         if (home != null && !home.isEmpty()){
             CommunityExample communityExample = new CommunityExample();
