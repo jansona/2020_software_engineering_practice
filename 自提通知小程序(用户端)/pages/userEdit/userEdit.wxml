@@ -1,0 +1,26 @@
+<!--用户信息修改界面-->
+<mp-form id="form" rules="{{rules}}" models="{{formData}}">
+	<mp-cells title="住户基本信息">
+		<mp-cell title="姓名" ext-class="">
+			<input bindinput="formInputChange"  data-field="user_name" value="{{user_name}}" class="weui-input" />
+		</mp-cell>
+		<mp-cell title="地址" ext-class="">
+			<input bindinput="formInputChange" data-field="user_address" value="{{user_address}}" class="weui-input" />
+		</mp-cell>
+		<mp-cell  title="身份证号" ext-class="">
+			<input bindinput="formInputChange" data-field="user_idcard" value="{{user_idcard}}" class="weui-input" />
+		</mp-cell>
+		<mp-cell title="开始时间" ext-class="">
+			<picker mode="time" value="{{user_favorite_starttime}}" start="00:00" end="{{endtime}}" bindchange="bindStartTimeChange">
+				<view class="weui-input">{{user_favorite_starttime}}</view>
+			</picker>
+		</mp-cell>
+		<mp-cell title="结束时间" ext-class="">
+			<picker  mode="time" value="{{endtime}}" start="{{user_favorite_starttime}}" end="23:59" bindchange="bindEndTimeChange">
+				<view class="weui-input">{{endtime}}</view>
+			</picker>
+		</mp-cell>
+	</mp-cells>
+</mp-form>
+
+<l-button class="submit"  size="large" bindtap="submitForm" disabled="{{disable}}">确定</l-button>

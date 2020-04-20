@@ -1,23 +1,26 @@
 <!--特殊处理详情界面-->
 <mp-form id="form">
 	<mp-cells title="特殊处理表单">
-		<mp-cell title="处理状态" ext-class="">
-			<input class="weui-input" value="{{title}}" disabled="{{true}}" />
+		<mp-cell title="申请时间" ext-class="">
+			<input class="weui-input" value="{{deal_time}}" disabled="{{true}}" />
+		</mp-cell>
+		<mp-cell title="申请类型" ext-class="">
+			<input class="weui-input" value="{{deal_type>0?'送货上门':'延迟取货'}}" disabled="{{true}}" />
 		</mp-cell>
 	</mp-cells>
-	<mp-cells title="内容">
+	<mp-cells title="申请内容">
 		<mp-cell  has-header="{{false}}" has-footer="{{false}}" title="" ext-class="">
-			<textarea class="weui-textarea" value="{{content}}" style="height: 10em" disabled="{{true}}"/>
+			<textarea class="weui-textarea" value="{{deal_content}}" style="height: 10em" disabled="{{true}}"/>
 		</mp-cell>
   </mp-cells>
-  	<mp-cells title="回复表单">
+  <mp-cells title="回复表单">
 		<mp-cell title="处理结果" ext-class="">
-			<input class="weui-input" value="{{response_title}}" disabled="{{true}}" />
+			<input class="weui-input" value="{{deal_state}}" disabled="{{true}}" />
 		</mp-cell>
 	</mp-cells>
 	<mp-cells title="回复内容">
 		<mp-cell  has-header="{{false}}" has-footer="{{false}}" title="" ext-class="">
-			<textarea class="weui-textarea" value="{{response_content}}" style="height: 10em" disabled="{{true}}"/>
+			<textarea class="weui-textarea" value="{{deal_response}}" style="height: 10em" disabled="{{true}}"/>
 		</mp-cell>
   </mp-cells>
  </mp-form>

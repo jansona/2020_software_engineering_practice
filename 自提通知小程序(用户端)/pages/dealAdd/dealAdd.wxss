@@ -1,8 +1,7 @@
 /* pages/dealAdd/dealAdd.wxss */
+@import "/style/weui.wxss";
 
-.minWord {
-  color: red;
-  font-size: 14px;
-  position: absolute;
-  top: 30px;
+.submit{
+  display: flex;
+  justify-content:center;
 }

@@ -3,6 +3,7 @@ package software.practice.distribution.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import software.practice.distribution.Utils.BasicUtil;
+import software.practice.distribution.entity.Community;
 import software.practice.distribution.entity.User;
 import software.practice.distribution.result.Result;
 import software.practice.distribution.service.UserService;
@@ -39,8 +40,19 @@ public class UserController {
     @CrossOrigin
     @PostMapping(value = "/user/edit")
     public Result updateUserInformation(@RequestBody User user){
-        if(userService.createUser(user)){
+        if(userService.updateUser(user)){
             return new Result(200,null,user);
+        }
+        return new Result(400,"未找到");
+    }
+
+    @CrossOrigin
+    @PostMapping(value = "/user/info")
+    public Result getUserInformation(HttpServletRequest request){
+        int userId = (int)request.getSession().getAttribute("userId");
+        List<Object> ol = userService.getUserInfoByUserId(userId);
+        if(ol!=null) {
+            return new Result(200, null, ol);
         }
         return new Result(400,"未找到");
     }

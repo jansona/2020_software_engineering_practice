@@ -11,11 +11,11 @@
 			<input class="weui-input" value="{{location}}" disabled="{{true}}" />
 		</mp-cell>
 	</mp-cells>
-	<mp-cells title="详细内容">
+	<mp-cells title="备注">
 		<mp-cell  has-header="{{false}}" has-footer="{{false}}" title="" ext-class="">
 			<textarea class="weui-textarea" value="{{content}}" style="height: 13em" disabled="{{true}}"/>
 		</mp-cell>
   </mp-cells>
  </mp-form>
 
-<l-button size="large" bindtap="dealAdd">提出特殊申请</l-button>
+<l-button class="add"  size="large" bindtap="dealAdd">提出特殊申请</l-button>

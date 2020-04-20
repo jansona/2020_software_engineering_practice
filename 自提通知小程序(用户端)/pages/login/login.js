@@ -1,29 +1,11 @@
-// pages/packageList/packageList.js
+// pages/login/login.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    notificationList: [{
-        package_id: 1,
-        package_name: "西红柿",
-        arrangement_location: "小区门口",
-        arrangement_time: "12:01"
-      },
-      {
-        package_id: 2,
-        package_name: "土豆",
-        arrangement_location: "小区超市",
-        arrangement_time: "12:02"
-      },
-      {
-        package_id: 3,
-        package_name: "黄瓜",
-        arrangement_location: "小区居委会",
-        arrangement_time: "12:03"
-      },
-    ]
+
   },
 
   /**
