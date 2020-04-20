@@ -61,7 +61,7 @@ public class ArrangementController {
     /*
     小程序端
      */
-    //TODO 该接口下的getTotalPage有变动，暂未修改
+    // TODO 该接口下的getTotalPage有变动，暂未修改
 //    @CrossOrigin
 //    @GetMapping(value = "/arrangement/list")
 //    public Result getArrangement2(int page, HttpServletRequest request) {

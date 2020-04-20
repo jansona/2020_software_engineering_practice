@@ -26,7 +26,7 @@ public class DealTests {
         dealService.addDeal(deal);
     }
 
-    //TODO 该接口下的getDealsByUserId有变动，暂未修改
+    // TODO 该接口下的getDealsByUserId有变动，暂未修改
 //    @Test
 //    public void getByUser(){
 //        int user = 1;
