@@ -13,7 +13,6 @@ import software.practice.distribution.mapper.UserMapper;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author ：Chang Jiaxin
@@ -35,7 +34,7 @@ public class ArrangementService {
     /*
     小程序端
      */
-    public Pair<Long,List> getArrangementAndPackageContent(int page) {
+    public Pair<Long,List<Pair<Arrangement,String>>> getArrangementAndPackageContent(int page) {
         ArrangementExample example = new ArrangementExample();
         List<Arrangement> arrangements =  arrangementMapper.selectByExampleWithRowbounds(example, new RowBounds((page - 1) * 10, 10));
         //查询每个arrangement的packageContent
@@ -43,7 +42,7 @@ public class ArrangementService {
         for (Arrangement arrangement : arrangements) {
             int pid = arrangement.getArrangementPackage();
             Package p = packageMapper.selectByPrimaryKey(pid);
-            list.add(new Pair(arrangement,p.getPackageContent()));
+            list.add(new Pair<>(arrangement, p.getPackageContent()));
         }
         return new Pair<>(getTotalPage(example),list);
     }
@@ -57,7 +56,7 @@ public class ArrangementService {
         //限定社区
         uc.andUserCommunityEqualTo(communityId);
         if (user != null && !user.isEmpty()) {
-            uc.andUserNameEqualTo(user);
+            uc.andUserNameLike("%" + user + "%");
         }
         List<User> users = userMapper.selectByExample(userExample);
         if (users == null || users.isEmpty()) {

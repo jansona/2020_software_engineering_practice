@@ -31,7 +31,7 @@ public class PackageService {
         UserExample userExample = new UserExample();
         UserExample.Criteria uc = userExample.createCriteria();
         if (user != null && !user.isEmpty()) {
-            uc.andUserNameEqualTo(user);
+            uc.andUserNameLike("%" + user + "%");
         }
         uc.andUserCommunityEqualTo(communityId);
         List<User> users = userMapper.selectByExample(userExample);

@@ -9,7 +9,6 @@ import software.practice.distribution.entity.UserExample;
 import software.practice.distribution.mapper.CommunityMapper;
 import software.practice.distribution.mapper.UserMapper;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,8 +31,7 @@ public class UserService {
     }
 
     public Boolean updateUser(User user){
-        int ret = userMapper.updateByPrimaryKey(user);
-        return (ret==1)?true:false ;
+        return userMapper.updateByPrimaryKey(user) == 1;
     }
 
     public List<User> getUsers(int page, Integer id, String name, String home, int communityId){
