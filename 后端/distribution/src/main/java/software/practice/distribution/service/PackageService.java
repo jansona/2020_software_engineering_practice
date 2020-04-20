@@ -42,14 +42,12 @@ public class PackageService {
             userIds.add(user1.getUserId());
         }
 
-
         PackageExample example = new PackageExample();
         PackageExample.Criteria criteria = example.createCriteria();
+        //userId必须筛选，因为这样才能经过community筛选
+        criteria.andPackageUserIn(userIds);
         if (id != null && id != 0) {
             criteria.andPackageIdEqualTo(id);
-        }
-        if (user != null && !user.isEmpty()) {
-            criteria.andPackageUserIn(userIds);
         }
         if (content != null) {
             criteria.andPackageContentLike("%" + content + "%");
