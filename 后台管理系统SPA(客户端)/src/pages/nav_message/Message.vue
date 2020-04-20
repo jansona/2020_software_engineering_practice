@@ -3,20 +3,15 @@
         
         <el-tabs v-model="activeName" @tab-click="handleClick">
             <el-tab-pane label="集群消息" name="first">
-                <timeline :timeline="timeline">
+                <timeline :timeline="communityMessage">
                     <template v-slot:content="item">
-                        <div>姓名：{{ item.content.name }}</div>
-                        <div>身份证：{{ item.content.ID }}</div>
-                        <div>地址：{{ item.content.address }}</div>
+                        <div>姓名：{{ item.user.userName }}</div>
+                        <div>身份证：{{ item.user.userIdcard }}</div>
+                        <div>地址：{{ item.user.userAddress }}</div>
                     </template>
                     <template v-slot:buttons="item">
-                        <template v-if="item.title === '入群请求'">
-                            <el-button type="success" @click="enrollAdmit(item)">接受</el-button>
-                            <el-button type="danger" @click="enrollRefuse(item)">拒绝</el-button>
-                        </template>
-                        <template v-else>
-                            <el-button type="info" @click="quitCheck(item)">确定</el-button>
-                        </template>
+                        <el-button type="success" @click="enrollAdmit(item)">接受</el-button>
+                        <el-button type="danger" @click="enrollRefuse(item)">拒绝</el-button>
                     </template>
                 </timeline>
             </el-tab-pane>
@@ -69,17 +64,24 @@
             getEnrollQuitMessage() {
                 sessionStorage.setItem('communityId', 1);
                 getEnrollQuitMessage().then(res => {
-                    this.communityMessage = res.data.messages;
+                    debugger;
+                    this.communityMessage = res.data.content;
+                })
+            },
+            contentMapping() {
+                this.communityMessage.forEach((item) => {
+                    item.title = '入群请求';
+                    item.timestamp = item.applicationTime;
                 })
             },
             enrollAdmit(item) {
-                let para = { id: item.content.id, admit: true };
+                let para = { id: item.applicationId, admit: true };
                 checkEnroll(para).then((res) => {
                     this.getEnrollQuitMessage();
                 });
             },
             enrollRefuse(item) {
-                let para = { id: item.content.id, admit: false };
+                let para = { id: item.applicationId, admit: false };
                 checkEnroll(para).then((res) => {
                     this.getEnrollQuitMessage();
                 });

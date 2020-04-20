@@ -29,7 +29,7 @@ public class ApplicationService {
         ApplicationExample example = new ApplicationExample();
         ApplicationExample.Criteria criteria = example.createCriteria();
         criteria.andApplicationCommunityEqualTo(communityId);
-        criteria.andApplicationIspassGreaterThan((byte)-1);
+        criteria.andApplicationIspassEqualTo((byte)-1);
         List<Application> applications = applicationMapper.selectByExample(example);
         for(Application application : applications){
             User user = userMapper.selectByPrimaryKey(application.getApplicationUser());
@@ -41,9 +41,14 @@ public class ApplicationService {
     }
 
     public boolean passApplication(int id, int isPass){
-        Application application = new Application();
-        application.setApplicationId(id);
+        Application application = applicationMapper.selectByPrimaryKey(id);
         application.setApplicationIspass((byte)isPass);
+        if (isPass == 1){
+            User user = new User();
+            user.setUserId(application.getApplicationUser());
+            user.setUserCommunity(application.getApplicationCommunity());
+            userMapper.updateByPrimaryKeySelective(user);
+        }
         return applicationMapper.updateByPrimaryKeySelective(application) == 1;
     }
 

@@ -66,7 +66,6 @@
             requestLogin(loginParams).then(data => {
               this.logining = false;
               let code = data.data.code;
-              debugger;
               if (code !== 200) {
                 this.$message({
                   type: 'error'
