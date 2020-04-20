@@ -69,8 +69,12 @@
             getEnrollQuitMessage() {
                 sessionStorage.setItem('communityId', 1);
                 getEnrollQuitMessage().then(res => {
-                    this.communityMessage = res.data.messages;
+                    debugger;
+                    this.communityMessage = res.data.content;
                 })
+            },
+            contentMapping() {
+
             },
             enrollAdmit(item) {
                 let para = { id: item.content.id, admit: true };

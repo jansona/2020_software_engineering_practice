@@ -27,7 +27,6 @@ public class ApplicationController {
     @CrossOrigin
     @GetMapping(value = "/application/community")
     public Result getApplicationList(HttpServletRequest request){
-        HttpSession s =  request.getSession();
         int id = (int) request.getSession().getAttribute("communityId");
         List<Application> applications = applicationService.getApplications(id);
         long total = applicationService.getTotalPage();
