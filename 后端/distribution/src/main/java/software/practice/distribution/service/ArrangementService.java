@@ -13,6 +13,7 @@ import software.practice.distribution.mapper.UserMapper;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author ：Chang Jiaxin
@@ -34,10 +35,17 @@ public class ArrangementService {
     /*
     小程序端
      */
-    public List<Arrangement> getArrangement(int page) {
+    public Pair<Long,List> getArrangementAndPackageContent(int page) {
         ArrangementExample example = new ArrangementExample();
-        return arrangementMapper.selectByExampleWithRowbounds(example,
-                new RowBounds((page - 1) * 10, 10));
+        List<Arrangement> arrangements =  arrangementMapper.selectByExampleWithRowbounds(example, new RowBounds((page - 1) * 10, 10));
+        //查询每个arrangement的packageContent
+        List<Pair<Arrangement,String>> list = new ArrayList<>();
+        for (Arrangement arrangement : arrangements) {
+            int pid = arrangement.getArrangementPackage();
+            Package p = packageMapper.selectByPrimaryKey(pid);
+            list.add(new Pair(arrangement,p.getPackageContent()));
+        }
+        return new Pair<>(getTotalPage(example),list);
     }
 
     public Pair<Long, List<Arrangement>> getArrangement(int page, Integer id, String user, Integer package_id, String location, Time time, int communityId) {

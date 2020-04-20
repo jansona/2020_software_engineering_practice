@@ -64,10 +64,9 @@ public class ArrangementController {
     @CrossOrigin
     @GetMapping(value = "/arrangement/list")
     public Result getArrangement2(int page, HttpServletRequest request) {
-        List<Arrangement> arrangements = arrangementService.getArrangement(page);
-        long total = arrangementService.getTotalPage();
-        if(arrangements != null){
-            return new Result(200,total,arrangements);
+        Pair<Long,List> pair = arrangementService.getArrangementAndPackageContent(page);
+        if(pair != null && pair.getKey()!=null && pair.getValue()!=null){
+            return new Result(200,pair.getKey(),pair.getValue());
         }
         return new Result(400,"未找到");
     }
