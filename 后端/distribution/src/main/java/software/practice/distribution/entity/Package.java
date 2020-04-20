@@ -1,7 +1,5 @@
 package software.practice.distribution.entity;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 public class Package {
     /**
      *
@@ -20,6 +18,8 @@ public class Package {
      * @mbg.generated Thu Apr 16 15:44:10 CST 2020
      */
     private Integer packageUser;
+
+    private User user;
 
     /**
      *
@@ -100,5 +100,13 @@ public class Package {
      */
     public void setPackageContent(String packageContent) {
         this.packageContent = packageContent == null ? null : packageContent.trim();
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

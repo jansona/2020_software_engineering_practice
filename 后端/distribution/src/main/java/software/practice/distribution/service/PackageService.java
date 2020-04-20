@@ -54,7 +54,6 @@ public class PackageService {
         }
         List<Package> packages = packageMapper.selectByExampleWithRowbounds(example, new RowBounds((page - 1) * 10, 10));
         long totalPage = getTotalPage(example);
-
         return new Pair<>(totalPage,packages);
     }
 
