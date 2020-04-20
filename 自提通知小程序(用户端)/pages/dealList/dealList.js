@@ -8,23 +8,35 @@ Page({
     dealList:[
       {
         deal_id:1,
-        deal_isdone:true,
-        deal_content:"第一条"
+        deal_ispass: -1,
+        deal_type:0,
+        deal_time:"2020/01/01 12:01",
+        deal_content:"延迟一小时取货",
+        deal_response:""
       },
       {
         deal_id:2,
-        deal_isdone:true,
-        deal_content:"第二条"
+        deal_ispass: 0,
+        deal_type:1,
+        deal_time:"2020/02/02 12:02",
+        deal_content:"两点送货上门",
+        deal_response:"人手不够"
       },
       {
         deal_id:3,
-        deal_isdone:true,
-        deal_content:"第三条"
+        deal_ispass: 1,
+        deal_type:0,
+        deal_time:"2020/03/03 12:03",
+        deal_content:"延迟三小时取货",
+        deal_response:"将为您延迟三个小时"
       },
       {
         deal_id:4,
-        deal_isdone:true,
-        deal_content:"第四条"
+        deal_ispass: 0,
+        deal_type:1,
+        deal_time:"2020/04/04 12:04",
+        deal_content:"四点送货上门",
+        deal_response:""
       },
   ]
   },
@@ -32,6 +44,22 @@ Page({
   //总页数
   pagesTotal:1,
 
+  viewTap:function(event){
+    var content = event.currentTarget.dataset.value.deal_content;
+    var type = event.currentTarget.dataset.value.deal_type;
+    var time = event.currentTarget.dataset.value.deal_time;
+    var response = event.currentTarget.dataset.value.deal_response;
+    var ispass = event.currentTarget.dataset.value.deal_ispass;
+    var state = "未处理";
+    if(ispass == 0)
+      state = "未通过";
+    else if(ispass == 1)
+      state = "已通过"  
+    wx.navigateTo({
+      url: '/pages/dealInfo/dealInfo?content='+content+'&type ='+type+'&time='+time
+      +'&response='+response+'&state='+state,
+    })
+  },
   
   changeTabs: function(e){
     console.log(e)

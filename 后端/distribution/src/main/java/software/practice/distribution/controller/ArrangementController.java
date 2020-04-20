@@ -58,4 +58,17 @@ public class ArrangementController {
         }
         return new Result(400,"删除失败");
     }
+    /*
+    小程序端
+     */
+    @CrossOrigin
+    @GetMapping(value = "/arrangement/list")
+    public Result getArrangement2(int page, HttpServletRequest request) {
+        List<Arrangement> arrangements = arrangementService.getArrangement(page);
+        long total = arrangementService.getTotalPage();
+        if(arrangements != null){
+            return new Result(200,total,arrangements);
+        }
+        return new Result(400,"未找到");
+    }
 }

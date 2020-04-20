@@ -1,9 +1,10 @@
 import axios from 'axios';
+import Qs from 'qs';
+axios.defaults.withCredentials = true;
 
 let base = 'http://localhost:8443';
 
-export const requestLogin = params => { return axios.post(`/login`, params).then(res => res.data); };
-
+// 项目无关的示例，模板遗留
 export const getUserList = params => { return axios.get(`${base}/user/list`, { params: params }); };
 
 export const getUserListPage = params => { return axios.get(`${base}/user/listpage`, { params: params }); };
@@ -16,12 +17,23 @@ export const editUser = params => { return axios.get(`${base}/user/edit`, { para
 
 export const addUser = params => { return axios.get(`${base}/user/add`, { params: params }); };
 
+// 注册登录
+export const requestLogin = params => { return axios.post(`${base}/login`, Qs.stringify(params) ); };
+// export const requestLogin = params => { debugger; return axios({
+//     method: 'POST',
+//     url: `${base}/login`,
+//     data: params,
+//     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+// }) };
+
+// 工作安排相关
 export const getArrangementListPage = params => { return axios.get(`${base}/arrangement/listpage`, { params: params }); };
 
 export const removeArrangement = params => { return axios.get(`${base}/arrangement/remove`, { params: params }); };
 
 export const batchRemoveArrangement = params => { return axios.get(`${base}/arrangement/batchremove`, { params: params }); };
 
+// 物资相关
 export const getGoodsListPage = params => { return axios.get(`${base}/package/listpage`, { params: params }); };
 
 export const removeGoods = params => { return axios.get(`${base}/package/remove`, { params: params }); };
@@ -32,4 +44,12 @@ export const editGoods = params => { return axios.post(`${base}/package/edit`, p
 
 export const addGoods = params => { return axios.post(`${base}/package/add`, params); };
 
+// 用户相关
 export const getUsersListPage = params => { return axios.get(`${base}/users/listpage`, { params: params }); };
+
+// 入/退群相关消息及处理
+export const getEnrollQuitMessage = () => { return axios.get(`${base}/application/community`)};
+
+export const checkEnroll = params => { return axios.get(`${base}/application/check-enroll`, { params: params }); };
+
+export const checkQuit = params => { return axios.get(`${base}/application/check-quit`, { params: params }); };

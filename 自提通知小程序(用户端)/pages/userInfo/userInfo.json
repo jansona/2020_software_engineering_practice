@@ -1,8 +1,7 @@
 {
-  "component": true,
   "usingComponents": {
-    "mp-cells": "/pages/components/cells/cells",
-    "mp-cell": "/pages/components/cell/cell",
-    "mp-form": "/pages/components/form/form"
+    "mp-cells": "/components/cells/cells",
+    "mp-cell": "/components/cell/cell",
+    "mp-form": "/components/form/form"
   }
 }

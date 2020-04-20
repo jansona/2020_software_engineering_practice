@@ -7,14 +7,18 @@ Page({
    * 页面的初始数据
    */
   data: {
-      package_count: 1,
-      deal_count : 10
+      package_count: 10,
+      deal_count : 1,
+      hasUserInfo:false,
+      userInfo: {},
+      canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(app.globalData.userInfo)
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -28,6 +32,7 @@ Page({
           userInfo: res.userInfo,
           hasUserInfo: true
         })
+        console.log(this.data.hasUserInfo)
       }
     } else {
       // 在没有 open-type=getUserInfo 版本的兼容处理

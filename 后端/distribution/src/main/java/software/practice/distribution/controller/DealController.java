@@ -1,11 +1,13 @@
 package software.practice.distribution.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.bind.annotation.*;
 import software.practice.distribution.entity.Deal;
 import software.practice.distribution.result.Result;
 import software.practice.distribution.service.DealService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -29,8 +31,9 @@ public class DealController {
 
     @CrossOrigin
     @PostMapping(value = "/deal/list")
-    public Result getDealByUser(int user_id){
-        List<Deal> list = dealService.getDealsByUserId(user_id);
+    public Result getDealByUser(int page, Byte dealIspass, HttpServletRequest request){
+        int user_id = (int)request.getSession().getAttribute("userId");
+        List<Deal> list = dealService.getDealsByUserId(user_id,page,dealIspass);
         if(list != null){
             return new Result(200,null,list);
         }

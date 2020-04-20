@@ -8,6 +8,7 @@ import software.practice.distribution.result.Result;
 import software.practice.distribution.service.ApplicationService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -31,6 +32,19 @@ public class ApplicationController {
         Pair<Long,List<Application>> applications = applicationService.getApplications(id);
         if(applications != null){
             return new Result(200,applications.getKey(),applications.getValue());
+        }
+        return new Result(400,"未找到");
+    }
+    /*
+    小程序端
+     */
+    @CrossOrigin
+    @GetMapping(value = "/application/info")
+    public Result getApplicationList2(HttpServletRequest request){
+        int userId = (int) request.getSession().getAttribute("userId");
+        List<Application> applications = applicationService.getApplicationByUserId(userId);
+        if(applications != null){
+            return new Result(200,null,applications);
         }
         return new Result(400,"未找到");
     }

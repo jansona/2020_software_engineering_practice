@@ -1,15 +1,17 @@
 <!--特殊申请列表界面-->
 <l-tabs bind:linchange="changeTabs">
 	<l-tabpanel tab="全部" key="one" slot="one">
-  		<view class="first_tab">
-	  <navigator class="deal_item" wx:for="{{dealList}}" wx:key="{{deal_id}}" 
-	  url="/pages/dealInfo/dealInfo?deal_id={{item.deal_id}}&deal_content={{item.deal_content}}">
-        <view class = "deal_info_wrap">
-          <view class="deal_state">{{item.deal_isdone?"已完成":"待处理"}}</view>
-          <view class="content">{{item.deal_content}}</view>
-        </view>
-      </navigator>
-    </view>
+		<view class="weui-panel" wx:for="{{dealList}}" data-value="{{item}}" wx:key="{{item.deal_id}}" bindtap="viewTap">
+			<view class="weui-panel__bd">
+				<view class="weui-media-box weui-media-box_text">
+					<view class="weui-media-box__title weui-media-box__title_in-text">{{item.deal_type>0?"送货上门":"延迟取货"}}</view>
+					<view class="weui-media-box__desc">{{item.deal_content}}</view>
+					<view class="weui-media-box__info">
+						<view class="weui-media-box__info__meta">{{item.deal_time}}</view>
+						</view>
+					</view>
+				</view>
+			</view>
 	</l-tabpanel>
 	<l-tabpanel tab="已处理" key="two" slot="two">
 		<view class="tab-content">已处理</view>
@@ -18,4 +20,3 @@
 		<view class="tab-content">待处理</view>
 	</l-tabpanel>
 </l-tabs>
-

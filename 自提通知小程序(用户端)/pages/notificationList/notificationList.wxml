@@ -3,11 +3,11 @@
 	<l-tabpanel tab="当天" key="one" slot="one">
   		<view class="first_tab">
 	  <navigator class="notification_item" wx:for="{{notificationList}}" wx:key="{{packgae_id}}" 
-	  url="/pages/notificationInfo/notificationInfo?package_name={{item.package_name}}&package_id={{item.package_id}}&time={{item.time}}&location={{item.location}}">
+	  url="/pages/notificationInfo/notificationInfo?package_name={{item.package_name}}&package_id={{item.package_id}}&time={{item.arrangement_time}}&location={{item.arrangement_location}}">
         <view class = "notification_info_wrap">
           <view class="package_name">{{item.package_name}}</view>
-          <view class="notification_time">{{item.time}}</view>
-          <view class="notification_location">{{item.location}}</view>
+          <view class="notification_time">{{item.arrangement_time}}</view>
+          <view class="notification_location">{{item.arrangement_location}}</view>
         </view>
       </navigator>
     </view>

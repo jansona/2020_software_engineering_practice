@@ -1,1 +1,7 @@
 /* pages/userInfo/userInfo.wxss */
+@import "/style/weui.wxss";
+
+.edit{
+  display: flex;
+  justify-content:center;
+}
