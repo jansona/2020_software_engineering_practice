@@ -61,14 +61,15 @@ public class ArrangementController {
     /*
     小程序端
      */
-    @CrossOrigin
-    @GetMapping(value = "/arrangement/list")
-    public Result getArrangement2(int page, HttpServletRequest request) {
-        List<Arrangement> arrangements = arrangementService.getArrangement(page);
-        long total = arrangementService.getTotalPage();
-        if(arrangements != null){
-            return new Result(200,total,arrangements);
-        }
-        return new Result(400,"未找到");
-    }
+    //TODO 该接口下的getTotalPage有变动，暂未修改
+//    @CrossOrigin
+//    @GetMapping(value = "/arrangement/list")
+//    public Result getArrangement2(int page, HttpServletRequest request) {
+//        List<Arrangement> arrangements = arrangementService.getArrangement(page);
+//        long total = arrangementService.getTotalPage();
+//        if(arrangements != null){
+//            return new Result(200,total,arrangements);
+//        }
+//        return new Result(400,"未找到");
+//    }
 }

@@ -29,7 +29,8 @@ public class ApplicationService {
         ApplicationExample example = new ApplicationExample();
         ApplicationExample.Criteria criteria = example.createCriteria();
         criteria.andApplicationCommunityEqualTo(communityId);
-        criteria.andApplicationIspassGreaterThan((byte)-1);
+//        criteria.andApplicationIspassGreaterThan((byte)-1);
+        criteria.andApplicationIspassEqualTo((byte)-1);
         List<Application> applications = applicationMapper.selectByExample(example);
         for(Application application : applications){
             User user = userMapper.selectByPrimaryKey(application.getApplicationUser());
