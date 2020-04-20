@@ -1,5 +1,6 @@
 package software.practice.distribution.controller;
 
+import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import software.practice.distribution.Utils.BasicUtil;
@@ -24,14 +25,13 @@ public class PackageController {
     @GetMapping(value = "/package/listpage")
     public Result getPackage(int page, String id, String user, String content, HttpServletRequest request) {
         int communityId = (int) request.getSession().getAttribute("communityId");
-        List<Package> packages = packageService.getPackages(page,
+        Pair<Long, List<Package>> packages = packageService.getPackages(page,
                 BasicUtil.covertStrInt(id),
                 user,
                 content,
                 communityId);
-        long total = packageService.getTotalPage();
         if(packages != null){
-            return new Result(200,total,packages);
+            return new Result(200,packages.getKey(),packages.getValue());
         }
         return new Result(400,"未找到");
     }

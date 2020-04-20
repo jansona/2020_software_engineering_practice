@@ -1,5 +1,6 @@
 package software.practice.distribution.service;
 
+import javafx.util.Pair;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,7 @@ public class ArrangementService {
     @Autowired
     PackageMapper packageMapper;
 
-    public List<Arrangement> getArrangement(int page, Integer id, String user, Integer package_id, String location, Time time, int communityId) {
+    public Pair<Long, List<Arrangement>> getArrangement(int page, Integer id, String user, Integer package_id, String location, Time time, int communityId) {
         List<Integer> packageIds = new ArrayList<>();
 
         //根据user查package
@@ -86,7 +87,8 @@ public class ArrangementService {
             Package p = packageMapper.selectByPrimaryKey(pid);
             arrangement.setArrangementUser(p.getPackageUser());
         }
-        return arrangements;
+        long totalPage = getTotalPage(example);
+        return new Pair<>(totalPage,arrangements);
     }
 
     public boolean removeArrangement(int id) {
@@ -100,7 +102,7 @@ public class ArrangementService {
         return true;
     }
 
-    public long getTotalPage() {
-        return arrangementMapper.countByExample(new ArrangementExample());
+    public long getTotalPage(ArrangementExample example) {
+        return arrangementMapper.countByExample(example);
     }
 }

@@ -1,5 +1,6 @@
 package software.practice.distribution.controller;
 
+import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,16 +28,15 @@ public class ArrangementController {
     @GetMapping(value = "/arrangement/listpage")
     public Result getArrangement(int page, String id, String user, String package_id, String location, String time, HttpServletRequest request) {
         int communityId = (int) request.getSession().getAttribute("communityId");
-        List<Arrangement> arrangements = arrangementService.getArrangement(page,
+        Pair<Long, List<Arrangement>> arrangements = arrangementService.getArrangement(page,
                 BasicUtil.covertStrInt(id),
                 user,
                 BasicUtil.covertStrInt(package_id),
                 location,
                 BasicUtil.covertStrTime(time),
                 communityId);
-        long total = arrangementService.getTotalPage();
         if(arrangements != null){
-            return new Result(200,total,arrangements);
+            return new Result(200,arrangements.getKey(),arrangements.getValue());
         }
         return new Result(400,"未找到");
     }

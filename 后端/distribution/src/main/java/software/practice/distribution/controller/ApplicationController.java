@@ -1,5 +1,6 @@
 package software.practice.distribution.controller;
 
+import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import software.practice.distribution.entity.Application;
@@ -27,10 +28,9 @@ public class ApplicationController {
     @GetMapping(value = "/application/community")
     public Result getApplicationList(HttpServletRequest request){
         int id = (int) request.getSession().getAttribute("communityId");
-        List<Application> applications = applicationService.getApplications(id);
-        long total = applicationService.getTotalPage();
+        Pair<Long,List<Application>> applications = applicationService.getApplications(id);
         if(applications != null){
-            return new Result(200,total,applications);
+            return new Result(200,applications.getKey(),applications.getValue());
         }
         return new Result(400,"未找到");
     }

@@ -1,5 +1,6 @@
 package software.practice.distribution.service;
 
+import javafx.util.Pair;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class PackageService {
     @Autowired
     UserMapper userMapper;
 
-    public List<Package> getPackages(int page, Integer id, String user, String content, int communityId) {
+    public Pair<Long, List<Package>> getPackages(int page, Integer id, String user, String content, int communityId) {
         List<Integer> userIds = new ArrayList<>();
         UserExample userExample = new UserExample();
         UserExample.Criteria uc = userExample.createCriteria();
@@ -53,8 +54,10 @@ public class PackageService {
         if (content != null) {
             criteria.andPackageContentLike("%" + content + "%");
         }
+        List<Package> packages = packageMapper.selectByExampleWithRowbounds(example, new RowBounds((page - 1) * 10, 10));
+        long totalPage = getTotalPage(example);
 
-        return packageMapper.selectByExampleWithRowbounds(example, new RowBounds((page - 1) * 10, 10));
+        return new Pair<>(totalPage,packages);
     }
 
     public boolean addPackage(Package p) {
@@ -76,7 +79,7 @@ public class PackageService {
         return true;
     }
 
-    public long getTotalPage() {
-        return packageMapper.countByExample(new PackageExample());
+    public long getTotalPage(PackageExample example) {
+        return packageMapper.countByExample(example);
     }
 }
