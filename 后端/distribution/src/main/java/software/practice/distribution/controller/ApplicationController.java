@@ -1,5 +1,6 @@
 package software.practice.distribution.controller;
 
+import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import software.practice.distribution.entity.Application;
@@ -27,12 +28,26 @@ public class ApplicationController {
     @CrossOrigin
     @GetMapping(value = "/application/community")
     public Result getApplicationList(HttpServletRequest request){
-        HttpSession s =  request.getSession();
         int id = (int) request.getSession().getAttribute("communityId");
-        List<Application> applications = applicationService.getApplications(id);
-        long total = applicationService.getTotalPage();
+        Pair<Long,List<Application>> applications = applicationService.getApplications(id);
         if(applications != null){
-            return new Result(200,total,applications);
+            return new Result(200,applications.getKey(),applications.getValue());
+        }
+        return new Result(400,"未找到");
+    }
+    /*
+    小程序端
+     */
+    @CrossOrigin
+    @GetMapping(value = "/application/info")
+    public Result getApplicationList2(HttpServletRequest request){
+        int userId = (int) request.getSession().getAttribute("userId");
+        List<Application> applications = applicationService.getApplicationByUserId(userId);
+        if(applications != null){
+            if(applications.size() == 1)
+                return new Result(200,null,applications.get(0));
+            else
+                return new Result(400,"找到重复Applications");
         }
         return new Result(400,"未找到");
     }

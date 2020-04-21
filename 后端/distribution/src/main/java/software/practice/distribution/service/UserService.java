@@ -19,15 +19,20 @@ public class UserService {
     CommunityMapper communityMapper;
 
     public User getUserByUserId(int userId){
-        return userMapper.selectByPrimaryKey(userId);
+        User user = userMapper.selectByPrimaryKey(userId);
+        user.setUserPassword(null);
+        return user;
     }
 
     public Boolean createUser(User user){
         return userMapper.insert(user) == 1;
     }
 
-    public List<User> getUsers(int page, Integer id, String name, String home, int communityId){
+    public Boolean updateUser(User user){
+        return userMapper.updateByPrimaryKey(user) == 1;
+    }
 
+    public List<User> getUsers(int page, Integer id, String name, String home, int communityId){
         UserExample example = new UserExample();
         UserExample.Criteria criteria = example.createCriteria();
         criteria.andUserCommunityEqualTo(communityId);
@@ -40,10 +45,20 @@ public class UserService {
         if (home != null && !home.isEmpty()){
             criteria.andUserAddressLike("%" + home + "%");
         }
-        return userMapper.selectByExampleWithRowbounds(example,new RowBounds((page-1)*10,10));
+        List<User> users = userMapper.selectByExampleWithRowbounds(example,new RowBounds((page-1)*10,10));
+        for (User user :users){
+            user.setUserPassword(null);
+        }
+        return users;
     }
 
     public long getTotalPage(){
         return userMapper.countByExample(new UserExample())/10;
+    }
+
+    public User getUserInfoByUserId(int userId){
+        User user = getUserByUserId(userId);
+        user.setCommunity(communityMapper.selectByPrimaryKey(user.getUserCommunity()));
+        return user;
     }
 }

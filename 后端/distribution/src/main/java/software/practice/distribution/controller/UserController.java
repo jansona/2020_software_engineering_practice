@@ -39,8 +39,19 @@ public class UserController {
     @CrossOrigin
     @PostMapping(value = "/user/edit")
     public Result updateUserInformation(@RequestBody User user){
-        if(userService.createUser(user)){
+        if(userService.updateUser(user)){
             return new Result(200,null,user);
+        }
+        return new Result(400,"未找到");
+    }
+
+    @CrossOrigin
+    @PostMapping(value = "/user/info")
+    public Result getUserInformation(HttpServletRequest request){
+        int userId = (int)request.getSession().getAttribute("userId");
+        User user = userService.getUserInfoByUserId(userId);
+        if(user!=null) {
+            return new Result(200, null, user);
         }
         return new Result(400,"未找到");
     }

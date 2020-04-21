@@ -54,8 +54,6 @@
         <table tableName="user"/>
 
         -->
-        <table tableName="deal"/>
-        <table tableName="application"/>
 
     </context>
 </generatorConfiguration>

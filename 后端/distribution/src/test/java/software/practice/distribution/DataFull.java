@@ -51,9 +51,10 @@ public class DataFull {
                 User user = new User();
                 user.setUserId(j + 20 * i + 1);
                 user.setUserName("用户" + (j + 20 * i + 1));
-                user.setUserCommunity(i + 1);
+                if(i != 4) user.setUserCommunity(i + 1);
                 user.setUserAddress((i + 1) +"号楼 门牌号" + (j + 1));
                 user.setUserPassword("123456");
+                user.setUserIdcard("100000199901010001");
                 user.setUserFavoriteStarttime(new Date());
                 user.setUserTimeStay(3600);
                 userMapper.insert(user);
@@ -64,15 +65,16 @@ public class DataFull {
                 application.setApplicationTime(new Date());
                 application.setApplicationUser(j + 20 * i + 1);
                 application.setApplicationCommunity(i + 1);
-                application.setApplicationIspass((byte)1);
-                applicationMapper.insert(application);
+                // 第五号社区全都不处理community
+                if(i != 4) application.setApplicationIspass((byte)1);
+                applicationMapper.insertSelective(application);
 
                 // 每个人3个包裹，共300个包裹
                 for (int k = 0; k < 3; k++) {
                     Package p = new Package();
-                    p.setPackageId(k + 3 * (j + 20 * i) + 1);
-                    p.setPackageUser(j + 1);
-                    p.setPackageContent("口罩5个");
+                    p.setPackageId(60 * i + 3 * j + k + 1);
+                    p.setPackageUser(20 * i + j + 1);
+                    p.setPackageContent("口罩"+ (60 * i + 3 * j + k + 1) +"个");
                     packageMapper.insert(p);
                 }
             }
