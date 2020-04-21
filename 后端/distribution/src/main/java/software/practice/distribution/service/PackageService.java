@@ -31,7 +31,7 @@ public class PackageService {
         UserExample userExample = new UserExample();
         UserExample.Criteria uc = userExample.createCriteria();
         if (user != null && !user.isEmpty()) {
-            uc.andUserNameEqualTo(user);
+            uc.andUserNameLike("%" + user + "%");
         }
         uc.andUserCommunityEqualTo(communityId);
         List<User> users = userMapper.selectByExample(userExample);
@@ -42,21 +42,18 @@ public class PackageService {
             userIds.add(user1.getUserId());
         }
 
-
         PackageExample example = new PackageExample();
         PackageExample.Criteria criteria = example.createCriteria();
+        //userId必须筛选，因为这样才能经过community筛选
+        criteria.andPackageUserIn(userIds);
         if (id != null && id != 0) {
             criteria.andPackageIdEqualTo(id);
-        }
-        if (user != null && !user.isEmpty()) {
-            criteria.andPackageUserIn(userIds);
         }
         if (content != null) {
             criteria.andPackageContentLike("%" + content + "%");
         }
         List<Package> packages = packageMapper.selectByExampleWithRowbounds(example, new RowBounds((page - 1) * 10, 10));
         long totalPage = getTotalPage(example);
-
         return new Pair<>(totalPage,packages);
     }
 

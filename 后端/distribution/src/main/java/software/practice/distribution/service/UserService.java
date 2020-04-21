@@ -3,14 +3,11 @@ package software.practice.distribution.service;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import software.practice.distribution.entity.Community;
 import software.practice.distribution.entity.User;
 import software.practice.distribution.entity.UserExample;
 import software.practice.distribution.mapper.CommunityMapper;
 import software.practice.distribution.mapper.UserMapper;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -32,8 +29,7 @@ public class UserService {
     }
 
     public Boolean updateUser(User user){
-        int ret = userMapper.updateByPrimaryKey(user);
-        return (ret==1)?true:false ;
+        return userMapper.updateByPrimaryKey(user) == 1;
     }
 
     public List<User> getUsers(int page, Integer id, String name, String home, int communityId){
@@ -60,9 +56,9 @@ public class UserService {
         return userMapper.countByExample(new UserExample())/10;
     }
 
-    public List<Object> getUserInfoByUserId(int userId){
+    public User getUserInfoByUserId(int userId){
         User user = getUserByUserId(userId);
-        Community community = communityMapper.selectByPrimaryKey(user.getUserCommunity());
-        return Arrays.asList(user,community);
+        user.setCommunity(communityMapper.selectByPrimaryKey(user.getUserCommunity()));
+        return user;
     }
 }

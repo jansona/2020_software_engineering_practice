@@ -67,15 +67,14 @@ public class DataFull {
                 application.setApplicationCommunity(i + 1);
                 // 第五号社区全都不处理community
                 if(i != 4) application.setApplicationIspass((byte)1);
-                else application.setApplicationIspass((byte)-1);
-                applicationMapper.insert(application);
+                applicationMapper.insertSelective(application);
 
                 // 每个人3个包裹，共300个包裹
                 for (int k = 0; k < 3; k++) {
                     Package p = new Package();
-                    p.setPackageId(k + 3 * (j + 20 * i) + 1);
-                    p.setPackageUser(j + 1);
-                    p.setPackageContent("口罩5个");
+                    p.setPackageId(60 * i + 3 * j + k + 1);
+                    p.setPackageUser(20 * i + j + 1);
+                    p.setPackageContent("口罩"+ (60 * i + 3 * j + k + 1) +"个");
                     packageMapper.insert(p);
                 }
             }

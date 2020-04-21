@@ -12,11 +12,6 @@ import software.practice.distribution.service.LoginService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-
-class LoginInfo {
-
-}
-
 @RestController
 public class LoginController {
     @Autowired

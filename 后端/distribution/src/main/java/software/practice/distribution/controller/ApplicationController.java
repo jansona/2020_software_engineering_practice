@@ -44,7 +44,10 @@ public class ApplicationController {
         int userId = (int) request.getSession().getAttribute("userId");
         List<Application> applications = applicationService.getApplicationByUserId(userId);
         if(applications != null){
-            return new Result(200,null,applications);
+            if(applications.size() == 1)
+                return new Result(200,null,applications.get(0));
+            else
+                return new Result(400,"找到重复Applications");
         }
         return new Result(400,"未找到");
     }

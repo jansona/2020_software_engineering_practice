@@ -34,10 +34,17 @@ public class ArrangementService {
     /*
     小程序端
      */
-    public List<Arrangement> getArrangement(int page) {
+    public Pair<Long,List<Pair<Arrangement,String>>> getArrangementAndPackageContent(int page) {
         ArrangementExample example = new ArrangementExample();
-        return arrangementMapper.selectByExampleWithRowbounds(example,
-                new RowBounds((page - 1) * 10, 10));
+        List<Arrangement> arrangements =  arrangementMapper.selectByExampleWithRowbounds(example, new RowBounds((page - 1) * 10, 10));
+        //查询每个arrangement的packageContent
+        List<Pair<Arrangement,String>> list = new ArrayList<>();
+        for (Arrangement arrangement : arrangements) {
+            int pid = arrangement.getArrangementPackage();
+            Package p = packageMapper.selectByPrimaryKey(pid);
+            list.add(new Pair<>(arrangement, p.getPackageContent()));
+        }
+        return new Pair<>(getTotalPage(example),list);
     }
 
     public Pair<Long, List<Arrangement>> getArrangement(int page, Integer id, String user, Integer package_id, String location, Time time, int communityId) {
@@ -49,7 +56,7 @@ public class ArrangementService {
         //限定社区
         uc.andUserCommunityEqualTo(communityId);
         if (user != null && !user.isEmpty()) {
-            uc.andUserNameEqualTo(user);
+            uc.andUserNameLike("%" + user + "%");
         }
         List<User> users = userMapper.selectByExample(userExample);
         if (users == null || users.isEmpty()) {

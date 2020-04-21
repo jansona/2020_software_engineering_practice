@@ -22,7 +22,7 @@ public class ApplicationService {
 
     public boolean createApplication(Application application){
         application.setApplicationTime(new Date());
-        return applicationMapper.insert(application) == 1;
+        return applicationMapper.insertSelective(application) == 1;
     }
 
     public Pair<Long,List<Application>> getApplications(int communityId){
@@ -36,7 +36,7 @@ public class ApplicationService {
             user.setUserPassword(null);
             application.setUser(user);
         }
-        long totalPage = getTotalPage(example);
+        long totalPage = applicationMapper.countByExample(example);;
         return new Pair<>(totalPage, applications);
     }
 
@@ -50,10 +50,6 @@ public class ApplicationService {
             userMapper.updateByPrimaryKeySelective(user);
         }
         return applicationMapper.updateByPrimaryKeySelective(application) == 1;
-    }
-
-    public long getTotalPage(ApplicationExample example){
-        return applicationMapper.countByExample(example);
     }
 
     public List<Application> getApplicationByUserId(int userId){
