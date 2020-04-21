@@ -47,13 +47,36 @@ Page({
       })
     }
   },
+
   getUserInfo: function(e) {
-    console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
+  },
+
+  listTap: function(e) {
+    var field = e.currentTarget.dataset.dataset;
+    var user = app.globalData.user;
+    if(user.name == ""){
+      wx.showModal({
+        title:"登录提示",
+        content:"请先登录",
+        success(res){
+          if(res.confirm){
+            wx.redirectTo({
+              url: '/pages/login/login',
+            })
+          }
+        }
+      })
+    }else{
+      wx.navigateTo({
+        url: '/pages/'+field+'/'+field,
+      })
+    }
+
   },
 
   /**

@@ -1,15 +1,6 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/userInfo/userInfo",
-    "pages/dealList/dealList",
-    "pages/notificationList/notificationList",
-    "pages/dealInfo/dealInfo",
-    "pages/notificationInfo/notificationInfo",
-    "pages/dealAdd/dealAdd",
-    "pages/register/register",
-    "pages/login/login",
-    "pages/community/community"
+    "pages/index/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -22,6 +13,7 @@
   "usingComponents": {
     "l-icon": "/dist/icon/index",
     "l-input": "/dist/input/index",
-    "l-button": "/dist/button/index"
+    "l-button": "/dist/button/index",
+    "l-toast": "/dist/toast/index"
   }
 }

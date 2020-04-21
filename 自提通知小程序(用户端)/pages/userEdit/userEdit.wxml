@@ -2,7 +2,7 @@
 <mp-form id="form" rules="{{rules}}" models="{{formData}}">
 	<mp-cells title="住户基本信息">
 		<mp-cell title="姓名" ext-class="">
-			<input bindinput="formInputChange"  data-field="user_name" value="{{user_name}}" class="weui-input" />
+			<input bindinput="formInputChange"  data-field="user_name" value="{{user_name}}" class="weui-input" disabled="{{name_dis}}"/>
 		</mp-cell>
 		<mp-cell title="地址" ext-class="">
 			<input bindinput="formInputChange" data-field="user_address" value="{{user_address}}" class="weui-input" />
@@ -23,4 +23,4 @@
 	</mp-cells>
 </mp-form>
 
-<l-button class="submit"  size="large" bindtap="submitForm" disabled="{{disable}}">确定</l-button>
+<l-button class="submit" style="display: flex;justify-content:center;margin-top:20rpx" size="large" bindtap="submitForm" disabled="{{disable}}">确定</l-button>

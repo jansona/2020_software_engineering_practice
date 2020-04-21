@@ -31,6 +31,15 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    user:{
+      name:"",
+      password:"",
+      address:"",
+      start:"",
+      stay:"",
+      idcard:"",
+      community:""
+    }
   }
 })

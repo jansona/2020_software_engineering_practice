@@ -13,7 +13,7 @@
 	</block>
 </view>
 
-<l-list title="个人信息" url="/pages/userInfo/userInfo" icon="user" />
-<l-list title="集群管理" url="/pages/community/community" icon="edit" />
-<l-list title="自提通知" url="/pages/notificationList/notificationList" icon="notification" badge-count="{{package_count}}" badge-position="right" />
-<l-list title="特殊申请" url="/pages/dealList/dealList" icon="order" badge-count="{{deal_count}}" badge-position="right" />
+<l-list title="个人信息" data-dataset="userInfo" bindtap="listTap" icon="user" />
+<l-list title="集群管理" data-dataset="community" bindtap="listTap" icon="edit" />
+<l-list title="自提通知" data-dataset="notificationList" bindtap="listTap" icon="notification" badge-count="{{package_count}}" badge-position="right" />
+<l-list title="特殊申请" data-dataset="dealList" bindtap="listTap" icon="order" badge-count="{{deal_count}}" badge-position="right" />
