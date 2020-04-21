@@ -67,6 +67,7 @@ public class DataFull {
                 application.setApplicationCommunity(i + 1);
                 // 第五号社区全都不处理community
                 if(i != 4) application.setApplicationIspass((byte)1);
+                else application.setApplicationIspass((byte)-1);
                 applicationMapper.insert(application);
 
                 // 每个人3个包裹，共300个包裹
