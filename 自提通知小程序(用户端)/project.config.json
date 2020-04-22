@@ -4,16 +4,24 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"preloadBackgroundData": false,
 		"minified": true,
 		"newFeature": true,
-		"autoAudits": false,
 		"coverView": true,
+		"autoAudits": false,
 		"showShadowRootInWxmlPanel": true,
-		"scopeDataCheck": false
+		"scopeDataCheck": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.10.4",
@@ -75,6 +83,20 @@
 					"name": "特殊处理详情",
 					"pathName": "pages/dealInfo/dealInfo",
 					"query": "content=1点取货&type=1&state=已通过&response=好的&time=12:01",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "集群管理",
+					"pathName": "pages/community/community",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "用户登录",
+					"pathName": "pages/login/login",
+					"query": "",
 					"scene": null
 				}
 			]

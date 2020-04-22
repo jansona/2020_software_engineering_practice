@@ -1,5 +1,5 @@
 <!--pages/login/login.wxml-->
-<l-input label="用户名"  placeholder="请输入用户名" maxlength="10" type="text"  bind:lininput="inputChange" data-field="username"/>
+<l-input label="手机号"  placeholder="请输入手机号" maxlength="11" type="number"  bind:lininput="inputChange" data-field="userphone"/>
 <l-input label="密码"  placeholder="请输入密码"  type="password" maxlength="15" bind:lininput="inputChange" data-field="password"/>
 <l-button size="large" bindtap="loginTap" style="margin-top: 20rpx;display: flex;justify-content:center;">登录</l-button>
 <navigator open-type="redirect" url="/pages/register/register" style="margin-top:20rpx;">还没有账户，去注册</navigator>

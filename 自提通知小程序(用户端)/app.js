@@ -2,7 +2,6 @@
 App({
   onLaunch: function () {
     // 展示本地存储能力
-
     // 登录
     wx.login({
       success: res => {
@@ -34,6 +33,7 @@ App({
     userInfo: null,
     user:{
       name:"",
+      phone:"",
       password:"",
       address:"",
       start:"",

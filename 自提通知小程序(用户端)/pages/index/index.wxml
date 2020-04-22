@@ -1,6 +1,6 @@
 <!--主页面-->
 <view class="parentView">
-	<l-button wx:if="{{!hasUserInfo && canIUse}}" class="userButton" size="medium" open-type="getUserInfo" bind:getUserInfo="getUserInfo">获取微信头像昵称</l-button>
+	<l-button wx:if="{{!hasUserInfo && canIUse}}" class="userButton" size="medium" open-type="getUserInfo" bind:getuserinfo="getUserInfo">获取微信头像昵称</l-button>
 	<block wx:else>
 		<!--背景图片-->
 		<view class="parentImg">

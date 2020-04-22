@@ -1,1 +1,50 @@
 /* pages/community/community.wxss */
+.content_wrap {
+  width: 90%;
+  height: 200rpx;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px 4rpx 16rpx 0px rgba(140, 160, 181, 0.2);
+  border-radius: 12rpx;
+  display: flex;
+  flex-direction: column;
+  padding:20rpx 40rpx;
+  justify-content: space-between;
+  box-sizing: border-box;
+  margin-bottom: 30rpx;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.state_wrap .info_wrap {
+  display: flex;
+}
+
+.left{
+  font-size: 40rpx;
+  color:rgba(140, 152, 174, 1);
+  float:left;
+}
+
+.right{
+  font-size: 40rpx;
+  color:rgba(69,82,107,1);
+  float:right;
+}
+
+.community {
+  width: 90%;
+  height: 100rpx;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px 4rpx 16rpx 0px rgba(140, 160, 181, 0.2);
+  border-radius: 12rpx;
+  display: flex;
+  padding:20rpx 40rpx;
+  justify-content: space-between;
+  box-sizing: border-box;
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+  margin-left: 5%;
+  margin-right: 5%;
+  font-size: 32rpx;
+  color:rgb(94, 131, 201);
+}

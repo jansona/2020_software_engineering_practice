@@ -40,11 +40,11 @@ Page({
             success(res){}
           })
       }
-      if(pass1.length < 8 )
+      if(pass1.length < 6 )
       {
           wx.showModal({
             title: "提示",
-            content: '密码长度至少为8(不含空格)',
+            content: '密码长度至少为6(不含空格)',
             showCancel: false,
             success(res){}
           })
@@ -58,7 +58,7 @@ Page({
             success(res){}
           })
       }
-      if(name.length >= 3 && pass1.length >= 8 && pass1 == pass2)
+      if(name.length >= 3 && pass1.length >= 6 && pass1 == pass2)
       {
         wx.navigateTo({
           url: '/pages/userEdit/userEdit?type=1&name='+name+"&pass="+pass1,

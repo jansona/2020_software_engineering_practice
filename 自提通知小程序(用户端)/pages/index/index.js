@@ -18,7 +18,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(app.globalData.userInfo)
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -32,7 +31,6 @@ Page({
           userInfo: res.userInfo,
           hasUserInfo: true
         })
-        console.log(this.data.hasUserInfo)
       }
     } else {
       // 在没有 open-type=getUserInfo 版本的兼容处理
@@ -49,11 +47,20 @@ Page({
   },
 
   getUserInfo: function(e) {
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
+    if(e.detail.errMsg != "getUserInfo:ok"){
+      wx.showModal({
+        title: "提示",
+        content: '哎呀，网络出现了错误',
+        showCancel: false,
+        success(res){}
+      })
+    }else{
+      app.globalData.userInfo = e.detail.userInfo
+      this.setData({
+        userInfo: e.detail.userInfo,
+        hasUserInfo: true
+      })
+    }   
   },
 
   listTap: function(e) {

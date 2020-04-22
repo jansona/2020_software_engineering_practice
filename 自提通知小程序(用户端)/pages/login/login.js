@@ -1,24 +1,30 @@
 // pages/login/login.js
+
+//导入发送请求的方法
+import {
+  request
+} from "../../utils/request.js"
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    username:"",
-    password:""
+    userphone: "",
+    password: ""
   },
 
   /**
    * 输入发生变化
    * @param {事件参数} e 
    */
-  inputChange: function(e){
+  inputChange: function (e) {
     const {
       field
     } = e.currentTarget.dataset;
     this.setData({
-      [`${field}`]: e.detail.value
+      [`${field}`]: e.detail.value.replace(/(^s*)|(s*$)/g, "")
     });
   },
 
@@ -26,31 +32,63 @@ Page({
    * 登录按钮点击操作
    * @param {事件参数} e 
    */
-  loginTap: function(e){
-      var name = this.data.username.replace(/(^s*)|(s*$)/g, "");
-      var pass = this.data.password.replace(/(^s*)|(s*$)/g, "");
-      if(name.length < 3 )
-      {
+  loginTap: function (e) {
+    var phone = this.data.userphone;
+    var pass = this.data.password;
+    var reg = /^1(3|4|5|7|8)\d{9}$/;
+    if ( phone.length != 11 || !reg.test(phone)) {
+      wx.showModal({
+        title: "提示",
+        content: '手机号格式不正确',
+        showCancel: false,
+        success(res) {}
+      })
+    }
+    if (pass.length < 6) {
+      wx.showModal({
+        title: "提示",
+        content: '密码长度至少为6(不含空格)',
+        showCancel: false,
+        success(res) {}
+      })
+    }
+    if (phone.length == 11 && reg.test(phone) && pass.length >= 6) {
+      //登录操作
+      request({
+        url: "/user/login",
+        data: {
+          phone: this.data.userphone,
+          password: this.data.password,
+        },
+        method: "POST",
+        header: {
+          "content-type": "application/x-www-form-urlencoded"
+        }
+      }).then(result => {
+        //成功发送请求
+        console.log(result);
+        var code = result.data.code;
+        if (code == 200) {
+          wx.showToast({
+            title: '登录成功',
+            icon: 'success',
+            duration: 1000
+          })
+          setTimeout(function () {
+            wx.reLaunch({
+              url: '/pages/index/index',
+            })
+          }, 1000)
+        } else { //提示用户错误信息
           wx.showModal({
             title: "提示",
-            content: '用户名长度至少为3(不含空格)',
+            content: result.data.message,
             showCancel: false,
-            success(res){}
+            success(res) {}
           })
-      }
-      if(pass.length < 8 )
-      {
-          wx.showModal({
-            title: "提示",
-            content: '密码长度至少为8(不含空格)',
-            showCancel: false,
-            success(res){}
-          })
-      }
-      if(name.length >= 3 && pass.length >= 8)
-      {
-          //登录操作
-      }
+        }
+      })
+    }
   },
 
   /**
