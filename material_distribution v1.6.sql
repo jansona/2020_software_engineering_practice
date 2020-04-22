@@ -11,7 +11,7 @@
  Target Server Version : 80017
  File Encoding         : 65001
 
- Date: 19/04/2020 12:23:38
+ Date: 22/04/2020 19:09:44
 */
 
 SET NAMES utf8mb4;
@@ -101,7 +101,10 @@ CREATE TABLE `user`  (
   `user_community` int(11) NULL DEFAULT NULL,
   `user_password` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `user_idcard` varchar(18) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `user_phone` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`user_id`) USING BTREE,
+  UNIQUE INDEX `user_phone_UNIQUE`(`user_phone`) USING BTREE,
+  UNIQUE INDEX `user_idcard_UNIQUE`(`user_idcard`) USING BTREE,
   INDEX `user_community_id_idx`(`user_community`) USING BTREE,
   CONSTRAINT `user_community_id` FOREIGN KEY (`user_community`) REFERENCES `community` (`community_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 101 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '居民用户' ROW_FORMAT = Dynamic;
