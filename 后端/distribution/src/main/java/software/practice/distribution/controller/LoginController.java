@@ -42,7 +42,7 @@ public class LoginController {
         if (res.getKey() == 1){
             HttpSession session = request.getSession();
             session.setAttribute("userId",res.getValue().getUserId());
-            return new Result(200);
+            return new Result(200,null,res.getValue());
         } else if (res.getKey() == -2){
             return new Result(400,"无此账号");
         }
