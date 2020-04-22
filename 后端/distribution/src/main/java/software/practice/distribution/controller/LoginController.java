@@ -1,11 +1,13 @@
 package software.practice.distribution.controller;
 
+import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import software.practice.distribution.Utils.BasicUtil;
+import software.practice.distribution.entity.User;
 import software.practice.distribution.result.Result;
 import software.practice.distribution.service.LoginService;
 
@@ -35,13 +37,13 @@ public class LoginController {
 
     @CrossOrigin
     @PostMapping(value = "/user/login")
-    public Result userLogin(String id, String password, HttpServletRequest request) {
-        int res = loginService.UserLogin(id,password);
-        if (res == 1){
+    public Result userLogin(String phone, String password, HttpServletRequest request) {
+        Pair<Integer, User> res = loginService.UserLogin(phone,password);
+        if (res.getKey() == 1){
             HttpSession session = request.getSession();
-            session.setAttribute("userId",BasicUtil.covertStrInt(id));
+            session.setAttribute("userId",res.getValue().getUserId());
             return new Result(200);
-        } else if (res == -2){
+        } else if (res.getKey() == -2){
             return new Result(400,"无此账号");
         }
         return new Result(400,"密码错误");

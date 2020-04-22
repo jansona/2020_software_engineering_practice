@@ -52,7 +52,6 @@
         <table tableName="package"/>
         <table tableName="property"/>
         <table tableName="user"/>
-
         -->
 
     </context>

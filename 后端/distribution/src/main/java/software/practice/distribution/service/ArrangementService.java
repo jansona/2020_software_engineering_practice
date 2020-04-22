@@ -34,15 +34,16 @@ public class ArrangementService {
     /*
     小程序端
      */
-    public Pair<Long,List<Pair<Arrangement,String>>> getArrangementAndPackageContent(int page) {
+    public Pair<Long,List<Arrangement>> getArrangementAndPackageContent(int page) {
         ArrangementExample example = new ArrangementExample();
         List<Arrangement> arrangements =  arrangementMapper.selectByExampleWithRowbounds(example, new RowBounds((page - 1) * 10, 10));
         //查询每个arrangement的packageContent
-        List<Pair<Arrangement,String>> list = new ArrayList<>();
+        List<Arrangement> list = new ArrayList<>();
         for (Arrangement arrangement : arrangements) {
             int pid = arrangement.getArrangementPackage();
             Package p = packageMapper.selectByPrimaryKey(pid);
-            list.add(new Pair<>(arrangement, p.getPackageContent()));
+            arrangement.setPackageEntity(p);
+            list.add(arrangement);
         }
         return new Pair<>(getTotalPage(example),list);
     }

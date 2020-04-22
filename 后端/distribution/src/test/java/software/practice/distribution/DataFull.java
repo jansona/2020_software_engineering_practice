@@ -3,8 +3,8 @@ package software.practice.distribution;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import software.practice.distribution.entity.*;
 import software.practice.distribution.entity.Package;
+import software.practice.distribution.entity.*;
 import software.practice.distribution.mapper.*;
 
 import java.util.Date;
@@ -54,7 +54,12 @@ public class DataFull {
                 if(i != 4) user.setUserCommunity(i + 1);
                 user.setUserAddress((i + 1) +"号楼 门牌号" + (j + 1));
                 user.setUserPassword("123456");
-                user.setUserIdcard("100000199901010001");
+                String x = String.valueOf(j);
+                if (j < 10) x = "0" + j;
+                String idCard = "10000" + i +"19990101"+"00" + x;
+                user.setUserIdcard(idCard);
+                String phone = "139000" + i + "00" + x;
+                user.setUserPhone(phone);
                 user.setUserFavoriteStarttime(new Date());
                 user.setUserTimeStay(3600);
                 userMapper.insert(user);
