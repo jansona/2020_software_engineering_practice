@@ -8,6 +8,7 @@ import software.practice.distribution.result.Result;
 import software.practice.distribution.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -29,8 +30,11 @@ public class UserController {
     
     @CrossOrigin
     @PostMapping(value = "/user/create")
-    public Result createUser(@RequestBody User user){
-        if(userService.createUser(user)){
+    public Result createUser(@RequestBody User user,HttpServletRequest request){
+        int userId = userService.createUser(user);
+        if(userId!=-1){
+            HttpSession session = request.getSession();
+            session.setAttribute("userId",userId);
             return new Result(200,null,user);
         }
         return new Result(400,"未找到");
@@ -38,7 +42,9 @@ public class UserController {
 
     @CrossOrigin
     @PostMapping(value = "/user/edit")
-    public Result updateUserInformation(@RequestBody User user){
+    public Result updateUserInformation(@RequestBody User user,HttpServletRequest request){
+        int userId = (int)request.getSession().getAttribute("userId");
+        user.setUserId(userId);
         if(userService.updateUser(user)){
             return new Result(200,null,user);
         }
