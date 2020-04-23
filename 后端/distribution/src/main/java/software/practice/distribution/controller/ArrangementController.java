@@ -65,7 +65,7 @@ public class ArrangementController {
     @GetMapping(value = "/arrangement/list")
     public Result getArrangement2(int page, HttpServletRequest request) {
         int userId = (int)request.getSession().getAttribute("userId");
-        Pair<Long, List<Arrangement>> pair = arrangementService.getArrangementAndPackageContentByUserId(page,userId);
+        Pair<Long,List<Pair<Arrangement,String>>> pair = arrangementService.getArrangementAndPackageContentByUserId(page,userId);
         if(pair != null && pair.getKey()!=0 && pair.getValue()!=null && pair.getValue().size() != 0){
             return new Result(200,pair.getKey(),pair.getValue());
         }
