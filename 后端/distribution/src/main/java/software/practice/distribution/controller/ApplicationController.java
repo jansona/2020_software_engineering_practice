@@ -42,12 +42,9 @@ public class ApplicationController {
     @GetMapping(value = "/application/info")
     public Result getApplicationList2(HttpServletRequest request){
         int userId = (int) request.getSession().getAttribute("userId");
-        List<Application> applications = applicationService.getApplicationByUserId(userId);
-        if(applications != null){
-            if(applications.size() == 1)
-                return new Result(200,null,applications.get(0));
-            else
-                return new Result(400,"找到重复Applications");
+        Pair<Application,String> pair = applicationService.getApplicationByUserId(userId);
+        if(pair != null){
+            return new Result(200,"找到了",pair);
         }
         return new Result(400,"未找到");
     }
