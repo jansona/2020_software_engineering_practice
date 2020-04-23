@@ -5,8 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import software.practice.distribution.entity.Application;
 import software.practice.distribution.entity.ApplicationExample;
+import software.practice.distribution.entity.Community;
 import software.practice.distribution.entity.User;
 import software.practice.distribution.mapper.ApplicationMapper;
+import software.practice.distribution.mapper.CommunityMapper;
 import software.practice.distribution.mapper.UserMapper;
 
 import java.util.Date;
@@ -19,6 +21,9 @@ public class ApplicationService {
 
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    CommunityMapper communityMapper;
 
     public boolean createApplication(Application application){
         application.setApplicationTime(new Date());
@@ -52,10 +57,14 @@ public class ApplicationService {
         return applicationMapper.updateByPrimaryKeySelective(application) == 1;
     }
 
-    public List<Application> getApplicationByUserId(int userId){
+    public Pair<Application,String> getApplicationByUserId(int userId){
         ApplicationExample example = new ApplicationExample();
         ApplicationExample.Criteria criteria = example.createCriteria();
         criteria.andApplicationUserEqualTo(userId);
-        return applicationMapper.selectByExample(example);
+        List<Application> applicationList = applicationMapper.selectByExample(example);
+        if(applicationList == null || applicationList.size()!=1)
+            return null;
+        Community community = communityMapper.selectByPrimaryKey(applicationList.get(0).getApplicationCommunity());
+        return new Pair<>(applicationList.get(0),community.getCommunityName());
     }
 }

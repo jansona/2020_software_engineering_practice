@@ -30,22 +30,28 @@ public class ArrangementService {
 
     @Autowired
     PackageMapper packageMapper;
+    // private Object Pair;
 
     /*
     小程序端
      */
-    public Pair<Long,List<Arrangement>> getArrangementAndPackageContent(int page) {
-        ArrangementExample example = new ArrangementExample();
-        List<Arrangement> arrangements =  arrangementMapper.selectByExampleWithRowbounds(example, new RowBounds((page - 1) * 10, 10));
-        //查询每个arrangement的packageContent
-        List<Arrangement> list = new ArrayList<>();
-        for (Arrangement arrangement : arrangements) {
-            int pid = arrangement.getArrangementPackage();
-            Package p = packageMapper.selectByPrimaryKey(pid);
-            arrangement.setPackageEntity(p);
-            list.add(arrangement);
+    public Pair<Long,List<Pair<Arrangement,String>>> getArrangementAndPackageContentByUserId(int page,int userId) {
+        PackageExample packageExample = new PackageExample();
+        PackageExample.Criteria criteria = packageExample.createCriteria();
+        criteria.andPackageUserEqualTo(userId);
+        List<Package> packageList = packageMapper.selectByExample(packageExample);
+
+        List<Pair<Arrangement,String>> res = new ArrayList<>();
+        for (Package aPackage : packageList){
+            ArrangementExample arrangementexample = new ArrangementExample();
+            ArrangementExample.Criteria criteria1 =  arrangementexample.createCriteria();
+            criteria1.andArrangementPackageEqualTo(aPackage.getPackageId());
+            Arrangement arrangement = arrangementMapper.selectByExample(arrangementexample).get(0);
+            res.add(new Pair<>(arrangement,aPackage.getPackageContent()));
         }
-        return new Pair<>(getTotalPage(example),list);
+        int to = Math.min(res.size()-1,page*10);
+        res = res.subList((page - 1) * 10, to);
+        return new Pair<>((long) res.size(),res);
     }
 
     public Pair<Long, List<Arrangement>> getArrangement(int page, Integer id, String user, Integer package_id, String location, Time time, int communityId) {

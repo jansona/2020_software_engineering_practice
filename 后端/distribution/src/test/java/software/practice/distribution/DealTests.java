@@ -4,7 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import software.practice.distribution.entity.Deal;
+import software.practice.distribution.entity.User;
 import software.practice.distribution.service.DealService;
+import software.practice.distribution.service.UserService;
 
 /**
  * @author ：Chang Jiaxin
@@ -16,6 +18,16 @@ public class DealTests {
 
     @Autowired
     DealService dealService;
+
+    @Autowired
+    UserService userService;
+    @Test
+    public void update(){
+        User user = new User();
+        user.setUserId(1);
+        user.setUserPassword("here");
+        userService.updateUser(user);
+    }
 
     @Test
     public void add(){

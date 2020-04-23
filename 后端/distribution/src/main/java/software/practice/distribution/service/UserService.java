@@ -39,7 +39,7 @@ public class UserService {
     }
 
     public Boolean updateUser(User user){
-        return userMapper.updateByPrimaryKey(user) == 1;
+        return userMapper.updateByPrimaryKeySelective(user) == 1;
     }
 
     public List<User> getUsers(int page, Integer id, String name, String home, int communityId){
