@@ -53,3 +53,8 @@ export const getEnrollQuitMessage = () => { return axios.get(`${base}/applicatio
 export const checkEnroll = params => { return axios.get(`${base}/application/check-enroll`, { params: params }); };
 
 export const checkQuit = params => { return axios.get(`${base}/application/check-quit`, { params: params }); };
+
+// 特殊申请消息及处理
+export const getDealMessage = () => { return axios.get(`${base}/deal/community`)};
+
+export const checkDeal = params => { return axios.get(`${base}/deal/check-deal`, { params: params }); };
