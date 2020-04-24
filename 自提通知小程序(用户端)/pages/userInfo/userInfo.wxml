@@ -2,13 +2,16 @@
 <mp-form id="form" rules="{{rules}}" models="{{formData}}">
 	<mp-cells title="住户基本信息">
 		<mp-cell title="姓名" ext-class="">
-			<input disabled="{{true}}" value="{{name}}" class="weui-input"/>
+			<input disabled="{{true}}" value="{{user.userName}}" class="weui-input"/>
+		</mp-cell>
+		<mp-cell title="手机号" ext-class="">
+			<input disabled="{{true}}" value="{{user.userPhone}}" class="weui-input"/>
 		</mp-cell>
 		<mp-cell title="地址" ext-class="">
-			<input disabled="{{true}}" value="{{address}}" class="weui-input"/>
+			<input disabled="{{true}}" value="{{user.userAddress}}" class="weui-input"/>
 		</mp-cell>
 		<mp-cell title="身份证号" ext-class="">
-			<input disabled="{{true}}" value="{{idcard}}" class="weui-input"/>
+			<input disabled="{{true}}" value="{{user.userIdcard}}" class="weui-input"/>
 		</mp-cell>
 				<mp-cell title="开始时间" ext-class="">
 			<input disabled="{{true}}" value="{{starttime}}" class="weui-input"/>
@@ -17,7 +20,7 @@
 			<input disabled="{{true}}" value="{{endtime}}" class="weui-input"/>
 		</mp-cell>
 				<mp-cell title="居民集群" ext-class="">
-			<input disabled="{{true}}" value="{{community}}" class="weui-input"/>
+			<input disabled="{{true}}" value="{{user.community?user.community.communityName:'未加入集群'}}" class="weui-input"/>
 		</mp-cell>
 	</mp-cells>
 </mp-form>

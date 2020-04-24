@@ -1,6 +1,8 @@
 // pages/userInfo/userInfo.js
 
-import {request}  from "../../utils/request.js";
+import {
+  request
+} from "../../utils/request.js";
 
 Page({
 
@@ -8,61 +10,48 @@ Page({
    * 页面的初始数据
    */
   data: {
-    idcard:"",
-    name:"",
-    address:"",
-    starttime: "",
+    user: {},
     endtime: "",
-    staytime: 0,
-    community:""
+    starttime: ""
   },
 
-  btnTap: function(){
+  /**
+   * 修改按钮的点击事件
+   * 传入的参数包括type(0表示修改，1表示注册)，开始时间和结束时间
+   */
+  btnTap: function () {
     wx.redirectTo({
-      url: '/pages/userEdit/userEdit?idcard='+this.data.idcard+'&start='+this.data.starttime
-      +'&end='+this.data.endtime+'&address='+this.data.address+'&name='+this.data.name+'&addr='+this.data.address,
+      url: '/pages/userEdit/userEdit?type=0&start='+this.data.starttime+'&end='+this.data.endtime
     })
+  },
+
+  /**
+   * 将2000-01-01 00:00:00形式的时间转化为Date对象
+   * @param {*} date 
+   */
+  createDate: function (date) {
+    var ps = date.split(" ");
+    var pd = ps[0].split("-");
+    var pt = ps.length > 1 ? ps[1].split(":") : [0, 0, 0];
+    return new Date(pd[0], pd[1] - 1, pd[2], pt[0], pt[1], pt[2]);
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-      //获取个人信息
-      request({
-        url: "/user/login",
-        data: {
-          id: 1,
-          password: this.data.password,
-        },
-        method: "POST",
-        header: {
-          "content-type": "application/x-www-form-urlencoded"
-        }
-      }).then(result => {
-        var code = result.data.code;
-        if (code == 200) {
-          wx.showToast({
-            title: '登录成功',
-            icon: 'success',
-            duration: 1000
-          })
-          getApp().globalData.user.name = this.data.username
-          setTimeout(function () {
-            wx.reLaunch({
-              url: '/pages/index/index',
-            })
-          }, 1000)
-
-        } else {
-          wx.showModal({
-            title: "提示",
-            content: result.data.message,
-            showCancel: false,
-            success(res) {}
-          })
-        }
-      })
+    //获取个人信息
+    this.setData({
+      user: getApp().globalData.user
+    })
+    var time = getApp().globalData.user.userFavoriteStarttime;
+    var start = this.createDate(time);
+    var stay = getApp().globalData.user.userTimeStay;
+    var end = new Date(start.getTime()+stay*1000);
+    this.setData({
+      starttime:start.toTimeString().substring(0,5),
+      endtime:end.toTimeString().substring(0,5)
+    })
   },
 
   /**

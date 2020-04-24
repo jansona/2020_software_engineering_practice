@@ -5,17 +5,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    package_id:0,
-    name:"",
-    time:"",
-    content:"请于半小时之内取走物资",
-    location:""
+      notification:{}
   },
 
   dealAdd: function(){
-    var id = this.data.package_id
     wx.navigateTo({
-      url: '/pages/dealAdd/dealAdd?package_id=' + id,
+      url: '/pages/dealAdd/dealAdd?package_id=' + this.data.notification.arrangementPackage,
     })
   },
 
@@ -24,10 +19,7 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      package_id: options.package_id,
-      name: options.package_name,
-      time: options.time,
-      location: options.location
+      notification: JSON.parse(decodeURIComponent(options.item))
     })
   },
 

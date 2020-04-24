@@ -7,6 +7,9 @@ export const request=(params)=>{
       ...params,
       url:baseUrl+params.url,
       success:(result)=>{
+        if(!getApp().globalData.cookie && result.cookies[0]){
+          getApp().globalData.cookie = result.cookies[0].split(";")[0]
+        }
         resolve(result);
       },
       fail:(err)=>{

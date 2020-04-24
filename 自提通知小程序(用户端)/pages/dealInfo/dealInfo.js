@@ -5,11 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    deal_content: "",
-    deal_type: -1,
-    deal_time:"",
-    deal_response: "",
-    deal_state:""
+    deal:{}
   },
 
   /**
@@ -17,11 +13,7 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      deal_content:options.content,
-      deal_type:options.type,
-      deal_time:options.time,
-      deal_response:options.response,
-      deal_state:options.state
+      deal: JSON.parse(decodeURIComponent(options.item))
     })
   },
 

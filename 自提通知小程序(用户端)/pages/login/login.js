@@ -23,8 +23,9 @@ Page({
     const {
       field
     } = e.currentTarget.dataset;
+    //存入data中的字符串要过滤掉空格
     this.setData({
-      [`${field}`]: e.detail.value.replace(/(^s*)|(s*$)/g, "")
+      [`${field}`]: e.detail.value.replace(/\s+/g, "")
     });
   },
 
@@ -36,6 +37,7 @@ Page({
     var phone = this.data.userphone;
     var pass = this.data.password;
     var reg = /^1(3|4|5|7|8)\d{9}$/;
+    //对输入的手机号和密码进行格式校验
     if ( phone.length != 11 || !reg.test(phone)) {
       wx.showModal({
         title: "提示",
@@ -43,16 +45,14 @@ Page({
         showCancel: false,
         success(res) {}
       })
-    }
-    if (pass.length < 6) {
+    }else if (pass.length < 6) {
       wx.showModal({
         title: "提示",
         content: '密码长度至少为6(不含空格)',
         showCancel: false,
         success(res) {}
       })
-    }
-    if (phone.length == 11 && reg.test(phone) && pass.length >= 6) {
+    }else {
       //登录操作
       request({
         url: "/user/login",
@@ -66,7 +66,6 @@ Page({
         }
       }).then(result => {
         //成功发送请求
-        console.log(result);
         var code = result.data.code;
         if (code == 200) {
           wx.showToast({
@@ -74,6 +73,7 @@ Page({
             icon: 'success',
             duration: 1000
           })
+          getApp().globalData.user = result.data.content;
           setTimeout(function () {
             wx.reLaunch({
               url: '/pages/index/index',
