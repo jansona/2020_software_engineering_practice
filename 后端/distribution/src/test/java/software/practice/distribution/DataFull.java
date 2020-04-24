@@ -49,12 +49,15 @@ public class DataFull {
             community.setCommunityName("第" + (i + 1) + "小区");
             community.setCommunityAddress("湖北省武汉市第" + (i + 1) + "大街" + (i + 1) + "号");
             community.setCommunityPassword("123456");
+            community.setCommunityInterval(3600);
             communityMapper.insert(community);
             //每个小区10个物资点
             for (int x = 0; x < 10; x++){
                 Location location = new Location();
-                location.setLocationName((i + 1) + "小区" + x + "号物资点");
+                location.setLocationId(10 * i + x + 1);
+                location.setLocationName((i + 1) + "小区" + (x+1) + "号物资点");
                 location.setLocationCommunity(i + 1);
+                locationMapper.insert(location);
             }
             // 每个小区20个人，共100人
             for (int j = 0; j < 20; j++) {

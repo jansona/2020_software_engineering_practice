@@ -11,7 +11,7 @@
  Target Server Version : 80017
  File Encoding         : 65001
 
- Date: 24/04/2020 16:48:47
+ Date: 24/04/2020 17:33:48
 */
 
 SET NAMES utf8mb4;
@@ -46,8 +46,8 @@ CREATE TABLE `arrangement`  (
   PRIMARY KEY (`arrangement_id`) USING BTREE,
   INDEX `arrangement_package_id_idx`(`arrangement_package`) USING BTREE,
   INDEX `arrangement_location_id_idx`(`arrangement_location`) USING BTREE,
-  CONSTRAINT `arrangement_package_id` FOREIGN KEY (`arrangement_package`) REFERENCES `package` (`package_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `arrangement_location_id` FOREIGN KEY (`arrangement_location`) REFERENCES `location` (`location_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `arrangement_location_id` FOREIGN KEY (`arrangement_location`) REFERENCES `location` (`location_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `arrangement_package_id` FOREIGN KEY (`arrangement_package`) REFERENCES `package` (`package_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB AUTO_INCREMENT = 101 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -59,7 +59,7 @@ CREATE TABLE `community`  (
   `community_name` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `community_password` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `community_address` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `community_interval` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `community_interval` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`community_id`) USING BTREE,
   INDEX `community_client_id_idx`(`community_password`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '社区，小区' ROW_FORMAT = Dynamic;
@@ -92,7 +92,7 @@ CREATE TABLE `location`  (
   PRIMARY KEY (`location_id`) USING BTREE,
   INDEX `loacation_community_id_idx`(`location_community`) USING BTREE,
   CONSTRAINT `loacation_community_id` FOREIGN KEY (`location_community`) REFERENCES `community` (`community_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '自提点' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '自提点' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for package
