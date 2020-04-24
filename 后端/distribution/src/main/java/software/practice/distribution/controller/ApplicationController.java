@@ -4,6 +4,7 @@ import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import software.practice.distribution.entity.Application;
+import software.practice.distribution.entity.Community;
 import software.practice.distribution.result.Result;
 import software.practice.distribution.service.ApplicationService;
 
@@ -42,7 +43,7 @@ public class ApplicationController {
     @GetMapping(value = "/application/info")
     public Result getApplicationList2(HttpServletRequest request){
         int userId = (int) request.getSession().getAttribute("userId");
-        Pair<Application,String> pair = applicationService.getApplicationByUserId(userId);
+        Pair<Application, Community> pair = applicationService.getApplicationByUserId(userId);
         if(pair != null){
             return new Result(200,"找到了",pair);
         }
