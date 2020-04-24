@@ -36,6 +36,9 @@ public class DataFull {
     @Autowired
     ApplicationMapper applicationMapper;
 
+    @Autowired
+    LocationMapper locationMapper;
+
     // 只用来填充测试数据，一台电脑从头到尾只执行一次
     @Test
     public void full(){
@@ -44,8 +47,15 @@ public class DataFull {
             Community community = new Community();
             community.setCommunityId(i + 1);
             community.setCommunityName("第" + (i + 1) + "小区");
+            community.setCommunityAddress("湖北省武汉市第" + (i + 1) + "大街" + (i + 1) + "号");
             community.setCommunityPassword("123456");
             communityMapper.insert(community);
+            //每个小区10个物资点
+            for (int x = 0; x < 10; x++){
+                Location location = new Location();
+                location.setLocationName((i + 1) + "小区" + x + "号物资点");
+                location.setLocationCommunity(i + 1);
+            }
             // 每个小区20个人，共100人
             for (int j = 0; j < 20; j++) {
                 User user = new User();
@@ -106,7 +116,7 @@ public class DataFull {
             Arrangement arrangement = new Arrangement();
             arrangement.setArrangementId(i + 1);
             arrangement.setArrangementTime(new Date());
-            arrangement.setArrangementLocation((i/10 + 1) + "号物资点");
+            arrangement.setArrangementLocation(i/2 + 1);
             arrangement.setArrangementPackage(3 * i + 1);
             arrangementMapper.insert(arrangement);
         }

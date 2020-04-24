@@ -35,7 +35,7 @@ public class ArrangementController {
                 location,
                 BasicUtil.covertStrTime(time),
                 communityId);
-        if(arrangements != null){
+        if(arrangements.getKey() != 0 && arrangements.getValue() != null && !arrangements.getValue().isEmpty()){
             return new Result(200,arrangements.getKey(),arrangements.getValue());
         }
         return new Result(400,"未找到");
@@ -65,8 +65,8 @@ public class ArrangementController {
     @GetMapping(value = "/arrangement/list")
     public Result getArrangement2(int page, HttpServletRequest request) {
         int userId = (int)request.getSession().getAttribute("userId");
-        Pair<Long,List<Pair<Arrangement,String>>> pair = arrangementService.getArrangementAndPackageContentByUserId(page,userId);
-        if(pair != null && pair.getKey()!=0 && pair.getValue()!=null && pair.getValue().size() != 0){
+        Pair<Long,List<Arrangement>> pair = arrangementService.getArrangementAndPackageContentByUserId(page,userId);
+        if(pair != null && pair.getKey()!= 0 && pair.getValue() != null && !pair.getValue().isEmpty()){
             return new Result(200,pair.getKey(),pair.getValue());
         }
         return new Result(400,"未找到");

@@ -7,12 +7,14 @@ import org.springframework.stereotype.Service;
 import software.practice.distribution.entity.Package;
 import software.practice.distribution.entity.*;
 import software.practice.distribution.mapper.ArrangementMapper;
+import software.practice.distribution.mapper.LocationMapper;
 import software.practice.distribution.mapper.PackageMapper;
 import software.practice.distribution.mapper.UserMapper;
 
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author ：Chang Jiaxin
@@ -30,29 +32,35 @@ public class ArrangementService {
 
     @Autowired
     PackageMapper packageMapper;
+
+    @Autowired
+    LocationMapper locationMapper;
     // private Object Pair;
 
     /*
     小程序端
      */
-    public Pair<Long,List<Pair<Arrangement,String>>> getArrangementAndPackageContentByUserId(int page,int userId) {
+    public Pair<Long,List<Arrangement>> getArrangementAndPackageContentByUserId(int page,int userId) {
         PackageExample packageExample = new PackageExample();
-        PackageExample.Criteria criteria = packageExample.createCriteria();
-        criteria.andPackageUserEqualTo(userId);
+        PackageExample.Criteria pc = packageExample.createCriteria();
+        pc.andPackageUserEqualTo(userId);
         List<Package> packageList = packageMapper.selectByExample(packageExample);
 
-        List<Pair<Arrangement,String>> res = new ArrayList<>();
-        for (Package aPackage : packageList){
-            ArrangementExample arrangementexample = new ArrangementExample();
-            ArrangementExample.Criteria criteria1 =  arrangementexample.createCriteria();
-            criteria1.andArrangementPackageEqualTo(aPackage.getPackageId());
-            List<Arrangement> arrangementList = arrangementMapper.selectByExample(arrangementexample);
-            Arrangement arrangement = arrangementList==null?null:arrangementList.get(0);
-            res.add(new Pair<>(arrangement,aPackage.getPackageContent()));
+        List<Integer> packageIds = packageList.stream().map(Package::getPackageId).collect(Collectors.toList());
+
+        ArrangementExample example = new ArrangementExample();
+        ArrangementExample.Criteria criteria = example.createCriteria();
+        criteria.andArrangementPackageIn(packageIds);
+
+        List<Arrangement> arrangements = arrangementMapper.selectByExampleWithRowbounds(example, new RowBounds((page - 1) * 10, 10));
+        for (Arrangement arrangement : arrangements) {
+            int pid = arrangement.getArrangementPackage();
+            Package p = packageMapper.selectByPrimaryKey(pid);
+            arrangement.setPackageEntity(p);
+            arrangement.setLocationEntity(locationMapper.selectByPrimaryKey(arrangement.getArrangementLocation()));
         }
-        int to = Math.min(res.size()-1,page*10);
-        res = res.subList((page - 1) * 10, to);
-        return new Pair<>((long) res.size(),res);
+        long totalPage = getTotalPage(example);
+        return new Pair<>(totalPage,arrangements);
     }
 
     public Pair<Long, List<Arrangement>> getArrangement(int page, Integer id, String user, Integer package_id, String location, Time time, int communityId) {
@@ -91,6 +99,16 @@ public class ArrangementService {
 
         criteria.andArrangementPackageIn(packageIds);
 
+        List<Integer> locationIds = null;
+        //根据Location查id
+        if (location!= null && !location.isEmpty()){
+            LocationExample locationExample = new LocationExample();
+            LocationExample.Criteria lc = locationExample.createCriteria();
+            lc.andLocationCommunityEqualTo(communityId);
+            lc.andLocationNameLike("%" + location + "%");
+            List<Location> locations = locationMapper.selectByExample(locationExample);
+            locationIds = locations.stream().map(Location::getLocationId).collect(Collectors.toList());
+        }
 
         if (id != null && id != 0) {
             criteria.andArrangementIdEqualTo(id);
@@ -98,8 +116,8 @@ public class ArrangementService {
         if (package_id != null) {
             criteria.andArrangementPackageEqualTo(package_id);
         }
-        if (location != null && !location.isEmpty()) {
-            criteria.andArrangementLocationLike("%" + location + "%");
+        if (locationIds != null) {
+            criteria.andArrangementLocationIn(locationIds);
         }
         if (time != null) {
             criteria.andArrangementTimeEqualTo(time);
@@ -109,7 +127,10 @@ public class ArrangementService {
         for (Arrangement arrangement : arrangements) {
             int pid = arrangement.getArrangementPackage();
             Package p = packageMapper.selectByPrimaryKey(pid);
+            arrangement.setPackageEntity(p);
             arrangement.setArrangementUser(p.getPackageUser());
+            arrangement.setUserEntity(userMapper.selectByPrimaryKey(p.getPackageUser()));
+            arrangement.setLocationEntity(locationMapper.selectByPrimaryKey(arrangement.getArrangementLocation()));
         }
         long totalPage = getTotalPage(example);
         return new Pair<>(totalPage,arrangements);
