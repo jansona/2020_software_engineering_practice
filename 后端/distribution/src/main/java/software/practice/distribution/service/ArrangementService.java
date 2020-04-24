@@ -47,10 +47,13 @@ public class ArrangementService {
             ArrangementExample.Criteria criteria1 =  arrangementexample.createCriteria();
             criteria1.andArrangementPackageEqualTo(aPackage.getPackageId());
             List<Arrangement> arrangementList = arrangementMapper.selectByExample(arrangementexample);
-            Arrangement arrangement = arrangementList==null?null:arrangementList.get(0);
-            res.add(new Pair<>(arrangement,aPackage.getPackageContent()));
+            if(arrangementList.size()>0){
+                Arrangement arrangement = arrangementList.get(0);
+                res.add(new Pair<>(arrangement,aPackage.getPackageContent()));
+            }
+
         }
-        int to = Math.min(res.size()-1,page*10);
+        int to = Math.min(res.size(),page*10);
         res = res.subList((page - 1) * 10, to);
         return new Pair<>((long) res.size(),res);
     }
