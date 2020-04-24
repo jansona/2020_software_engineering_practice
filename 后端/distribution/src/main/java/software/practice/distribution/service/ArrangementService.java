@@ -46,7 +46,8 @@ public class ArrangementService {
             ArrangementExample arrangementexample = new ArrangementExample();
             ArrangementExample.Criteria criteria1 =  arrangementexample.createCriteria();
             criteria1.andArrangementPackageEqualTo(aPackage.getPackageId());
-            Arrangement arrangement = arrangementMapper.selectByExample(arrangementexample).get(0);
+            List<Arrangement> arrangementList = arrangementMapper.selectByExample(arrangementexample);
+            Arrangement arrangement = arrangementList==null?null:arrangementList.get(0);
             res.add(new Pair<>(arrangement,aPackage.getPackageContent()));
         }
         int to = Math.min(res.size()-1,page*10);
