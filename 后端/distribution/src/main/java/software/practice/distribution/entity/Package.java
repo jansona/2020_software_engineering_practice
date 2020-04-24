@@ -19,7 +19,7 @@ public class Package {
      */
     private Integer packageUser;
 
-    private User user;
+    private User userEntity;
 
     /**
      *
@@ -102,11 +102,11 @@ public class Package {
         this.packageContent = packageContent == null ? null : packageContent.trim();
     }
 
-    public User getUser() {
-        return user;
+    public User getUserEntity() {
+        return userEntity;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserEntity(User userEntity) {
+        this.userEntity = userEntity;
     }
 }

@@ -50,7 +50,7 @@ public class DealService {
         List<Deal> deals = dealMapper.selectByExample(dealExample);
         for (Deal deal : deals) {
             deal.setPackageEntity(packageMapper.selectByPrimaryKey(deal.getDealPackage()));
-            deal.getPackageEntity().setUser(userMapper.selectByPrimaryKey(deal.getPackageEntity().getPackageUser()));
+            deal.getPackageEntity().setUserEntity(userMapper.selectByPrimaryKey(deal.getPackageEntity().getPackageUser()));
         }
         if (deals.isEmpty()) return null;
         return deals;

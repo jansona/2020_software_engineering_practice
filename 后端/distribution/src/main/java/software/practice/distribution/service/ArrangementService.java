@@ -127,9 +127,8 @@ public class ArrangementService {
         for (Arrangement arrangement : arrangements) {
             int pid = arrangement.getArrangementPackage();
             Package p = packageMapper.selectByPrimaryKey(pid);
+            p.setUserEntity(userMapper.selectByPrimaryKey(p.getPackageUser()));
             arrangement.setPackageEntity(p);
-            arrangement.setArrangementUser(p.getPackageUser());
-            arrangement.setUserEntity(userMapper.selectByPrimaryKey(p.getPackageUser()));
             arrangement.setLocationEntity(locationMapper.selectByPrimaryKey(arrangement.getArrangementLocation()));
         }
         long totalPage = getTotalPage(example);
