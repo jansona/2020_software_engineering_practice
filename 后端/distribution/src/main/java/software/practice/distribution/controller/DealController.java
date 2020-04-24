@@ -1,7 +1,6 @@
 package software.practice.distribution.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.bind.annotation.*;
 import software.practice.distribution.entity.Deal;
 import software.practice.distribution.result.Result;
@@ -38,5 +37,25 @@ public class DealController {
             return new Result(200,null,list);
         }
         return new Result(400,"未找到");
+    }
+
+    @CrossOrigin
+    @GetMapping(value = "/deal/community")
+    public Result getDeals(HttpServletRequest request){
+        int community = (int)request.getSession().getAttribute("communityId");
+        List<Deal> list = dealService.getDeals(community);
+        if(list != null){
+            return new Result(200,null,list);
+        }
+        return new Result(400,"未找到");
+    }
+
+    @CrossOrigin
+    @GetMapping(value = "/deal/check-deal")
+    public Result checkDeal(int id, boolean admit,String deal_response){
+        if(dealService.checkDeal(id,admit,deal_response)){
+            return new Result(200,"已处理");
+        }
+        return new Result(400,"操作失败");
     }
 }
