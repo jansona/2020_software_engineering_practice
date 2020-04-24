@@ -15,11 +15,11 @@
                 </timeline>
             </el-tab-pane>
             <el-tab-pane label="特殊申请" name="second">
-                <timeline :timeline="timeline">
+                <timeline :timeline="dealMessage">
                     <template v-slot:content="item">
-                        <div>姓名：{{ item.user.userName }}</div>
-                        <div>物资号：{{ item.package.packageId }}</div>
-                        <div>称述：{{ item.content}}</div>
+                        <div>姓名：{{ item.packageEntity.userEntity.userName }}</div>
+                        <div>物资号：{{ item.packageEntity.packageId }}</div>
+                        <div>称述：{{ item.dealContent}}</div>
                     </template>
                     <template v-slot:buttons="item">
                         <el-button type="primary" size="large" @click="handleDeal(item)">处理</el-button>
@@ -35,25 +35,22 @@
         <el-dialog :model="dealForm" :title="dealForm.title" v-model="handleVisible" :close-on-click-modal="true">
             <el-form label-width="80px" ref="editForm">
                 <el-form-item label="业主账号">
-                    <span>{{ dealForm.user.userId }}</span>
+                    <span>{{ dealForm.packageEntity.userEntity.userId }}</span>
                 </el-form-item>
                 <el-form-item label="业主姓名">
-                    <span>{{ dealForm.user.userName }}</span>
+                    <span>{{ dealForm.packageEntity.userEntity.userName }}</span>
                 </el-form-item>
                 <el-form-item label="业主门户">
-                    <span>{{ dealForm.user.userAddress }}</span>
+                    <span>{{ dealForm.packageEntity.userEntity.userAddress }}</span>
                 </el-form-item>
                 <el-form-item label="物资账号">
-                    <span>{{ dealForm.package.packageId }}</span>
+                    <span>{{ dealForm.packageEntity.packageId }}</span>
                 </el-form-item>
                 <el-form-item label="物资内容">
-                    <span>{{ dealForm.package.packageContent }}</span>
-                </el-form-item>
-                <el-form-item v-if="dealForm.dealType===0" label="推迟至">
-                    <span>{{ dealForm.dealTime }}</span>
+                    <span>{{ dealForm.packageEntity.packageContent }}</span>
                 </el-form-item>
                 <el-form-item label="陈述">
-                    <span>{{ dealForm.content }}</span>
+                    <span>{{ dealForm.dealContent }}</span>
                 </el-form-item>
                 <el-form-item label="答复消息">
                     <el-input v-model="dealForm.dealResponse" auto-complete="off"></el-input>
@@ -83,15 +80,20 @@
                 handleLoading: false,
                 handleVisible: false,
                 dealForm: {
-                        timestamp: '2019/4/20 20:46',
-                        title: '延时自提',
-                        dealType: 0,
-                        user: {userName: '李宜泽', userId:'XXXXX', userAddress:'1号楼 门牌号2'},
-                        package: {packageId: '1', packageContent: 'XXX'},
-                        content: 'nothing2say',
-                        dealTime: '2020-04-24 06:18:27',
-                        dealResponse: '',
+                    dealId: '',
+                    timestamp: '',
+                    title: '',
+                    dealType: 0,
+                    packageEntity: {
+                        packageId: '', 
+                        packageContent: '',
+                        userEntity: {userName: '', userId:'', userAddress:''},
                     },
+                    dealContent: '',
+                    dealTime: '',
+                    dealResponse: '',
+                },
+
                 timeline: [
                     {
                         timestamp: '2019/4/20 20:46',
@@ -131,15 +133,28 @@
                 // sessionStorage.setItem('communityId', 1);
                 getEnrollQuitMessage().then(res => {
                     this.communityMessage = res.data.content;
+                    this.contentMapping_Enroll();
                 });
                 getDealMessage().then(res => {
                     this.dealMessage = res.data.content;
+                    this.contentMapping_Deal();
+                    debugger;
                 });
             },
-            contentMapping() {
+            contentMapping_Enroll() {
                 this.communityMessage.forEach((item) => {
                     item.title = '入群请求';
                     item.timestamp = item.applicationTime;
+                })
+            },
+            contentMapping_Deal() {
+                this.dealMessage.forEach((item) => {
+                    if(item.dealType == 0) {
+                        item.title = '延时自提';
+                    }else {
+                        item.title = '送货上门';
+                    }
+                    item.timestamp = item.dealTime;
                 })
             },
             enrollAdmit(item) {
