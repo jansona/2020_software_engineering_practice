@@ -57,7 +57,7 @@ public class ApplicationService {
         return applicationMapper.updateByPrimaryKeySelective(application) == 1;
     }
 
-    public Pair<Application,String> getApplicationByUserId(int userId){
+    public Pair<Application,Community> getApplicationByUserId(int userId){
         ApplicationExample example = new ApplicationExample();
         ApplicationExample.Criteria criteria = example.createCriteria();
         criteria.andApplicationUserEqualTo(userId);
@@ -65,6 +65,6 @@ public class ApplicationService {
         if(applicationList == null || applicationList.size()!=1)
             return null;
         Community community = communityMapper.selectByPrimaryKey(applicationList.get(0).getApplicationCommunity());
-        return new Pair<>(applicationList.get(0),community.getCommunityName());
+        return new Pair<>(applicationList.get(0),community);
     }
 }
