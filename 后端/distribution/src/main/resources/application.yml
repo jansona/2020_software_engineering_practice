@@ -8,7 +8,7 @@ spring:
     property-naming-strategy: LOWER_CAMEL_CASE
   datasource:
     username: root
-    password: zfq123
+    password: 12345678
     url: jdbc:mysql://localhost:3306/material_distribution?serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
 
