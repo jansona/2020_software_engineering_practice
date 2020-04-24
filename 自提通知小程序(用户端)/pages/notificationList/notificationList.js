@@ -1,36 +1,54 @@
 // pages/packageList/packageList.js
+
+import {
+  request
+} from "../../utils/request.js"
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    notificationList: [{
-        package_id: 1,
-        package_name: "西红柿",
-        arrangement_location: "小区门口",
-        arrangement_time: "12:01"
-      },
-      {
-        package_id: 2,
-        package_name: "土豆",
-        arrangement_location: "小区超市",
-        arrangement_time: "12:02"
-      },
-      {
-        package_id: 3,
-        package_name: "黄瓜",
-        arrangement_location: "小区居委会",
-        arrangement_time: "12:03"
-      },
-    ]
+    notifications: [],
+    currentPage: 1,
+    totalPage: 1,
+  },
+
+
+  viewTap: function (e) {
+    wx.navigateTo({
+      url: '/pages/notificationInfo/notificationInfo?item=' + encodeURIComponent(JSON.stringify(e.currentTarget.dataset.value))
+    })
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    request({
+      url: "/arrangement/list",
+      data: {
+        page: this.data.currentPage
+      },
+      header: {
+        "Cookie": getApp().globalData.cookie
+      }
+    }).then(res => {
+      if (res.data.code == 200) {
+        this.setData({
+          notifications: res.data.content
+        })
+      } else { //错误信息提示
+        wx.showModal({
+          title: "提示",
+          content: res.data.message,
+          showCancel: false,
+          success(res) {}
+        })
+      }
+    })
   },
 
   /**
@@ -82,3 +100,5 @@ Page({
 
   }
 })
+
+// 

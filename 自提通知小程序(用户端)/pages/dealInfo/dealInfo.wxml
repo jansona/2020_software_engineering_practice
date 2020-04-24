@@ -2,25 +2,25 @@
 <mp-form id="form">
 	<mp-cells title="特殊处理表单">
 		<mp-cell title="申请时间" ext-class="">
-			<input class="weui-input" value="{{deal_time}}" disabled="{{true}}" />
+			<input class="weui-input" value="{{deal.dealTime}}" disabled="{{true}}" />
 		</mp-cell>
 		<mp-cell title="申请类型" ext-class="">
-			<input class="weui-input" value="{{deal_type>0?'送货上门':'延迟取货'}}" disabled="{{true}}" />
+			<input class="weui-input" value="{{deal.dealType>0?'送货上门':'延迟取货'}}" disabled="{{true}}" />
 		</mp-cell>
 	</mp-cells>
 	<mp-cells title="申请内容">
 		<mp-cell  has-header="{{false}}" has-footer="{{false}}" title="" ext-class="">
-			<textarea class="weui-textarea" value="{{deal_content}}" style="height: 10em" disabled="{{true}}"/>
+			<textarea class="weui-textarea" value="{{deal.dealContent}}" style="height: 10em" disabled="{{true}}"/>
 		</mp-cell>
   </mp-cells>
   <mp-cells title="回复表单">
 		<mp-cell title="处理结果" ext-class="">
-			<input class="weui-input" value="{{deal_state}}" disabled="{{true}}" />
+			<input class="weui-input" value="{{deal.dealIspass == -1?'未处理':ispass==0?'未通过':'已通过'}}" style="color:{{ispass == -1?'blue':ispass==0?'red':'green' }}" disabled="{{true}}" />
 		</mp-cell>
 	</mp-cells>
 	<mp-cells title="回复内容">
 		<mp-cell  has-header="{{false}}" has-footer="{{false}}" title="" ext-class="">
-			<textarea class="weui-textarea" value="{{deal_response}}" style="height: 10em" disabled="{{true}}"/>
+			<textarea class="weui-textarea" value="{{deal.dealResponse}}" style="height: 10em" disabled="{{true}}"/>
 		</mp-cell>
   </mp-cells>
  </mp-form>

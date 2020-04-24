@@ -7,11 +7,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-      package_count: 10,
-      deal_count : 1,
-      hasUserInfo:false,
-      userInfo: {},
-      canIUse: wx.canIUse('button.open-type.getUserInfo')
+    package_count: 10,
+    deal_count: 1,
+    hasUserInfo: false,
+    userInfo: {},
+    canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
 
   /**
@@ -23,7 +23,7 @@ Page({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
       })
-    } else if (this.data.canIUse){
+    } else if (this.data.canIUse) {
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
       app.userInfoReadyCallback = res => {
@@ -46,41 +46,42 @@ Page({
     }
   },
 
-  getUserInfo: function(e) {
-    if(e.detail.errMsg != "getUserInfo:ok"){
+  getUserInfo: function (e) {
+    if (e.detail.errMsg != "getUserInfo:ok") {
       wx.showModal({
         title: "提示",
         content: '哎呀，网络出现了错误',
         showCancel: false,
-        success(res){}
+        success(res) {}
       })
-    }else{
+    } else {
       app.globalData.userInfo = e.detail.userInfo
       this.setData({
         userInfo: e.detail.userInfo,
         hasUserInfo: true
       })
-    }   
+    }
   },
 
-  listTap: function(e) {
+  listTap: function (e) {
     var field = e.currentTarget.dataset.dataset;
     var user = app.globalData.user;
-    if(user.name == ""){
+    //当用户信息为空时，说明要先进行登录
+    if (!user) {
       wx.showModal({
-        title:"登录提示",
-        content:"请先登录",
-        success(res){
-          if(res.confirm){
+        title: "登录提示",
+        content: "请先登录",
+        success(res) {
+          if (res.confirm) {
             wx.redirectTo({
               url: '/pages/login/login',
             })
           }
         }
       })
-    }else{
+    } else {
       wx.navigateTo({
-        url: '/pages/'+field+'/'+field,
+        url: '/pages/' + field + '/' + field,
       })
     }
 

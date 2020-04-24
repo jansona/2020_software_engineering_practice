@@ -1,4 +1,7 @@
 // pages/userInfo/userInfo.js
+
+import {request} from "../../utils/request.js"
+
 Page({
 
   /**
@@ -6,18 +9,33 @@ Page({
    */
   data: {
     type: "",
-    name_dis: false,
-    user_name: "",
-    user_address: "",
-    user_idcard: "",
-    user_favorite_starttime: "",
-    endtime: "",
+    user: {},
+    starttime: "00:00",
+    endtime: "23:59",
     disable: true,
-    user_time_stay: 0,
-    user_password:""
+    stay: 0,
   },
 
+  /**
+   * 当输入框内容发生变化时的事件
+   * @param {包含输入框的内容}} e 
+   */
   formInputChange(e) {
+    const {
+      field
+    } = e.currentTarget.dataset
+    //存入的数据要过滤空格
+    this.setData({
+      disable: false,
+      [`user.${field}`]: e.detail.value.replace(/\s+/g, "")
+    })
+  },
+
+  /**
+   * timePicker的值发生变化时调用的函数
+   * @param {包含时间选择器的值}} e 
+   */
+  timeChange: function (e) {
     const {
       field
     } = e.currentTarget.dataset
@@ -26,40 +44,96 @@ Page({
       [`${field}`]: e.detail.value
     })
   },
-  bindStartTimeChange: function (e) {
-    this.setData({
-      disable: false,
-      user_favorite_starttime: e.detail.value
-    })
-  },
 
-  bindEndTimeChange: function (e) {
-    this.setData({
-      disable: false,
-      endtime: e.detail.value,
-    })
-  },
-
+  /**
+   * 用户点击确定按钮时，提交信息
+   */
   submitForm: function () {
-    var name = this.data.user_name.replace(/(^s*)|(s*$)/g, "");
-    var address = this.data.user_address.replace(/(^s*)|(s*$)/g, "");
-    var idcard = this.data.user_idcard.replace(/(^s*)|(s*$)/g, "");
-    if (name.length == 0 || address.length == 0 || idcard.length != 18) {
-      wx.showToast({
-        title: '输入不合法',
-        icon: 'none'
+    var user = this.data.user;
+    var name = user.userName;
+    var address = user.userAddress;
+    var idcard = user.userIdcard;
+    var pass = user.userPassword;
+    var phone = user.userPhone;
+    //手机号的正则表达式
+    var regPhone = /^1(3|4|5|7|8)\d{9}$/;
+    //身份证号码的正则表达式
+    var regIdcard = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/;
+    if (name.length < 2) {
+      wx.showModal({
+        title: "提示",
+        content: '用户名长度至少为2(不含空格)',
+        showCancel: false,
+        success(res) {}
       })
-    } else {
-      var that = this;
-      var time1 = new Date("2020/04/13 " + that.data.user_favorite_starttime);
-      var time2 = new Date("2020/04/13 " + that.data.endtime);
+    } else if (address.length == 0) {
+      wx.showModal({
+        title: "提示",
+        content: '地址格式不正确',
+        showCancel: false,
+        success(res) {}
+      })
+    } else if (phone.length != 11 || !regPhone.test(phone)) {
+      wx.showModal({
+        title: "提示",
+        content: '手机号格式不正确',
+        showCancel: false,
+        success(res) {}
+      })
+    } else if (idcard.length != 18 || !regIdcard.test(idcard)) {
+      wx.showModal({
+        title: "提示",
+        content: '身份证格式不正确',
+        showCancel: false,
+        success(res) {}
+      })
+    } else if (pass.length < 6) {
+      wx.showModal({
+        title: "提示",
+        content: '密码长度至少为6(不含空格)',
+        showCancel: false,
+        success(res) {}
+      })
+    } else { //格式校验通过之后，先计算timeStay
+      var time1 = new Date("2020/04/13 " + this.data.starttime);
+      var time2 = new Date("2020/04/13 " + this.data.endtime);
       var seconds = (time2.getTime() - time1.getTime()) / 1000;
+      console.log(seconds)
       this.setData({
-        user_time_stay: seconds
+        [user.userTimeStay]: seconds
       })
-      wx.showToast({
-        title: '校验通过'
-      })
+      //向服务器发送请求
+     request({
+      url: "/user/edit",
+      data: user,
+      method: "POST",
+      header: {
+        "Cookie": getApp().globalData.cookie
+      }
+     }).then(res =>{
+       //成功发送请求
+       var code = result.data.code;
+       if (code == 200) {
+         wx.showToast({
+           title: '修改成功',
+           icon: 'success',
+           duration: 1000
+         })
+         getApp().globalData.user = user;
+         setTimeout(function () {
+           wx.reLaunch({
+             url: '/pages/userInfo/userInfo',
+           })
+         }, 1000)
+       } else { //提示用户错误信息
+         wx.showModal({
+           title: "提示",
+           content: res.data.message,
+           showCancel: false,
+           success(res) {}
+         })
+       }
+     })
     }
   },
 
@@ -68,21 +142,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      type: options.type,
+      user: getApp().globalData.user
+    })
     //type为1说明是注册
-    console.log(options.type)
-    if (options.type == "1") {
+    if (options.type != "1") {
       this.setData({
-        type: "1",
-        name_dis:true,
-        user_password:options.pass,
-        user_name:options.name
-      })
-    } else { //否则是修改用户个人信息
-      this.setData({
-        user_name: options.name,
-        user_address: options.addr,
-        user_idcard: options.idcard,
-        user_favorite_starttime: options.start,
+        starttime: options.start,
         endtime: options.end
       })
     }

@@ -2,7 +2,9 @@
   "pages": [
     "pages/index/index",
     "pages/community/community",
-    "pages/login/login"
+    "pages/login/login",
+    "pages/notificationList/notificationList",
+    "pages/dealAdd/dealAdd"
   ],
   "window": {
     "backgroundTextStyle": "light",

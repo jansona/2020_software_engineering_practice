@@ -1,16 +1,20 @@
 <!--pages/community/community.wxml-->
 <view wx:if="{{community_name != ''}}"   class="content_wrap">
-  <view class="state_wrap">
+  <view class="info_wrap1">
     <text class="left">{{time}}</text>
     <text class='right' style="color:{{ispass == -1?'blue':ispass==0?'red':'green' }}">{{ispass == -1?'未处理':ispass==0?'未通过':'已通过'}}</text>
   </view>
-  <view class="info_wrap">
+  <view class="info_wrap2">
+    <text class="left">小区地址</text>
+    <text class='right'>{{communityAddress}}</text>
+  </view>
+  <view class="info_wrap3">
     <text class="left">居民集群</text>
-    <text class="right">{{community_name}}</text>
+    <text class="right">{{communityName}}</text>
   </view>
 </view>
 <view wx:else>
-    <l-search-bar placeholder="搜索" bind:linclear="searchClear" bind:linchange="textChange" bg-color="#f6f6f6" shape="circle" show-cancel="{{false}}"/>
+    <l-search-bar placeholder="搜索" bind:linclear="searchClear" bind:linchange="textChange" bg-color="#f6f6f6" shape="circle" show-cancel="{{false}}" address="hhh">hhhh</l-search-bar>
     <block wx:if="{{results.length != 0}}">
       <view wx:for="{{results}}" wx:key="communityId" class = "community" bindtap="apply" data-value="{{item}}">
           {{item.communityName}}
