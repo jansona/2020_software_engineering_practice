@@ -19,16 +19,20 @@
         <el-table :data="users" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
             <!-- <el-table-column type="selection" width="55">
             </el-table-column> -->
-            <el-table-column type="index" width="60">
+            <!-- <el-table-column type="index" width="60">
+            </el-table-column> -->
+            <el-table-column prop="userId" label="账号" width="70" sortable>
             </el-table-column>
-            <el-table-column prop="userName" label="住户" width="200" sortable>
+            <el-table-column prop="userName" label="姓名" width="100" sortable>
+            </el-table-column>
+            <el-table-column prop="userIdcard" label="身份证号" width="200" sortable>
             </el-table-column>
             <el-table-column prop="userAddress" label="住址" width="500" sortable>
             </el-table-column>
-                        <el-table-column label="操作" width="150">
+            <el-table-column label="操作" width="100">
                 <template slot-scope="scope">
                     <!-- <el-button size="small" @click="handleEdit(scope.$index, scope.row)">check</el-button> -->
-                    <el-button type="info" size="small" @click="alert('NOT YET!');">详情</el-button>
+                    <el-button type="info" size="medium" @click="showDetail(scope.row)">详情</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -38,6 +42,30 @@
             <el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size="10" :total="total" style="float:right;">
             </el-pagination>
         </el-col>
+
+        <!--详情页面-->
+        <el-dialog title="用户详情" v-model="detailShow" :close-on-click-modal="true">
+            <el-form :model="detailForm" label-width="80px" ref="editForm">
+                <el-form-item label="账号">
+                    <span>{{ detailForm.userId }}</span>
+                </el-form-item>
+                <el-form-item label="姓名">
+                    <span>{{ detailForm.userName }}</span>
+                </el-form-item>
+                <el-form-item label="身份证号">
+                    <span>{{ detailForm.userIdcard }}</span>
+                </el-form-item>
+                <el-form-item label="门户">
+                    <span>{{ detailForm.userAddress }}</span>
+                </el-form-item>
+                <el-form-item label="联系方式">
+                    <span>{{ detailForm.userPhone }}</span>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button size="large" @click.native="detailShow = false">确定</el-button>
+            </div>
+        </el-dialog>
     </section>
 </template>
 
@@ -51,6 +79,16 @@
                 filters: {
                     name: '',
                     room: '',
+                },
+                detailShow: false,
+                detailForm: {
+                    userAddress: '',
+                    userFavoriteStarttime: '',
+                    userId: '',
+                    userIdcard: '',
+                    userName: '',
+                    userPhone: '',
+                    userTimeStay: '',
                 },
                 users: [],
                 total: 0,
@@ -76,12 +114,17 @@
                 getUsersListPage(para).then((res) => {
                     this.total = res.data.total;
                     this.users = res.data.content;
+                    debugger;
                     this.listLoading = false;
                 });
             },
 
             selsChange: function (sels) {
                 this.sels = sels;
+            },
+            showDetail(item) {
+                this.detailForm = item;
+                this.detailShow = true;
             },
         },
         mounted() {
