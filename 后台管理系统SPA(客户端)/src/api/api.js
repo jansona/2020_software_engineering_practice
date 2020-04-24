@@ -58,3 +58,12 @@ export const checkQuit = params => { return axios.get(`${base}/application/check
 export const getDealMessage = () => { return axios.get(`${base}/deal/community`)};
 
 export const checkDeal = params => { return axios.get(`${base}/deal/check-deal`, { params: params }); };
+
+// 社区属性配置面板
+export const getUserNum = () => { return axios.get(`${base}/user/sum`)};
+
+export const getMessageNum = () => { return axios.get(`${base}/message/sum`)};
+
+export const getArrangementNum = () => { return axios.get(`${base}/arrangement/sum`)};
+
+export const getCommunity = () => { return axios.get(`${base}/community/detail`)};

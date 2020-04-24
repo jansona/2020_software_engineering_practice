@@ -1,15 +1,10 @@
 import Login from './pages/Login.vue'
 import NotFound from './pages/404.vue'
 import Home from './pages/Home.vue'
-import Table from './pages/nav_transaction/Table.vue'
 import Arrangements from './pages/nav_transaction/Arrangements.vue'
 import Goods from './pages/nav_transaction/Goods.vue'
 import Message from './pages/nav_message/Message.vue'
-import Form from './pages/nav_transaction/Form.vue'
-import user from './pages/nav_transaction/user.vue'
-import Page4 from './pages/nav_community/Page4.vue'
-import Page5 from './pages/nav_community/Page5.vue'
-import Page6 from './pages/nav_message/Page6.vue'
+import CommunityPage from './pages/nav_community/CommunityPage.vue'
 import echarts from './pages/nav_summary/echarts.vue'
 import UserTable from './pages/nav_community/UserTable.vue'
 
@@ -35,7 +30,6 @@ let routes = [
         children: [
             { path: '/arrangements', component: Arrangements, name: '物资配置进度表' },
             { path: '/form', component: Goods, name: '物资清单' },
-            { path: '/user', component: user, name: '列表', hidden: true},
         ]
     },
     {
@@ -44,8 +38,8 @@ let routes = [
         name: '社区管理',
         iconCls: 'fa fa-id-card-o',
         children: [
-            { path: '/page4', component: UserTable, name: '户主名单' },
-            { path: '/page5', component: Page5, name: '小区/社区属性设置' }
+            { path: '/users', component: UserTable, name: '户主名单' },
+            { path: '/community', component: CommunityPage, name: '小区/社区属性配置' }
         ]
     },
     {
