@@ -12,7 +12,6 @@ import software.practice.distribution.mapper.PackageMapper;
 import software.practice.distribution.mapper.UserMapper;
 
 import java.sql.Time;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,8 +63,6 @@ public class ArrangementService {
     }
 
     public Pair<Long, List<Arrangement>> getArrangement(int page, Integer id, String user, Integer package_id, String location, Time time, int communityId) {
-        List<Integer> packageIds = new ArrayList<>();
-
         //根据user查package
         UserExample userExample = new UserExample();
         UserExample.Criteria uc = userExample.createCriteria();
@@ -79,24 +76,20 @@ public class ArrangementService {
             return null;
         }
         //得到package
-        List<Integer> userIds = new ArrayList<>();
-        for (User user1 : users) {
-            userIds.add(user1.getUserId());
-            PackageExample packageExample = new PackageExample();
-            PackageExample.Criteria pc = packageExample.createCriteria();
-            pc.andPackageUserIn(userIds);
-            List<Package> packages = packageMapper.selectByExample(packageExample);
-            if (packages == null || packages.isEmpty()) {
-                return null;
-            }
-            for (Package p : packages) {
-                packageIds.add(p.getPackageId());
-            }
+        List<Integer> userIds = users.stream().map(User::getUserId).collect(Collectors.toList());
+        PackageExample packageExample = new PackageExample();
+        PackageExample.Criteria pc = packageExample.createCriteria();
+        pc.andPackageUserIn(userIds);
+        List<Package> packages = packageMapper.selectByExample(packageExample);
+
+        if (packages == null || packages.isEmpty()) {
+            return null;
         }
+
+        List<Integer> packageIds = packages.stream().map(Package::getPackageId).collect(Collectors.toList());
 
         ArrangementExample example = new ArrangementExample();
         ArrangementExample.Criteria criteria = example.createCriteria();
-
         criteria.andArrangementPackageIn(packageIds);
 
         List<Integer> locationIds = null;
@@ -133,6 +126,29 @@ public class ArrangementService {
         }
         long totalPage = getTotalPage(example);
         return new Pair<>(totalPage,arrangements);
+    }
+
+    public long getArrangementNum(int communityId){
+        //根据user查package
+        UserExample userExample = new UserExample();
+        UserExample.Criteria uc = userExample.createCriteria();
+        //限定社区
+        uc.andUserCommunityEqualTo(communityId);
+
+        List<User> users = userMapper.selectByExample(userExample);
+        List<Integer> userIds = users.stream().map(User::getUserId).collect(Collectors.toList());
+
+        PackageExample packageExample = new PackageExample();
+        PackageExample.Criteria pc = packageExample.createCriteria();
+        pc.andPackageUserIn(userIds);
+        List<Package> packages = packageMapper.selectByExample(packageExample);
+        List<Integer> packageIds = packages.stream().map(Package::getPackageId).collect(Collectors.toList());
+
+        ArrangementExample arrangementExample = new ArrangementExample();
+        ArrangementExample.Criteria criteria = arrangementExample.createCriteria();
+        criteria.andArrangementPackageIn(packageIds);
+
+        return arrangementMapper.countByExample(arrangementExample);
     }
 
     public boolean removeArrangement(int id) {

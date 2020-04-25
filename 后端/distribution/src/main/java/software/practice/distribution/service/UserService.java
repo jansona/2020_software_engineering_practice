@@ -71,4 +71,11 @@ public class UserService {
         user.setCommunity(communityMapper.selectByPrimaryKey(user.getUserCommunity()));
         return user;
     }
+
+    public long getUserNum(int communityId){
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria = userExample.createCriteria();
+        criteria.andUserCommunityEqualTo(communityId);
+        return userMapper.countByExample(userExample);
+    }
 }

@@ -57,6 +57,26 @@ public class DealService {
         return deals;
     }
 
+    public long getDealsNum(int communityId){
+        UserExample userExample = new UserExample();
+        UserExample.Criteria uc = userExample.createCriteria();
+        uc.andUserCommunityEqualTo(communityId);
+        List<User> users = userMapper.selectByExample(userExample);
+        List<Integer> userIds = users.stream().map(User::getUserId).collect(Collectors.toList());
+
+        PackageExample packageExample = new PackageExample();
+        PackageExample.Criteria pc = packageExample.createCriteria();
+        pc.andPackageUserIn(userIds);
+        List<Package> packages = packageMapper.selectByExample(packageExample);
+        List<Integer> packageIds = packages.stream().map(Package::getPackageId).collect(Collectors.toList());
+
+        DealExample dealExample = new DealExample();
+        DealExample.Criteria criteria = dealExample.createCriteria();
+        criteria.andDealPackageIn(packageIds);
+        criteria.andDealIspassEqualTo((byte)-1);
+        return dealMapper.countByExample(dealExample);
+    }
+
     public boolean checkDeal(int id, boolean admit, String response){
         Deal originalDeal = dealMapper.selectByPrimaryKey(id);
         Deal deal = new Deal();

@@ -2,9 +2,12 @@ package software.practice.distribution.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import software.practice.distribution.entity.*;
+import software.practice.distribution.entity.ApplicationExample;
+import software.practice.distribution.entity.Community;
+import software.practice.distribution.entity.CommunityExample;
+import software.practice.distribution.entity.User;
+import software.practice.distribution.mapper.ApplicationMapper;
 import software.practice.distribution.mapper.CommunityMapper;
-import software.practice.distribution.mapper.DealMapper;
 
 import java.util.List;
 
@@ -16,6 +19,12 @@ public class CommunityService {
     @Autowired
     UserService userService;
 
+    @Autowired
+    DealService dealService;
+
+    @Autowired
+    ApplicationMapper applicationMapper;
+
     public Community getCommunityByUserId(int user_id){
 
         User user = userService.getUserByUserId(user_id);
@@ -26,5 +35,25 @@ public class CommunityService {
     public List<Community> getCommunityList(){
         CommunityExample example = new CommunityExample();
         return communityMapper.selectByExample(example);
+    }
+
+    public Community getDetailById(int communityId){
+        return communityMapper.selectByPrimaryKey(communityId);
+    }
+
+    public long getMessageSum(int communityId){
+        ApplicationExample applicationExample = new ApplicationExample();
+        ApplicationExample.Criteria criteria = applicationExample.createCriteria();
+        criteria.andApplicationCommunityEqualTo(communityId);
+        criteria.andApplicationIspassEqualTo((byte)-1);
+        long applicationNum = applicationMapper.countByExample(applicationExample);
+
+        long dealNum = dealService.getDealsNum(communityId);
+
+        return applicationNum + dealNum;
+    }
+
+    public boolean setCommunity(Community community){
+        return communityMapper.updateByPrimaryKeySelective(community) == 1;
     }
 }
