@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "l-avatar": "/dist/avatar/index",
+    "l-list": "/dist/list/index"
+  }
+}

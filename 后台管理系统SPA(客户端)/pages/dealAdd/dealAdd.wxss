@@ -1,0 +1,7 @@
+/* pages/dealAdd/dealAdd.wxss */
+@import "/style/weui.wxss";
+
+.submit{
+  display: flex;
+  justify-content:center;
+}

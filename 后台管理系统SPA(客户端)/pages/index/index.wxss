@@ -1,0 +1,36 @@
+/* pages/index/index.wxss */
+.parentView {
+  position: relative;
+  width: 100%;
+  height: 500rpx;
+  background-color:rgba(253, 226, 230, 1);
+  z-index: 1;
+}
+
+
+.parentImg {  
+  height: 500rpx;
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+}
+
+.userImage{
+  width:100%;
+  height: 100%;
+  filter: blur(10rpx);
+}
+
+.avatarImg {
+  top: 30%;
+  left: 40%;
+  position: absolute;
+  z-index: 3;
+}
+
+.userButton{
+  top: 40%;
+  left: 35%;
+  position: absolute;
+  z-index: 2;
+}

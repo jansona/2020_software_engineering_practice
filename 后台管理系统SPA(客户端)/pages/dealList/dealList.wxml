@@ -1,0 +1,25 @@
+<!--特殊申请列表界面-->
+<!-- 引入wxs脚本 -->
+<wxs src="../../wxs/subUtil.wxs" module="tools" />
+
+<l-tabs bind:linchange="changeTabs">
+	<l-tabpanel tab="已通过" key="one" slot="one">
+		<view class="weui-panel" wx:for="{{dealList}}" data-value="{{item}}" wx:key="deal_id" bindtap="viewTap">
+			<view class="weui-panel__bd">
+				<view class="weui-media-box weui-media-box_text">
+					<view class="weui-media-box__title weui-media-box__title_in-text">{{item.dealType>0?"送货上门":"延迟取货"}}</view>
+					<view class="weui-media-box__desc">{{tools.sub(item.dealContent)}}</view>
+					<view class="weui-media-box__info">
+						<view class="weui-media-box__info__meta">{{item.dealTime}}</view>
+						</view>
+					</view>
+				</view>
+			</view>
+	</l-tabpanel>
+	<l-tabpanel tab="未通过" key="two" slot="two">
+		<view class="tab-content">已通过</view>
+	</l-tabpanel>
+	<l-tabpanel tab="待处理" key="three" slot="three">
+		<view class="tab-content">未通过</view>
+	</l-tabpanel>
+</l-tabs>
