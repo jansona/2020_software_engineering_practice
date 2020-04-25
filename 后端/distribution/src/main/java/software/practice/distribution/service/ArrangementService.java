@@ -45,6 +45,10 @@ public class ArrangementService {
         pc.andPackageUserEqualTo(userId);
         List<Package> packageList = packageMapper.selectByExample(packageExample);
 
+        if (packageList == null || packageList.isEmpty()){
+            return null;
+        }
+
         List<Integer> packageIds = packageList.stream().map(Package::getPackageId).collect(Collectors.toList());
 
         ArrangementExample example = new ArrangementExample();
@@ -52,6 +56,10 @@ public class ArrangementService {
         criteria.andArrangementPackageIn(packageIds);
 
         List<Arrangement> arrangements = arrangementMapper.selectByExampleWithRowbounds(example, new RowBounds((page - 1) * 10, 10));
+        if (arrangements == null || arrangements.isEmpty()){
+            return null;
+        }
+
         for (Arrangement arrangement : arrangements) {
             int pid = arrangement.getArrangementPackage();
             Package p = packageMapper.selectByPrimaryKey(pid);
@@ -117,6 +125,10 @@ public class ArrangementService {
         }
 
         List<Arrangement> arrangements = arrangementMapper.selectByExampleWithRowbounds(example, new RowBounds((page - 1) * 10, 10));
+        if (arrangements == null || arrangements.isEmpty()){
+            return null;
+        }
+
         for (Arrangement arrangement : arrangements) {
             int pid = arrangement.getArrangementPackage();
             Package p = packageMapper.selectByPrimaryKey(pid);

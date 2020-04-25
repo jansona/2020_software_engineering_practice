@@ -35,7 +35,7 @@ public class ArrangementController {
                 location,
                 BasicUtil.covertStrTime(time),
                 communityId);
-        if(arrangements.getKey() != 0 && arrangements.getValue() != null && !arrangements.getValue().isEmpty()){
+        if(arrangements != null && arrangements.getKey() != 0 && arrangements.getValue() != null && !arrangements.getValue().isEmpty()){
             return new Result(200,arrangements.getKey(),arrangements.getValue());
         }
         return new Result(400,"未找到");
