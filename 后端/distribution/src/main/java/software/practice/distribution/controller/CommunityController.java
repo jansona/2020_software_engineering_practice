@@ -2,14 +2,12 @@ package software.practice.distribution.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import software.practice.distribution.entity.Community;
-import software.practice.distribution.entity.Deal;
 import software.practice.distribution.result.Result;
 import software.practice.distribution.service.CommunityService;
-import software.practice.distribution.service.DealService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -22,10 +20,40 @@ public class CommunityController {
     @CrossOrigin
     @PostMapping(value = "/community/list")
     public Result getDealByUser(){
-        List<Community> communitys = communityService.getCommunityList();
-        if(communitys != null){
-            return new Result(200,communitys.size(),communitys);
+        List<Community> communities = communityService.getCommunityList();
+        if(communities != null){
+            return new Result(200,communities.size(),communities);
         }
         return new Result(400,"未找到");
+    }
+
+    @CrossOrigin
+    @GetMapping(value = "/community/detail")
+    public Result getDetail(HttpServletRequest request){
+        int id = (int) request.getSession().getAttribute("communityId");
+        Community community = communityService.getDetailById(id);
+        if(community != null){
+            return new Result(200,null,community);
+        }
+        return new Result(400,"未找到");
+    }
+
+    @CrossOrigin
+    @GetMapping(value = "/message/sum")
+    public Result getMessageSum(HttpServletRequest request){
+        int id = (int) request.getSession().getAttribute("communityId");
+        long num = communityService.getMessageSum(id);
+        return new Result(200,null,num);
+    }
+
+    @CrossOrigin
+    @PostMapping(value = "/community/set")
+    public Result setCommunity(Community community, HttpServletRequest request){
+        int id = (int) request.getSession().getAttribute("communityId");
+        community.setCommunityId(id);
+        if(communityService.setCommunity(community)){
+            return new Result(200,"修改成功");
+        }
+        return new Result(400,"修改失败");
     }
 }

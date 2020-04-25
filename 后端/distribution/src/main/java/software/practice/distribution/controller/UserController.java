@@ -61,4 +61,12 @@ public class UserController {
         }
         return new Result(400,"未找到");
     }
+
+    @CrossOrigin
+    @GetMapping(value = "/user/sum")
+    public Result getUserNum(HttpServletRequest request){
+        int id = (int) request.getSession().getAttribute("communityId");
+        long num = userService.getUserNum(id);
+        return new Result(200,null,num);
+    }
 }

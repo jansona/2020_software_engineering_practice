@@ -71,4 +71,12 @@ public class ArrangementController {
         }
         return new Result(400,"未找到");
     }
+
+    @CrossOrigin
+    @GetMapping(value = "/arrangement/sum")
+    public Result getArrangementSum(HttpServletRequest request) {
+        int communityId = (int)request.getSession().getAttribute("communityId");
+        long sum = arrangementService.getArrangementNum(communityId);
+        return new Result(200,null,sum);
+    }
 }
