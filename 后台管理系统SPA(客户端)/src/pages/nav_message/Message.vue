@@ -182,8 +182,9 @@
             },
             handleAccept() {
                 this.handleLoading = true;
-                let para = { id: dealForm.dealId, admit: true, deal_response: dealForm.dealResponse };
+                let para = { id: this.dealForm.dealId, admit: true, deal_response: this.dealForm.dealResponse };
                 checkDeal(para).then((res) => {
+                    debugger;
                     this.getMessage();
                     this.handleVisible = false;
                     this.handleLoading = false;
@@ -191,7 +192,7 @@
             },
             handleRefuse() {
                 this.handleLoading = true;
-                let para = { id: dealForm.dealId, admit: false, deal_response: dealForm.dealResponse };
+                let para = { id: this.dealForm.dealId, admit: false, deal_response: this.dealForm.dealResponse };
                 checkDeal(para).then((res) => {
                     this.getMessage();
                     this.handleVisible = false;

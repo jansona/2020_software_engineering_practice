@@ -53,7 +53,7 @@ public class DealController {
 
     @CrossOrigin
     @GetMapping(value = "/deal/check-deal")
-    public Result checkDeal(int id, boolean admit,String deal_response){
+    public Result checkDeal(int id, boolean admit, String deal_response){
         if(dealService.checkDeal(id,admit,deal_response)){
             return new Result(200,"已处理");
         }

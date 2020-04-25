@@ -66,4 +66,7 @@ export const getMessageNum = () => { return axios.get(`${base}/message/sum`)};
 
 export const getArrangementNum = () => { return axios.get(`${base}/arrangement/sum`)};
 
-export const getCommunity = () => { return axios.get(`${base}/community/detail`)};
+export const getCommunityDetail = () => { return axios.get(`${base}/community/detail`)};
+
+export const setCommunityDetail = params => { return axios.post(`${base}/community/set`, params); };
+

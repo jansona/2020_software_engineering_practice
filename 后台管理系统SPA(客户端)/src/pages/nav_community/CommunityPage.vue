@@ -5,7 +5,7 @@
         <el-card class="box-card">
             <div slot="header" class="clearfix">
                 <span>社区基本属性</span>
-                <el-button style="float: right; padding: 5px 0" type="text">设置</el-button>
+                <el-button style="float: right; padding: 5px 0" type="text" @click="setCommunity">设置</el-button>
             </div>
             <div>
                 <el-form :model="community" label-width="100px">
@@ -19,7 +19,7 @@
                         <el-input v-model="community.communityAddress"></el-input>
                     </el-form-item>
                     <el-form-item label="最短自提间隔">
-                        <el-input-number v-model="community.communityInternal" :min="0" label="最短自提间隔"></el-input-number>
+                        <el-input-number v-model="community.communityInterval" :min="0" label="最短自提间隔"></el-input-number>
                     </el-form-item>
                 </el-form>
             </div>
@@ -30,7 +30,7 @@
 <script>
 import PanelGroup from '../../components/PanelGroup'
 import { getUserNum, getMessageNum, getArrangementNum } from '../../api/api';
-import getCommunity from '../../api/api';
+import { getCommunityDetail, setCommunityDetail } from '../../api/api';
 
 export default {
     components: { PanelGroup },
@@ -40,10 +40,10 @@ export default {
             messageNum: 0,
             arrangementNum: 0,
             community: {
-                communityId: 1,
-                communityName: '第1小区',
-                communityAddress: '湖北省武汉市第1大街1号',
-                communityInternal: 3600,
+                communityId: 0,
+                communityName: '',
+                communityAddress: '',
+                communityInterval: 0,
             }
         }
     },
@@ -58,13 +58,23 @@ export default {
             getArrangementNum().then((res) => {
                 this.arrangementNum = res.data.content;
             });
+        },
+        getDetail() {
+            getCommunityDetail().then((res) => {
+                debugger;
+                this.community = res.data.content;
+            });
+        },
+        setCommunity() {
+            let para = Object.assign({}, this.community);
+            setCommunityDetail(para).then((res) => {
+                this.getDetail();
+            })
         }
     },
     mounted() {
         this.getAllNums();
-        getCommunity().then((res) => {
-            this.community = res.data.content;
-        })
+        this.getDetail();
     }
 }
 </script>

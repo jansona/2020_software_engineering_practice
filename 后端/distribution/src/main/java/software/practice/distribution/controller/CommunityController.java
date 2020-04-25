@@ -1,10 +1,7 @@
 package software.practice.distribution.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import software.practice.distribution.entity.Community;
 import software.practice.distribution.result.Result;
 import software.practice.distribution.service.CommunityService;
@@ -48,7 +45,7 @@ public class CommunityController {
 
     @CrossOrigin
     @PostMapping(value = "/community/set")
-    public Result setCommunity(Community community, HttpServletRequest request){
+    public Result setCommunity(@RequestBody Community community, HttpServletRequest request){
         int id = (int) request.getSession().getAttribute("communityId");
         community.setCommunityId(id);
         if(communityService.setCommunity(community)){
