@@ -9,7 +9,6 @@ import software.practice.distribution.result.Result;
 import software.practice.distribution.service.ApplicationService;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -20,6 +19,7 @@ public class ApplicationController {
     @CrossOrigin
     @PostMapping(value = "/application/add")
     public Result createApplication(@RequestBody Application application){
+        application.setApplicationIspass((byte)-1);
         if(applicationService.createApplication(application)){
             return new Result(200,null);
         }
