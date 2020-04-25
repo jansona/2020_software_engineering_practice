@@ -38,11 +38,19 @@ public class DealService {
         List<User> users = userMapper.selectByExample(userExample);
         List<Integer> userIds = users.stream().map(User::getUserId).collect(Collectors.toList());
 
+        if (users.isEmpty()){
+            return null;
+        }
+
         PackageExample packageExample = new PackageExample();
         PackageExample.Criteria pc = packageExample.createCriteria();
         pc.andPackageUserIn(userIds);
         List<Package> packages = packageMapper.selectByExample(packageExample);
         List<Integer> packageIds = packages.stream().map(Package::getPackageId).collect(Collectors.toList());
+
+        if (packages.isEmpty()){
+            return null;
+        }
 
         DealExample dealExample = new DealExample();
         DealExample.Criteria criteria = dealExample.createCriteria();
@@ -64,11 +72,19 @@ public class DealService {
         List<User> users = userMapper.selectByExample(userExample);
         List<Integer> userIds = users.stream().map(User::getUserId).collect(Collectors.toList());
 
+        if (users.isEmpty()){
+            return 0;
+        }
+
         PackageExample packageExample = new PackageExample();
         PackageExample.Criteria pc = packageExample.createCriteria();
         pc.andPackageUserIn(userIds);
         List<Package> packages = packageMapper.selectByExample(packageExample);
         List<Integer> packageIds = packages.stream().map(Package::getPackageId).collect(Collectors.toList());
+
+        if (packages.isEmpty()){
+            return 0;
+        }
 
         DealExample dealExample = new DealExample();
         DealExample.Criteria criteria = dealExample.createCriteria();
