@@ -85,6 +85,7 @@ public class DataFull {
                 application.setApplicationCommunity(i + 1);
                 // 第五号社区全都不处理community
                 if(i != 4) application.setApplicationIspass((byte)1);
+                else application.setApplicationIspass((byte)-1);
                 applicationMapper.insertSelective(application);
 
                 // 每个人3个包裹，共300个包裹
@@ -109,6 +110,8 @@ public class DataFull {
             if (i % 3 == 0){
                 deal.setDealIspass((byte)1);
                 deal.setDealResponse("可以，凌晨3点来拿吧");
+            } else {
+                deal.setDealIspass((byte)-1);
             }
             dealMapper.insert(deal);
         }

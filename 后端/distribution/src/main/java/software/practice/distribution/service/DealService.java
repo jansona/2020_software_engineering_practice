@@ -47,6 +47,7 @@ public class DealService {
         DealExample dealExample = new DealExample();
         DealExample.Criteria criteria = dealExample.createCriteria();
         criteria.andDealPackageIn(packageIds);
+        criteria.andDealIspassEqualTo((byte)-1);
         List<Deal> deals = dealMapper.selectByExample(dealExample);
         for (Deal deal : deals) {
             deal.setPackageEntity(packageMapper.selectByPrimaryKey(deal.getDealPackage()));

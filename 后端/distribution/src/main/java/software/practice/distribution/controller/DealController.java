@@ -22,6 +22,7 @@ public class DealController {
     @CrossOrigin
     @PostMapping(value = "/deal/add")
     public Result addDeal(@RequestBody Deal deal) {
+        deal.setDealIspass((byte)-1);
         if(dealService.addDeal(deal)){
             return new Result(200);
         }
