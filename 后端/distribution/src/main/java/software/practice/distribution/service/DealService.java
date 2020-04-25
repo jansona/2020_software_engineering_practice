@@ -79,6 +79,7 @@ public class DealService {
 
     public boolean addDeal(Deal deal){
         deal.setDealTime(new Date());
+        deal.setDealIspass((byte)-1);
         return dealMapper.insert(deal) == 1;
     }
 
