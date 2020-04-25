@@ -1,6 +1,0 @@
-/* pages/packageInfo/packageInfo.wxss */
-@import "/style/weui.wxss";
-.add{
-    display: flex;
-    justify-content:center;
-}
