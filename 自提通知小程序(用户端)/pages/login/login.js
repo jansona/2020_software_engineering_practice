@@ -43,14 +43,12 @@ Page({
         title: "提示",
         content: '手机号格式不正确',
         showCancel: false,
-        success(res) {}
       })
     }else if (pass.length < 6) {
       wx.showModal({
         title: "提示",
         content: '密码长度至少为6(不含空格)',
         showCancel: false,
-        success(res) {}
       })
     }else {
       //登录操作
@@ -84,7 +82,6 @@ Page({
             title: "提示",
             content: result.data.message,
             showCancel: false,
-            success(res) {}
           })
         }
       })

@@ -22,7 +22,7 @@
 			</picker>
 		</mp-cell>
 		<mp-cell title="结束时间" ext-class="">
-			<picker  mode="time" value="{{endtime}}" start="{{starttime}}" end="23:59" bindchange="timeChange" data-field="starttime">
+			<picker  mode="time" value="{{endtime}}" start="{{starttime}}" end="23:59" bindchange="timeChange" data-field="endtime">
 				<view class="weui-input">{{endtime}}</view>
 			</picker>
 		</mp-cell>

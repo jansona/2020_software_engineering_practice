@@ -45,7 +45,6 @@ Page({
           title: "提示",
           content: res.data.message,
           showCancel: false,
-          success(res) {}
         })
       }
     })

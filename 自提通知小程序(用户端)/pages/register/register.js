@@ -5,21 +5,21 @@ Page({
    * 页面的初始数据
    */
   data: {
-      username:"",
-      password1:'',
-      password2: ""
+    userphone: "",
+    password1: "",
+    password2: ""
   },
 
   /**
    * 输入发生改变事件
    * @param {事件参数} e 
    */
-  inputChange: function(e){
+  inputChange: function (e) {
     const {
       field
     } = e.currentTarget.dataset;
     this.setData({
-      [`${field}`]: e.detail.value
+      [`${field}`]: e.detail.value.replace(/\s+/g, "")
     });
   },
 
@@ -27,44 +27,35 @@ Page({
    * 下一步按钮点击操作
    * @param {事件参数} e 
    */
-  nextTap: function(e){
-    var name = this.data.username.replace(/(^s*)|(s*$)/g, "");
-    var pass1 = this.data.password1.replace(/(^s*)|(s*$)/g, "");
-    var pass2 = this.data.password2.replace(/(^s*)|(s*$)/g, "");
-      if(name.length < 3 )
-      {
-          wx.showModal({
-            title: "提示",
-            content: '用户名长度至少为3(不含空格)',
-            showCancel: false,
-            success(res){}
-          })
-      }
-      if(pass1.length < 6 )
-      {
-          wx.showModal({
-            title: "提示",
-            content: '密码长度至少为6(不含空格)',
-            showCancel: false,
-            success(res){}
-          })
-      }
-      if(pass1 != pass2 )
-      {
-          wx.showModal({
-            title: "提示",
-            content: '前后密码输入不一致',
-            showCancel: false,
-            success(res){}
-          })
-      }
-      if(name.length >= 3 && pass1.length >= 6 && pass1 == pass2)
-      {
-        wx.navigateTo({
-          url: '/pages/userEdit/userEdit?type=1&name='+name+"&pass="+pass1,
-        })
-      }
-      
+  nextTap: function (e) {
+    var phone = this.data.userphone;
+    var pass1 = this.data.password1;
+    var pass2 = this.data.password2;
+    var reg = /^1(3|4|5|7|8)\d{9}$/;
+    if (phone.length != 11 || !reg.test(phone)) {
+      wx.showModal({
+        title: "提示",
+        content: '手机号码格式不对',
+        showCancel: false,
+      })
+    }else if (pass1.length < 6) {
+      wx.showModal({
+        title: "提示",
+        content: '密码长度至少为6(不含空格)',
+        showCancel: false,
+      })
+    } else if (pass1 != pass2) {
+      wx.showModal({
+        title: "提示",
+        content: '前后密码输入不一致',
+        showCancel: false,
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/userEdit/userEdit?type=1&phone=' + phone + "&pass=" + pass1,
+      })
+    }
+
   },
 
   /**

@@ -1,6 +1,8 @@
 // pages/userInfo/userInfo.js
 
-import {request} from "../../utils/request.js"
+import {
+  request
+} from "../../utils/request.js"
 
 Page({
 
@@ -14,6 +16,8 @@ Page({
     endtime: "23:59",
     disable: true,
     stay: 0,
+    url: "/user/edit",
+    reUrl: "/pages/userInfo/userInfo"
   },
 
   /**
@@ -64,76 +68,76 @@ Page({
         title: "提示",
         content: '用户名长度至少为2(不含空格)',
         showCancel: false,
-        success(res) {}
       })
     } else if (address.length == 0) {
       wx.showModal({
         title: "提示",
         content: '地址格式不正确',
         showCancel: false,
-        success(res) {}
       })
     } else if (phone.length != 11 || !regPhone.test(phone)) {
       wx.showModal({
         title: "提示",
         content: '手机号格式不正确',
         showCancel: false,
-        success(res) {}
       })
     } else if (idcard.length != 18 || !regIdcard.test(idcard)) {
       wx.showModal({
         title: "提示",
         content: '身份证格式不正确',
         showCancel: false,
-        success(res) {}
       })
     } else if (pass.length < 6) {
       wx.showModal({
         title: "提示",
         content: '密码长度至少为6(不含空格)',
         showCancel: false,
-        success(res) {}
       })
     } else { //格式校验通过之后，先计算timeStay
       var time1 = new Date("2020/04/13 " + this.data.starttime);
       var time2 = new Date("2020/04/13 " + this.data.endtime);
       var seconds = (time2.getTime() - time1.getTime()) / 1000;
-      console.log(seconds)
       this.setData({
-        [user.userTimeStay]: seconds
+        [`user.userTimeStay`]: seconds,
+        [`user.userFavoriteStarttime`]: "1970-01-01 "+this.data.starttime+":46"
       })
-      //向服务器发送请求
-     request({
-      url: "/user/edit",
-      data: user,
-      method: "POST",
-      header: {
-        "Cookie": getApp().globalData.cookie
-      }
-     }).then(res =>{
-       //成功发送请求
-       var code = result.data.code;
-       if (code == 200) {
-         wx.showToast({
-           title: '修改成功',
-           icon: 'success',
-           duration: 1000
-         })
-         getApp().globalData.user = user;
-         setTimeout(function () {
-           wx.reLaunch({
-             url: '/pages/userInfo/userInfo',
-           })
-         }, 1000)
-       } else { //提示用户错误信息
-         wx.showModal({
-           title: "提示",
-           content: res.data.message,
-           showCancel: false,
-           success(res) {}
-         })
-       }
-     })
+        //向服务器发送请求
+        request({
+          url: this.data.url,
+          data: user,
+          method: "POST",
+          header: {
+            "Cookie": getApp().globalData.cookie
+          }
+        }).then(res => {
+          //成功发送请求
+          var code = res.data.code;
+          if (code == 200) {
+            wx.showToast({
+              title: '操作成功',
+              icon: 'success',
+              duration: 1000
+            })
+            if(this.data.type == "1"){
+                this.setData({
+                  user:  res.data.content
+                })
+            }
+            getApp().globalData.user = user;
+            var reUrl = this.data.reUrl
+            setTimeout(function () {
+              wx.reLaunch({
+                url: reUrl,
+              })
+            }, 1000)
+          } else { //提示用户错误信息
+            wx.showModal({
+              title: "提示",
+              content: res.data.message,
+              showCancel: false,
+            })
+          }
+        })
     }
   },
 
@@ -143,14 +147,21 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      type: options.type,
-      user: getApp().globalData.user
+      type: options.type
     })
-    //type为1说明是注册
+    //type不为1说明是修改用户信息
     if (options.type != "1") {
       this.setData({
         starttime: options.start,
-        endtime: options.end
+        endtime: options.end,
+        user: getApp().globalData.user
+      })
+    } else {
+      this.setData({
+        [`user.userPhone`]: options.phone,
+        [`user.userPassword`]: options.pass,
+        url: "/user/create",
+        reUrl: "/pages/index/index"
       })
     }
   },

@@ -4,7 +4,7 @@
 
 <l-tabs bind:linchange="changeTabs">
 	<l-tabpanel tab="已通过" key="one" slot="one">
-		<view class="weui-panel" wx:for="{{dealList}}" data-value="{{item}}" wx:key="{{item.deal_id}}" bindtap="viewTap">
+		<view class="weui-panel" wx:for="{{dealList}}" data-value="{{item}}" wx:key="deal_id" bindtap="viewTap">
 			<view class="weui-panel__bd">
 				<view class="weui-media-box weui-media-box_text">
 					<view class="weui-media-box__title weui-media-box__title_in-text">{{item.dealType>0?"送货上门":"延迟取货"}}</view>

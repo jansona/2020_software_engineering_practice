@@ -56,16 +56,16 @@ Page({
             },
           }).then(res => {
             if (res.data.code == 200) {
-              this.setData({
-                communities: res.data.content,
-                results: res.data.content
-              })
+                wx.showToast({
+                  title: '申请成功',
+                  icon: 'success',
+                  duration: 1000
+                })
             } else { //错误信息提示
               wx.showModal({
                 title: "提示",
                 content: result.data.message,
                 showCancel: false,
-                success(res) {}
               })
             }
           })
@@ -79,7 +79,7 @@ Page({
    * @param {事件参数，传递搜索框的值} e 
    */
   textChange: function (e) {
-    var searchValue = e.detail.value.replace(/(^s*)|(s*$)/g, "");
+    var searchValue = e.detail.value.replace(/\s+/g, "");
     var result = this.data.communities.filter(item => item.communityName.search(searchValue) != -1);
     this.setData({
       results: result
@@ -105,9 +105,8 @@ Page({
       } else { //错误信息提示
         wx.showModal({
           title: "提示",
-          content: res.data.message,
-          showCancel: false,
-          success(res) {}
+          content: res.data.message != '未找到'? res.data.message : '您还没有申请加入居民集群',
+          showCancel: false
         })
       }
       if (this.data.application) {
@@ -117,14 +116,12 @@ Page({
             ispass: this.data.application.key.applicationIspass,
             communityAddress:this.data.application.value.communityAddress
         })
-        
       }else{
         //如没有application，就获取集群列表
         request({
           url: "/community/list",
           method: "POST",
           header: {
-            "content-type": "application/x-www-form-urlencoded",
             "Cookie": getApp().globalData.cookie
           }
         }).then(res => {
@@ -139,7 +136,6 @@ Page({
               title: "提示",
               content: res.data.message,
               showCancel: false,
-              success(res) {}
             })
           }
         })

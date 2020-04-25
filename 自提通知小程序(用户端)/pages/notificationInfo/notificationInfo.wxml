@@ -12,7 +12,9 @@
     <mp-cell title="取用地点" ext-class="">
 			<input class="weui-input" value="{{notification.locationEntity.locationName}}" disabled="{{true}}" />
 		</mp-cell>
+		<mp-cell title="时长限制" ext-class="">
+			<input class="weui-input" value="{{timeStay/60}}分钟" disabled="{{true}}" />
+		</mp-cell>
 	</mp-cells>
  </mp-form>
-
 <l-button class="add"  size="large" bindtap="dealAdd">提出特殊申请</l-button>

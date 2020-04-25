@@ -5,10 +5,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-      notification:{}
+    notification: {},
+    timeStay: 0
   },
 
-  dealAdd: function(){
+  dealAdd: function () {
     wx.navigateTo({
       url: '/pages/dealAdd/dealAdd?package_id=' + this.data.notification.arrangementPackage,
     })
@@ -19,7 +20,8 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      notification: JSON.parse(decodeURIComponent(options.item))
+      notification: JSON.parse(decodeURIComponent(options.item)),
+      timeStay: getApp().globalData.user.community.communityInterval
     })
   },
 

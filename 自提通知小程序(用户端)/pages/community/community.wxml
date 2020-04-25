@@ -1,5 +1,5 @@
 <!--pages/community/community.wxml-->
-<view wx:if="{{community_name != ''}}"   class="content_wrap">
+<view wx:if="{{communityName != ''}}"   class="content_wrap">
   <view class="info_wrap1">
     <text class="left">{{time}}</text>
     <text class='right' style="color:{{ispass == -1?'blue':ispass==0?'red':'green' }}">{{ispass == -1?'未处理':ispass==0?'未通过':'已通过'}}</text>

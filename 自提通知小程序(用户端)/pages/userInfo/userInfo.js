@@ -20,7 +20,7 @@ Page({
    * 传入的参数包括type(0表示修改，1表示注册)，开始时间和结束时间
    */
   btnTap: function () {
-    wx.redirectTo({
+    wx.navigateTo({
       url: '/pages/userEdit/userEdit?type=0&start='+this.data.starttime+'&end='+this.data.endtime
     })
   },

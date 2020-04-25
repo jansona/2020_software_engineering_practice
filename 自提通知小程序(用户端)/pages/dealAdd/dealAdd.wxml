@@ -7,7 +7,7 @@
         </mp-cells>
 	<mp-cells title="内容">
 		<mp-cell prop="deal_content" has-header="{{false}}" has-footer="{{false}}" title="" ext-class="">
-			<textarea class="weui-textarea" placeholder="至少输入10个字" bindblur="bindTextAreaBlur" bindinput="getValueLength" value="{{content}}" style="height: 13em" maxlength="{{max}}" minlength="{{min}}" />
+			<textarea class="weui-textarea" placeholder="至少输入10个字"  bindinput="getValueLength" value="{{content}}" style="height: 13em" maxlength="{{max}}" minlength="{{min}}" />
 			<text class="minWord">{{minWord}}</text>
 			<view class="weui-textarea-counter">{{currentWordNumber|0}}/{{max}}</view>
     </mp-cell>
