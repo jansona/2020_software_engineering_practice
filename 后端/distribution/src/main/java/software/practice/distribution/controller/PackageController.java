@@ -1,14 +1,17 @@
 package software.practice.distribution.controller;
 
 import javafx.util.Pair;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import software.practice.distribution.Utils.BasicUtil;
 import software.practice.distribution.entity.Package;
 import software.practice.distribution.result.Result;
 import software.practice.distribution.service.PackageService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -70,5 +73,33 @@ public class PackageController {
             return new Result(200);
         }
         return new Result(400,"删除失败");
+    }
+
+    @CrossOrigin
+    @PostMapping(value = "/package/import")
+    public Result importPackage(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+        if (file == null || file.isEmpty()) {
+            return new Result(400,"文件为空，请重新选择");
+        }
+
+        String fileName = file.getOriginalFilename();
+        // 获取文件的后缀名,比如图片的jpeg,png
+        assert fileName != null;
+        String suffixName = fileName.substring(fileName.lastIndexOf("."));
+        if (suffixName.equals("xls") || suffixName.equals("xlsx")){
+            try {
+                Pair<Boolean,String> res = packageService.writeFileToData(file,suffixName);
+                if (res.getKey()){
+                    return new Result(200,"导入成功！");
+                } else {
+                    return new Result(400,res.getValue());
+                }
+            } catch (IOException e) {
+                return new Result(400,"文件读取失败");
+            } catch (InvalidFormatException e) {
+                return new Result(400,"文件后缀名正确但内部格式不正确，请确认是否为xls或xlsx");
+            }
+        }
+        else return new Result(400,"文件格式不正确，请确认是否为xls或xlsx");
     }
 }
