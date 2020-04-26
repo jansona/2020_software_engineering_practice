@@ -44,6 +44,8 @@ export const editGoods = params => { return axios.post(`${base}/package/edit`, p
 
 export const addGoods = params => { return axios.post(`${base}/package/add`, params); };
 
+export const getGoodsImportUrl = () => { return `${base}/package/import`; };
+
 // 用户相关
 export const getUsersListPage = params => { return axios.get(`${base}/users/listpage`, { params: params }); };
 

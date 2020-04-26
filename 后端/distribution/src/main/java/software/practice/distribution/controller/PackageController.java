@@ -86,7 +86,7 @@ public class PackageController {
         // 获取文件的后缀名,比如图片的jpeg,png
         assert fileName != null;
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
-        if (suffixName.equals("xls") || suffixName.equals("xlsx")){
+        if (suffixName.equals(".xls") || suffixName.equals(".xlsx")){
             try {
                 Pair<Boolean,String> res = packageService.writeFileToData(file,suffixName);
                 if (res.getKey()){

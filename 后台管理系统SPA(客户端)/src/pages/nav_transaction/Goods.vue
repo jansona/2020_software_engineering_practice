@@ -19,7 +19,7 @@
                     <el-button type="primary" @click="handleAdd">新增</el-button>
                 </el-form-item>
                 <el-form-item>
-                    <el-upload class="upload-demo" action="/goods/import">
+                    <el-upload class="upload-demo" :action="importUrl">
                         <el-button type="primary" plain>导入文件<i class="el-icon-upload el-icon--right"></i></el-button>
                         <!-- <div slot="tip" class="el-upload__tip">只能上传xls/xlsx</div> -->
                     </el-upload>
@@ -89,7 +89,7 @@
 <script>
     import util from '../../common/js/util'
     //import NProgress from 'nprogress'
-    import { getGoodsListPage, removeGoods, batchRemoveGoods, editGoods, addGoods } from '../../api/api';
+    import { getGoodsListPage, removeGoods, batchRemoveGoods, editGoods, addGoods, getGoodsImportUrl } from '../../api/api';
 
     export default {
         data() {
@@ -104,6 +104,8 @@
                 page: 1,
                 listLoading: false,
                 sels: [],//列表选中列
+
+                importUrl: '',
 
                 editFormVisible: false,//编辑界面是否显示
                 editLoading: false,
@@ -264,6 +266,7 @@
         },
         mounted() {
             this.getGoods();
+            this.importUrl = getGoodsImportUrl();
         }
     }
 
