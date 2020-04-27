@@ -16,6 +16,10 @@ Page({
   },
 
 
+  /**
+   * 点击条目跳转到详情
+   * @param {*} e 
+   */
   viewTap: function (e) {
     wx.navigateTo({
       url: '/pages/notificationInfo/notificationInfo?item=' + encodeURIComponent(JSON.stringify(e.currentTarget.dataset.value))
@@ -23,10 +27,23 @@ Page({
 
   },
 
+
+  /**
+   * 
+   * @param {*} e 
+   */
+  changeTabs: function(e) {
+
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.getData()
+  },
+
+  getData: function(){
     request({
       url: "/arrangement/list",
       data: {

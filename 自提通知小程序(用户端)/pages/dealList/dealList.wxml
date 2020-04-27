@@ -4,6 +4,17 @@
 
 <l-tabs bind:linchange="changeTabs">
 	<l-tabpanel tab="已通过" key="one" slot="one">
+		<!-- <view class="tab-content">已通过</view> -->
+	</l-tabpanel>
+	<l-tabpanel tab="未通过" key="two" slot="two">
+		<!-- <view class="tab-content">未通过</view> -->
+	</l-tabpanel>
+	<l-tabpanel tab="待处理" key="three" slot="three">
+		<!-- <view class="tab-content">待处理</view> -->
+	</l-tabpanel>
+</l-tabs>
+
+<scroll-view style="width:100%; height:100%" wx:if="{{dealList.length != 0}}" >
 		<view class="weui-panel" wx:for="{{dealList}}" data-value="{{item}}" wx:key="deal_id" bindtap="viewTap">
 			<view class="weui-panel__bd">
 				<view class="weui-media-box weui-media-box_text">
@@ -15,11 +26,5 @@
 					</view>
 				</view>
 			</view>
-	</l-tabpanel>
-	<l-tabpanel tab="未通过" key="two" slot="two">
-		<view class="tab-content">已通过</view>
-	</l-tabpanel>
-	<l-tabpanel tab="待处理" key="three" slot="three">
-		<view class="tab-content">未通过</view>
-	</l-tabpanel>
-</l-tabs>
+</scroll-view>
+<view wx:else >啊哦，还没有特殊申请</view>
