@@ -1,5 +1,6 @@
 package software.practice.distribution.controller;
 
+import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import software.practice.distribution.entity.Deal;
@@ -33,9 +34,9 @@ public class DealController {
     @PostMapping(value = "/deal/list")
     public Result getDealByUser(int page, Byte dealIspass, HttpServletRequest request){
         int user_id = (int)request.getSession().getAttribute("userId");
-        List<Deal> list = dealService.getDealsByUserId(user_id,page,dealIspass);
-        if(list != null){
-            return new Result(200,null,list);
+        Pair<Integer,List<Deal>> pair = dealService.getDealsByUserId(user_id,page,dealIspass);
+        if(pair != null){
+            return new Result(200,pair.getKey(),pair.getValue());
         }
         return new Result(400,"未找到");
     }
