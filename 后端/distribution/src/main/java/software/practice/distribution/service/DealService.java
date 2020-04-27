@@ -1,5 +1,6 @@
 package software.practice.distribution.service;
 
+import javafx.util.Pair;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -119,7 +120,7 @@ public class DealService {
         return dealMapper.insert(deal) == 1;
     }
 
-    public List<Deal> getDealsByUserId(int user_id,int page,Byte dealIspass){
+    public Pair<Integer,List<Deal>> getDealsByUserId(int user_id,int page,Byte dealIspass){
         PackageExample packageExample = new PackageExample();
         PackageExample.Criteria pc = packageExample.createCriteria();
         pc.andPackageUserEqualTo(user_id);
@@ -137,7 +138,9 @@ public class DealService {
         DealExample.Criteria criteria = example.createCriteria();
         criteria.andDealPackageIn(packageIds);
         criteria.andDealIspassEqualTo(dealIspass);
-        return dealMapper.selectByExampleWithRowbounds(example,
-            new RowBounds((page - 1) * 10, 10));
+        int total = dealMapper.selectByExample(example).size();
+        return new Pair<Integer,List<Deal>>(total,
+                dealMapper.selectByExampleWithRowbounds(example,
+            new RowBounds((page - 1) * 10, 10)));
     }
 }
