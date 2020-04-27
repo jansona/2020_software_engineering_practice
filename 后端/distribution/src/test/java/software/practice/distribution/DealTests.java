@@ -8,6 +8,10 @@ import software.practice.distribution.entity.User;
 import software.practice.distribution.service.DealService;
 import software.practice.distribution.service.UserService;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * @author ：Chang Jiaxin
  * @date ：Created in 2020/4/15 下午 12:17
@@ -44,4 +48,11 @@ public class DealTests {
 //        int user = 1;
 //        System.out.println(dealService.getDealsByUserId(user));
 //    }
+    @Test
+    public void testTime(){
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        System.out.println(formatter.format(date));
+        Calendar calendar = Calendar.getInstance();
+    }
 }

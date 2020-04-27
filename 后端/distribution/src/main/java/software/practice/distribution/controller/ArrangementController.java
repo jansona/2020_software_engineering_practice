@@ -63,9 +63,9 @@ public class ArrangementController {
      */
     @CrossOrigin
     @GetMapping(value = "/arrangement/list")
-    public Result getArrangement2(int page, HttpServletRequest request) {
+    public Result getArrangement2(int page, int timeType,HttpServletRequest request) {
         int userId = (int)request.getSession().getAttribute("userId");
-        Pair<Long,List<Arrangement>> pair = arrangementService.getArrangementAndPackageContentByUserId(page,userId);
+        Pair<Long,List<Arrangement>> pair = arrangementService.getArrangementAndPackageContentByUserId(page,timeType,userId);
         if(pair != null && pair.getKey()!= 0 && pair.getValue() != null && !pair.getValue().isEmpty()){
             return new Result(200,pair.getKey(),pair.getValue());
         }

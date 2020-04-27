@@ -12,6 +12,9 @@ import software.practice.distribution.mapper.PackageMapper;
 import software.practice.distribution.mapper.UserMapper;
 
 import java.sql.Time;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,7 +42,7 @@ public class ArrangementService {
     /*
     小程序端
      */
-    public Pair<Long,List<Arrangement>> getArrangementAndPackageContentByUserId(int page,int userId) {
+    public Pair<Long,List<Arrangement>> getArrangementAndPackageContentByUserId(int page,int timeType,int userId) {
         PackageExample packageExample = new PackageExample();
         PackageExample.Criteria pc = packageExample.createCriteria();
         pc.andPackageUserEqualTo(userId);
@@ -55,6 +58,15 @@ public class ArrangementService {
         ArrangementExample.Criteria criteria = example.createCriteria();
         criteria.andArrangementPackageIn(packageIds);
 
+        Date today = new Date();
+        if(timeType == 0){
+            Date past = getPastDate(7);
+            criteria.andArrangementTimeBetween(today,past);
+        }else if(timeType == 1){
+            Date past = getPastDate(1);
+            criteria.andArrangementTimeBetween(today,past);
+        }
+
         List<Arrangement> arrangements = arrangementMapper.selectByExampleWithRowbounds(example, new RowBounds((page - 1) * 10, 10));
         if (arrangements == null || arrangements.isEmpty()){
             return null;
@@ -67,6 +79,7 @@ public class ArrangementService {
             arrangement.setLocationEntity(locationMapper.selectByPrimaryKey(arrangement.getArrangementLocation()));
         }
         long totalPage = getTotalPage(example);
+        Collections.reverse(arrangements);
         return new Pair<>(totalPage,arrangements);
     }
 
@@ -176,5 +189,12 @@ public class ArrangementService {
 
     public long getTotalPage(ArrangementExample example) {
         return arrangementMapper.countByExample(example);
+    }
+    public Date getPastDate(int past){
+        Date today = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(today);
+        calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) - past);
+        return calendar.getTime();
     }
 }
