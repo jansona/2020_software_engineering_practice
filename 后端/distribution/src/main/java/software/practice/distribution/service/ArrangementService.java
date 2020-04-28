@@ -12,6 +12,8 @@ import software.practice.distribution.mapper.PackageMapper;
 import software.practice.distribution.mapper.UserMapper;
 
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -58,7 +60,7 @@ public class ArrangementService {
         ArrangementExample.Criteria criteria = example.createCriteria();
         criteria.andArrangementPackageIn(packageIds);
 
-        Date today = new Date();
+        Date today = getPastDate(0);
         if(timeType == 0){
             Date past = getPastDate(7);
             criteria.andArrangementTimeBetween(past,today);
@@ -192,10 +194,19 @@ public class ArrangementService {
         return arrangementMapper.countByExample(example);
     }
     public Date getPastDate(int past){
-        Date today = new Date();
+        past-=1;
+        Date today = changeDate(new Date());
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(today);
         calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) - past);
         return calendar.getTime();
+    }
+    public Date changeDate(Date date){
+        Date now = new Date();
+        // java.util.Date -> java.time.LocalDate
+        LocalDate localDate=now.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        // java.time.LocalDate -> java.sql.Date
+        Date newDate=java.sql.Date.valueOf(localDate);
+        return newDate;
     }
 }
