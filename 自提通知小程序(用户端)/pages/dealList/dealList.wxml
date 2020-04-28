@@ -14,7 +14,7 @@
 	</l-tabpanel>
 </l-tabs>
 
-<scroll-view style="width:100%; height:100%" wx:if="{{dealList.length != 0}}" >
+<block wx:if="{{dealList.length != 0}}" >
 		<view class="weui-panel" wx:for="{{dealList}}" data-value="{{item}}" wx:key="deal_id" bindtap="viewTap">
 			<view class="weui-panel__bd">
 				<view class="weui-media-box weui-media-box_text">
@@ -26,5 +26,5 @@
 					</view>
 				</view>
 			</view>
-</scroll-view>
+</block>
 <view wx:else >啊哦，还没有特殊申请</view>

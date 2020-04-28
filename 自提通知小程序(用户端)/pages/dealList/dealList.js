@@ -64,11 +64,19 @@ Page({
           pagesTotal: res.data.total
         })
       } else { //错误信息提示
-        wx.showModal({
-          title: "提示",
-          content: res.data.message,
-          showCancel: false,
-        })
+        if(res.data.code == 400)
+          this.setData({
+            dealList: [],
+            currentPage: 1,
+            pagesTotal: 1
+          })
+        else{
+          wx.showModal({
+            title: "提示",
+            content: res.data.message,
+            showCancel: false,
+          })
+        }
       }
     })
   },
@@ -121,7 +129,11 @@ Page({
       })
       this.getData(1);
     }else{
-      console.log("下一页无数据");
+      wx.showToast({
+        title: '啊哦，已经到底了',
+        icon: 'none',
+        duration: 1000
+      })
     }
   },
 
