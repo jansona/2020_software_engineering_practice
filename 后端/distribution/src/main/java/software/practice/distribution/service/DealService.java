@@ -143,6 +143,7 @@ public class DealService {
         List<Deal> dealList = dealMapper.selectByExampleWithRowbounds(example,
                 new RowBounds((page - 1) * 10, 10));
         Collections.reverse(dealList);
+
         return new Pair<Integer,List<Deal>>(total,dealList);
     }
 }
