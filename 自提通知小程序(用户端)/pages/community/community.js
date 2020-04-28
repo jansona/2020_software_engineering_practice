@@ -16,6 +16,7 @@ Page({
     communityAddress:"",
     ispass: -1,
     results: [],
+    addr_results:[],
     addresses: [],
     application: null,
     index: 0,
@@ -30,6 +31,26 @@ Page({
     })
   },
 
+  /**
+   * 小区地址发生更改的操作
+   * @param {*} e 
+   */
+  bindAddressChange: function(e) {
+    this.setData({
+      index: e.detail.value
+    })
+    var addr = this.data.addresses
+    var idx = this.data.index
+    var result = []
+    if(addr[idx] != '全部')
+      result = this.data.communities.filter(item => item.communityAddress.search(addr[idx]) != -1);
+    else
+      result = this.data.communities
+    this.setData({
+      addr_results: result,
+      results: result
+    })
+  },
 
   /**
    * 进行加入集群申请
@@ -80,7 +101,7 @@ Page({
    */
   textChange: function (e) {
     var searchValue = e.detail.value.replace(/\s+/g, "");
-    var result = this.data.communities.filter(item => item.communityName.search(searchValue) != -1);
+    var result = this.data.addr_results.filter(item => item.communityName.search(searchValue) != -1);
     this.setData({
       results: result
     })
@@ -126,10 +147,12 @@ Page({
           }
         }).then(res => {
           if (res.data.code == 200) {
+            var addr = [...new Set(res.data.content.map(item => item.communityAddress))]
             this.setData({
               communities: res.data.content,
+              addr_results: res.data.content,
               results: res.data.content,
-              addresses: [...new Set(res.data.content.map(item => item.communityAddress))] 
+              addresses: ['全部',...addr] 
             })
           } else { //错误信息提示
             wx.showModal({

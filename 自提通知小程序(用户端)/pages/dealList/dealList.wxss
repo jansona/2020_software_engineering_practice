@@ -1,4 +1,5 @@
 /* pages/dealList/dealList.wxss */
+
 .first_tab .deal_item {
   border-bottom: 1rpx solid #ccc;
 }

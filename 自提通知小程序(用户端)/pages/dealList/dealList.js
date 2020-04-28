@@ -14,22 +14,32 @@ Page({
     pagesTotal:1,
   },
 
-  //总页数
-
   viewTap:function(e){
     wx.navigateTo({
       url: '/pages/dealInfo/dealInfo?item=' + encodeURIComponent(JSON.stringify(e.currentTarget.dataset.value))
     })
   },
   
-  changeTabs: function(e){
-    console.log(e)
+  /**
+   * 标签页切换
+   * @param {*} e 
+   */
+  changeTabs: function(e) {
+    this.setData({
+      ispass: 1-e.detail.currentIndex,
+      currentPage:1,
+    })
+    this.getData(0);
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.getData(0);
+  },
+
+  getData: function(e) {
     request({
       url: "/deal/list",
       method:"POST",
@@ -43,15 +53,30 @@ Page({
       }
     }).then(res => {
       if (res.data.code == 200) {
+        var data = [];
+        if(e == 0){
+          data = res.data.content;
+        }else{
+          data = [...this.data.dealList, ...res.data.content]
+        }
         this.setData({
-          dealList: res.data.content
+          dealList: data,
+          pagesTotal: res.data.total
         })
       } else { //错误信息提示
-        wx.showModal({
-          title: "提示",
-          content: res.data.message,
-          showCancel: false,
-        })
+        if(res.data.code == 400)
+          this.setData({
+            dealList: [],
+            currentPage: 1,
+            pagesTotal: 1
+          })
+        else{
+          wx.showModal({
+            title: "提示",
+            content: res.data.message,
+            showCancel: false,
+          })
+        }
       }
     })
   },
@@ -95,6 +120,21 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+    var current = this.data.currentPage
+    var total = this.data.pagesTotal
+    if(current<total){
+      current++;
+      this.setData({
+        currentPage: current
+      })
+      this.getData(1);
+    }else{
+      wx.showToast({
+        title: '啊哦，已经到底了',
+        icon: 'none',
+        duration: 1000
+      })
+    }
   },
 
   /**
