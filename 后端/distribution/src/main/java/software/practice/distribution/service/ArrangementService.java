@@ -61,10 +61,10 @@ public class ArrangementService {
         Date today = new Date();
         if(timeType == 0){
             Date past = getPastDate(7);
-            criteria.andArrangementTimeBetween(today,past);
+            criteria.andArrangementTimeBetween(past,today);
         }else if(timeType == 1){
             Date past = getPastDate(1);
-            criteria.andArrangementTimeBetween(today,past);
+            criteria.andArrangementTimeBetween(past,today);
         }
 
         List<Arrangement> arrangements = arrangementMapper.selectByExampleWithRowbounds(example, new RowBounds((page - 1) * 10, 10));

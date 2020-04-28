@@ -11,6 +11,7 @@ import software.practice.distribution.mapper.PackageMapper;
 import software.practice.distribution.mapper.UserMapper;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -139,8 +140,9 @@ public class DealService {
         criteria.andDealPackageIn(packageIds);
         criteria.andDealIspassEqualTo(dealIspass);
         int total = dealMapper.selectByExample(example).size();
-        return new Pair<Integer,List<Deal>>(total,
-                dealMapper.selectByExampleWithRowbounds(example,
-            new RowBounds((page - 1) * 10, 10)));
+        List<Deal> dealList = dealMapper.selectByExampleWithRowbounds(example,
+                new RowBounds((page - 1) * 10, 10));
+        Collections.reverse(dealList);
+        return new Pair<Integer,List<Deal>>(total,dealList);
     }
 }
