@@ -62,6 +62,7 @@ public class ArrangementService {
         if(timeType == 0){
             Date past = getPastDate(7);
             criteria.andArrangementTimeBetween(past,today);
+
         }else if(timeType == 1){
             Date past = getPastDate(1);
             criteria.andArrangementTimeBetween(past,today);
