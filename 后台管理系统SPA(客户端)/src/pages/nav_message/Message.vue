@@ -29,7 +29,8 @@
                 </timeline>
             </el-tab-pane>
             <el-tab-pane label="其他" name="third">
-                <timeline :timeline="timeline"></timeline>
+                <el-card>暂无消息</el-card>
+                <!-- <timeline :timeline="timeline"></timeline> -->
             </el-tab-pane>
         </el-tabs>
 
