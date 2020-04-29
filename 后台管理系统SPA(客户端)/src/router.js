@@ -4,9 +4,9 @@ import Home from './pages/Home.vue'
 import Arrangements from './pages/nav_transaction/Arrangements.vue'
 import Goods from './pages/nav_transaction/Goods.vue'
 import Message from './pages/nav_message/Message.vue'
+import UserTable from './pages/nav_community/UserTable.vue'
 import CommunityPage from './pages/nav_community/CommunityPage.vue'
 import echarts from './pages/nav_summary/echarts.vue'
-import UserTable from './pages/nav_community/UserTable.vue'
 
 let routes = [
     {
