@@ -61,7 +61,6 @@ export default {
         },
         getDetail() {
             getCommunityDetail().then((res) => {
-                debugger;
                 this.community = res.data.content;
             });
         },
@@ -69,6 +68,13 @@ export default {
             let para = Object.assign({}, this.community);
             setCommunityDetail(para).then((res) => {
                 this.getDetail();
+
+                const h = this.$createElement;
+
+                this.$notify({
+                    title: '社区属性修改成功',
+                    // message: h('i', { style: 'color: teal'}, '社区属性修改成功')
+                });
             })
         }
     },

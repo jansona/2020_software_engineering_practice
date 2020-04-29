@@ -2,6 +2,7 @@
     <section>
         <el-tabs v-model="activeName" @tab-click="handleClick">
             <el-tab-pane label="集群消息" name="first">
+                <el-card v-if="communityMessage == null || communityMessage.length == 0">暂无消息</el-card>
                 <timeline :timeline="communityMessage">
                     <template v-slot:content="item">
                         <div>姓名：{{ item.user.userName }}</div>
@@ -15,6 +16,7 @@
                 </timeline>
             </el-tab-pane>
             <el-tab-pane label="特殊申请" name="second">
+                <el-card v-if="dealMessage == null || dealMessage.length == 0">暂无消息</el-card>
                 <timeline :timeline="dealMessage">
                     <template v-slot:content="item">
                         <div>姓名：{{ item.packageEntity.userEntity.userName }}</div>
@@ -161,12 +163,24 @@
                 let para = { id: item.applicationId, admit: true };
                 checkEnroll(para).then((res) => {
                     this.getMessage();
+
+                    const h = this.$createElement;
+                    this.$notify({
+                        title: '已接受申请',
+                        message: h('i', { style: 'color: teal'}, item.user.userName + " 加入居民集群")
+                    });
                 });
             },
             enrollRefuse(item) {
                 let para = { id: item.applicationId, admit: false };
                 checkEnroll(para).then((res) => {
                     this.getMessage();
+
+                    const h = this.$createElement;
+                    this.$notify({
+                        title: '已拒绝申请',
+                        message: h('i', { style: 'color: red'}, item.user.userName + " 的申请被拒")
+                    });
                 });
             },
             quitCheck(item) {
@@ -188,6 +202,13 @@
                     this.getMessage();
                     this.handleVisible = false;
                     this.handleLoading = false;
+
+                    const h = this.$createElement;
+                    this.$notify({
+                        title: '已接受特殊申请',
+                        message: h('i', { style: 'color: teal'},
+                            "接受 " + this.dealForm.packageEntity.userEntity.userName + " 提出的 " + this.dealForm.title)
+                    });
                 });
             },
             handleRefuse() {
@@ -197,6 +218,13 @@
                     this.getMessage();
                     this.handleVisible = false;
                     this.handleLoading = false;
+
+                    const h = this.$createElement;
+                    this.$notify({
+                        title: '已拒绝特殊申请',
+                        message: h('i', { style: 'color: red'},
+                            "拒绝 " + this.dealForm.packageEntity.userEntity.userName + " 提出的 " + this.dealForm.title)
+                    });
                 });
             },
         },
