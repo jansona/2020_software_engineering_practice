@@ -17,7 +17,6 @@ Page({
     disable: true,
     stay: 0,
     url: "/user/edit",
-    reUrl: "/pages/userInfo/userInfo"
   },
 
   /**
@@ -99,45 +98,49 @@ Page({
       var seconds = (time2.getTime() - time1.getTime()) / 1000;
       this.setData({
         [`user.userTimeStay`]: seconds,
-        [`user.userFavoriteStarttime`]: "1970-01-01 "+this.data.starttime+":46"
+        [`user.userFavoriteStarttime`]: "1970-01-01 " + this.data.starttime + ":46"
       })
-        //向服务器发送请求
-        request({
-          url: this.data.url,
-          data: user,
-          method: "POST",
-          header: {
-            "Cookie": getApp().globalData.cookie
-          }
-        }).then(res => {
-          //成功发送请求
-          var code = res.data.code;
-          if (code == 200) {
-            wx.showToast({
-              title: '操作成功',
-              icon: 'success',
-              duration: 1000
-            })
-            if(this.data.type == "1"){
-                this.setData({
-                  user:  res.data.content
-                })
-            }
-            getApp().globalData.user = user;
-            var reUrl = this.data.reUrl
+      //向服务器发送请求
+      request({
+        url: this.data.url,
+        data: user,
+        method: "POST",
+        header: {
+          "Cookie": getApp().globalData.cookie
+        }
+      }).then(res => {
+        //成功发送请求
+        var code = res.data.code;
+        if (code == 200) {
+          wx.showToast({
+            title: '操作成功',
+            icon: 'success',
+            duration: 1000
+          })
+          //type为1表示注册，要返回首页
+          if (this.data.type == "1") {
+            getApp().globalData.user = res.data.content;
             setTimeout(function () {
               wx.reLaunch({
-                url: reUrl,
+                url: '/pages/index/index',
               })
             }, 1000)
-          } else { //提示用户错误信息
-            wx.showModal({
-              title: "提示",
-              content: res.data.message,
-              showCancel: false,
-            })
+          } else { //修改用户信息，返回上一级
+            getApp().globalData.user = user;
+            setTimeout(function () {
+              wx.navigateBack({
+                delta: 1
+              })
+            }, 1000)
           }
-        })
+        } else { //提示用户错误信息
+          wx.showModal({
+            title: "提示",
+            content: res.data.message,
+            showCancel: false,
+          })
+        }
+      })
     }
   },
 

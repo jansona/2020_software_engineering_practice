@@ -64,9 +64,6 @@ Page({
   },
 
   submitForm: function (e) {
-    console.log(this.data.deal_package);
-    console.log(this.data.deal_content);
-    console.log(this.data.deal_type);
     if (!this.data.currentWordNumber >= 10) {
       wx.showModal({
         title: "提示",
@@ -95,8 +92,8 @@ Page({
             duration: 1000
           })
           setTimeout(function () {
-            wx.reLaunch({
-              url: '/pages/notificationList/notificationList',
+            wx.navigateBack({
+              delta: 1 
             })
           }, 1000)
         } else { //提示用户错误信息
