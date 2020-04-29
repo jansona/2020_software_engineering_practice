@@ -9,6 +9,9 @@ Page({
     timeStay: 0
   },
 
+  /**
+   * 添加特殊申请事件
+   */
   dealAdd: function () {
     wx.navigateTo({
       url: '/pages/dealAdd/dealAdd?package_id=' + this.data.notification.arrangementPackage,

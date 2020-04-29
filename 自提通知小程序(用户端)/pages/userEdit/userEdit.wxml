@@ -8,10 +8,10 @@
 			<input bindinput="formInputChange" data-field="userAddress" value="{{user.userAddress}}" class="weui-input" placeholder="请输入住户地址"/>
 		</mp-cell>
 		<mp-cell title="手机号码" ext-class="">
-			<input bindinput="formInputChange" data-field="userPhone" disable="{{type == '1'}}" value="{{user.userPhone}}" class="weui-input" placeholder="请输入11位手机号" maxlength="11"/>
+			<input bindinput="formInputChange" data-field="userPhone" disabled="{{type == '1'}}" value="{{user.userPhone}}" class="weui-input" placeholder="请输入11位手机号" maxlength="11"/>
 		</mp-cell>
 		<mp-cell title="用户密码" ext-class="">
-			<input bindinput="formInputChange" data-field="userPassword" disable="{{type == '1'}}" value="{{user.userPassword}}" class="weui-input" placeholder="请输入至少6位密码" maxlength="15"/>
+			<input bindinput="formInputChange" data-field="userPassword" disabled="{{type == '1'}}" value="{{user.userPassword}}" class="weui-input" placeholder="请输入至少6位密码" maxlength="15"/>
 		</mp-cell>
 		<mp-cell  title="身份证号" ext-class="">
 			<input bindinput="formInputChange" data-field="userIdcard" value="{{user.userIdcard}}" class="weui-input" placeholder="请输入18位身份证号" maxlength="18"/>

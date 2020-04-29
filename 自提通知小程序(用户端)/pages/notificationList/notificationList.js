@@ -48,6 +48,11 @@ Page({
     this.getData(0)
   },
 
+
+  /**
+   * 获取数据
+   * @param {参数值为0，表示获取首页数据，为1表示获取下一页数据} e 
+   */
   getData: function (e) {
     request({
       url: "/arrangement/list",
@@ -61,9 +66,10 @@ Page({
     }).then(res => {
       if (res.data.code == 200) {
         var data = [];
+        //为0只获取首页数据
         if (e == 0) {
           data = res.data.content;
-        } else {
+        } else { //为1获取下一页数据并进行拼接
           data = [...this.data.notifications, ...res.data.content]
         }
         this.setData({

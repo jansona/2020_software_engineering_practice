@@ -44,13 +44,13 @@ public class ArrangementService {
     /*
     小程序端
      */
-    public Pair<Long,List<Arrangement>> getArrangementAndPackageContentByUserId(int page,int timeType,int userId) {
+    public Pair<Long, List<Arrangement>> getArrangementAndPackageContentByUserId(int page, int timeType, int userId) {
         PackageExample packageExample = new PackageExample();
         PackageExample.Criteria pc = packageExample.createCriteria();
         pc.andPackageUserEqualTo(userId);
         List<Package> packageList = packageMapper.selectByExample(packageExample);
 
-        if (packageList == null || packageList.isEmpty()){
+        if (packageList == null || packageList.isEmpty()) {
             return null;
         }
 
@@ -61,17 +61,19 @@ public class ArrangementService {
         criteria.andArrangementPackageIn(packageIds);
 
         Date today = getPastDate(0);
-        if(timeType == 0){
+        if (timeType == 0) {
             Date past = getPastDate(7);
-            criteria.andArrangementTimeBetween(past,today);
+            criteria.andArrangementTimeBetween(past, today);
+            System.out.println(past+"\n"+today);
 
-        }else if(timeType == 1){
+        } else if (timeType == 1) {
             Date past = getPastDate(1);
-            criteria.andArrangementTimeBetween(past,today);
+            criteria.andArrangementTimeBetween(past, today);
+            System.out.println(past+"\n"+today);
         }
 
         List<Arrangement> arrangements = arrangementMapper.selectByExampleWithRowbounds(example, new RowBounds((page - 1) * 10, 10));
-        if (arrangements == null || arrangements.isEmpty()){
+        if (arrangements == null || arrangements.isEmpty()) {
             return null;
         }
 
@@ -83,7 +85,7 @@ public class ArrangementService {
         }
         long totalPage = getTotalPage(example);
         Collections.reverse(arrangements);
-        return new Pair<>(totalPage,arrangements);
+        return new Pair<>(totalPage, arrangements);
     }
 
     public Pair<Long, List<Arrangement>> getArrangement(int page, Integer id, String user, Integer package_id, String location, Time time, int communityId) {
@@ -118,7 +120,7 @@ public class ArrangementService {
 
         List<Integer> locationIds = null;
         //根据Location查id
-        if (location!= null && !location.isEmpty()){
+        if (location != null && !location.isEmpty()) {
             LocationExample locationExample = new LocationExample();
             LocationExample.Criteria lc = locationExample.createCriteria();
             lc.andLocationCommunityEqualTo(communityId);
@@ -141,7 +143,7 @@ public class ArrangementService {
         }
 
         List<Arrangement> arrangements = arrangementMapper.selectByExampleWithRowbounds(example, new RowBounds((page - 1) * 10, 10));
-        if (arrangements == null || arrangements.isEmpty()){
+        if (arrangements == null || arrangements.isEmpty()) {
             return null;
         }
 
@@ -153,10 +155,10 @@ public class ArrangementService {
             arrangement.setLocationEntity(locationMapper.selectByPrimaryKey(arrangement.getArrangementLocation()));
         }
         long totalPage = getTotalPage(example);
-        return new Pair<>(totalPage,arrangements);
+        return new Pair<>(totalPage, arrangements);
     }
 
-    public long getArrangementNum(int communityId){
+    public long getArrangementNum(int communityId) {
         //根据user查package
         UserExample userExample = new UserExample();
         UserExample.Criteria uc = userExample.createCriteria();
@@ -193,20 +195,22 @@ public class ArrangementService {
     public long getTotalPage(ArrangementExample example) {
         return arrangementMapper.countByExample(example);
     }
-    public Date getPastDate(int past){
-        past-=1;
+
+    public Date getPastDate(int past) {
+        past -= 1;
         Date today = changeDate(new Date());
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(today);
         calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) - past);
         return calendar.getTime();
     }
-    public Date changeDate(Date date){
+
+    public Date changeDate(Date date) {
         Date now = new Date();
         // java.util.Date -> java.time.LocalDate
-        LocalDate localDate=now.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate localDate = now.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         // java.time.LocalDate -> java.sql.Date
-        Date newDate=java.sql.Date.valueOf(localDate);
+        Date newDate = java.sql.Date.valueOf(localDate);
         return newDate;
     }
 }

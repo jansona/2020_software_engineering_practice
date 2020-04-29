@@ -73,7 +73,7 @@ Page({
         content: "请先登录",
         success(res) {
           if (res.confirm) {
-            wx.redirectTo({
+            wx.navigateTo({
               url: '/pages/login/login',
             })
           }
