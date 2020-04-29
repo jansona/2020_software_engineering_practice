@@ -18,8 +18,10 @@ public class ApplicationController {
 
     @CrossOrigin
     @PostMapping(value = "/application/add")
-    public Result createApplication(@RequestBody Application application){
+    public Result createApplication(@RequestBody Application application, HttpServletRequest request){
         application.setApplicationIspass((byte)-1);
+        int userId = (int)request.getSession().getAttribute("userId");
+        application.setApplicationUser(userId);
         if(applicationService.createApplication(application)){
             return new Result(200,null);
         }
