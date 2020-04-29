@@ -52,6 +52,7 @@ var webpackConfig = merge(baseWebpackConfig, {
     new HtmlWebpackPlugin({
       filename: config.build.index,
       template: 'index.html',
+      favicon: 'src/assets/img/system_icon.ico',
       inject: true,
       minify: {
         removeComments: true,
@@ -60,7 +61,7 @@ var webpackConfig = merge(baseWebpackConfig, {
         // more options:
         // https://github.com/kangax/html-minifier#options-quick-reference
       },
-      // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+      // necessary to consistently work with muiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency'
     }),
     // split vendor js into its own file

@@ -59,17 +59,18 @@ Page({
   apply: function (e) {
     var id = e.currentTarget.dataset.value.communityId;
     var name = e.currentTarget.dataset.value.communityName;
+    var that = this
     wx.showModal({
       title: "提示",
       content: "您将要加入" + name,
       success(res) {
         if (res.confirm) {
-          //用户点击确定后，向服务器发送请求加入集群
+          //用户点击确定后，向服务器发送请求加入集群】
+          console.log(getApp().globalData.user)
           request({
             url: "/application/add",
             data: {
-              applicationCommunity: id,
-              applicationUser: getApp().globalData.user.userId
+              applicationCommunity: id
             },
             method: "POST",
             header: {
@@ -82,6 +83,7 @@ Page({
                   icon: 'success',
                   duration: 1000
                 })
+                that.getData()
             } else { //错误信息提示
               wx.showModal({
                 title: "提示",
@@ -109,9 +111,9 @@ Page({
 
 
   /**
-   * 生命周期函数--监听页面加载
+   * 获取数据
    */
-  onLoad: function (options) {
+  getData: function(){
     //查看当前用户下有没有对应的application，如有，取出相关信息
     request({
       url: "/application/info",
@@ -164,6 +166,13 @@ Page({
         })
       }
     })
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.getData()
   },
 
   /**

@@ -35,6 +35,7 @@ public class UserController {
         if(userId!=-1){
             HttpSession session = request.getSession();
             session.setAttribute("userId",userId);
+            user.setUserId(userId);
             return new Result(200,null,user);
         }
         return new Result(400,"未找到");

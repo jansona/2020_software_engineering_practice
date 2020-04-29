@@ -68,7 +68,8 @@
               let code = data.data.code;
               if (code !== 200) {
                 this.$message({
-                  type: 'error'
+                  type: 'error',
+                  message: '账号或密码错误',
                 });
               } else {
                 // sessionStorage.setItem('user', JSON.stringify(user));

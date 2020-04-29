@@ -72,6 +72,7 @@ Page({
             duration: 1000
           })
           getApp().globalData.user = result.data.content;
+          //登录成功后一秒钟跳转至主页面
           setTimeout(function () {
             wx.reLaunch({
               url: '/pages/index/index',

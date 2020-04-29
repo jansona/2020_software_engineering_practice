@@ -37,9 +37,9 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面加载
+   * 获取数据
    */
-  onLoad: function (options) {
+  getData: function(){
     //获取个人信息
     this.setData({
       user: getApp().globalData.user
@@ -55,6 +55,13 @@ Page({
   },
 
   /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.getData()
+  },
+
+  /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
@@ -65,7 +72,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getData()
   },
 
   /**

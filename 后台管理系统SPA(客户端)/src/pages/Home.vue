@@ -13,8 +13,8 @@
                 <el-dropdown trigger="hover">
                     <span class="el-dropdown-link userinfo-inner"><img :src="this.sysUserAvatar" /> {{sysUserName}}</span>
                     <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item>我的消息</el-dropdown-item>
-                        <el-dropdown-item>设置</el-dropdown-item>
+                        <el-dropdown-item @click.native="route2message">消息通知</el-dropdown-item>
+                        <el-dropdown-item @click.native="route2community">小区/社区设置</el-dropdown-item>
                         <el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
@@ -143,6 +143,13 @@ export default {
         },
         get_filterd_children(item) {
             return item.children.filter(child => !child.hidden);
+        },
+        route2message() {
+            this.$router.push({ path: '/message' });
+        },
+        route2community() {
+            debugger;
+            this.$router.push({ path: '/community' });
         }
     },
     mounted() {
