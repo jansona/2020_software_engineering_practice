@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import software.practice.distribution.Utils.BasicUtil;
+import software.practice.distribution.entity.Community;
 import software.practice.distribution.entity.User;
 import software.practice.distribution.result.Result;
+import software.practice.distribution.service.CommunityService;
 import software.practice.distribution.service.LoginService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +21,9 @@ public class LoginController {
     @Autowired
     LoginService loginService;
 
+    @Autowired
+    CommunityService communityService;
+
     @CrossOrigin
     @PostMapping(value = "/login")
     public Result serverLogin(@RequestParam(name = "id") String id,
@@ -28,7 +33,11 @@ public class LoginController {
         if (res == 1){
             HttpSession session = request.getSession();
             session.setAttribute("communityId", BasicUtil.covertStrInt(id));
-            return new Result(200);
+
+            Community community = communityService.getDetailById(Integer.parseInt(id));
+            community.setCommunityPassword("");
+
+            return new Result(200, "成功登录", community);
         } else if (res == -2){
             return new Result(400,"无此账号");
         }

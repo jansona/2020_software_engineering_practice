@@ -1,16 +1,16 @@
 <template>
-  <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px" class="demo-ruleForm login-container">
-    <h3 class="title">系统登录</h3>
+  <el-form :model="loginForm" :rules="loginRule" ref="loginForm" label-position="left" label-width="0px" class="demo-ruleForm login-container">
+    <h3 class="title">自提智能管理系统登录</h3>
     <el-form-item prop="account">
-      <el-input type="text" v-model="ruleForm2.account" auto-complete="off" placeholder="账号"></el-input>
+      <el-input type="text" v-model="loginForm.account" auto-complete="off" placeholder="账号"></el-input>
     </el-form-item>
     <el-form-item prop="checkPass">
-      <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off" placeholder="密码"></el-input>
+      <el-input type="password" v-model="loginForm.checkPass" auto-complete="off" placeholder="密码"></el-input>
     </el-form-item>
     <el-checkbox v-model="checked" checked class="remember">记住密码</el-checkbox>
     <el-form-item style="width:100%;">
-      <el-button type="primary" style="width:100%;" @click.native.prevent="handleSubmit2" :loading="logining">登录</el-button>
-      <!--<el-button @click.native.prevent="handleReset2">重置</el-button>-->
+      <el-button type="primary" style="width:100%;" @click.native.prevent="handleLogin" :loading="logining">登录</el-button>
+      <el-button type="text" size="medium" @click.native.prevent="route2register">注册新账号</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -22,11 +22,11 @@
     data() {
       return {
         logining: false,
-        ruleForm2: {
+        loginForm: {
           account: '1',
           checkPass: '123456'
         },
-        rules2: {
+        loginRule: {
           account: [
             { required: true, message: '请输入账号', trigger: 'blur' },
             //{ validator: validaePass }
@@ -36,36 +36,23 @@
             //{ validator: validaePass2 }
           ]
         },
-        checked: true
+        checked: true,
       };
     },
     methods: {
-      handleReset2() {
-        this.$refs.ruleForm2.resetFields();
+      route2register() {
+        this.$router.push({ path: '/register' });
       },
-      handleSubmit2(ev) {
-        // temp
-        // sessionStorage.setItem('user',
-        //   JSON.stringify({
-        //     communityId: 1,
-        //     username: 'admin',
-        //     password: undefined,
-        //     avatar: 'https://avatars3.githubusercontent.com/u/24268919?s=60&v=4',
-        //     name: '王大爷'
-        //   }));
-        // sessionStorage.setItem('communityId', 1);
-        // this.$router.push({ path: '/arrangements' });
-        // return;
-        // shame
-
+      handleLogin(ev) {
         var _this = this;
-        this.$refs.ruleForm2.validate((valid) => {
+        this.$refs.loginForm.validate((valid) => {
           if (valid) {
             this.logining = true;
-            var loginParams = { id: this.ruleForm2.account, password: this.ruleForm2.checkPass };
-            requestLogin(loginParams).then(data => {
+            var loginParams = { id: this.loginForm.account, password: this.loginForm.checkPass };
+            requestLogin(loginParams).then(res => {
               this.logining = false;
-              let code = data.data.code;
+              let code = res.data.code;
+              debugger;
               if (code !== 200) {
                 this.$message({
                   type: 'error',
@@ -75,11 +62,11 @@
                 // sessionStorage.setItem('user', JSON.stringify(user));
                 sessionStorage.setItem('user',
                 JSON.stringify({
-                  communityId: 1,
-                  username: 'admin',
+                  communityId: res.data.content.communityId,
+                  username: res.data.content.communityName,
                   password: undefined,
                   avatar: 'https://avatars3.githubusercontent.com/u/24268919?s=60&v=4',
-                  name: '王大爷'
+                  name: res.data.content.communityName,
                 }));
                 this.$router.push({ path: '/arrangements' });
               }

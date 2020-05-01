@@ -1,4 +1,5 @@
 import Login from './pages/Login.vue'
+import Register from './pages/Register.vue'
 import NotFound from './pages/404.vue'
 import Home from './pages/Home.vue'
 import Arrangements from './pages/nav_transaction/Arrangements.vue'
@@ -6,7 +7,7 @@ import Goods from './pages/nav_transaction/Goods.vue'
 import Message from './pages/nav_message/Message.vue'
 import UserTable from './pages/nav_community/UserTable.vue'
 import CommunityPage from './pages/nav_community/CommunityPage.vue'
-import echarts from './pages/nav_summary/echarts.vue'
+import TranStatistics from './pages/nav_summary/TranStatistics.vue'
 
 let routes = [
     {
@@ -14,6 +15,12 @@ let routes = [
         component: Login,
         name: '',
         hidden: true
+    },
+    {
+        path: '/register',
+        component: Register,
+        name: '',
+        hidden: true,
     },
     {
         path: '/404',
@@ -58,7 +65,7 @@ let routes = [
         name: '业务统计',
         iconCls: 'fa fa-bar-chart',
         children: [
-            { path: '/echarts', component: echarts, name: '业务分布' },
+            { path: '/statistics', component: TranStatistics, name: '业务分布' },
         ]
     },
     {

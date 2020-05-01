@@ -4,19 +4,6 @@ axios.defaults.withCredentials = true;
 
 let base = 'http://localhost:8443';
 
-// 项目无关的示例，模板遗留
-export const getUserList = params => { return axios.get(`${base}/user/list`, { params: params }); };
-
-export const getUserListPage = params => { return axios.get(`${base}/user/listpage`, { params: params }); };
-
-export const removeUser = params => { return axios.get(`${base}/user/remove`, { params: params }); };
-
-export const batchRemoveUser = params => { return axios.get(`${base}/user/batchremove`, { params: params }); };
-
-export const editUser = params => { return axios.get(`${base}/user/edit`, { params: params }); };
-
-export const addUser = params => { return axios.get(`${base}/user/add`, { params: params }); };
-
 // 注册登录
 export const requestLogin = params => { return axios.post(`${base}/login`, Qs.stringify(params) ); };
 // export const requestLogin = params => { debugger; return axios({
@@ -25,6 +12,8 @@ export const requestLogin = params => { return axios.post(`${base}/login`, Qs.st
 //     data: params,
 //     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 // }) };
+
+export const requestRegister = params => { return axios.post(`${base}/register`, Qs.stringify(params) ); };
 
 // 工作安排相关
 export const getArrangementListPage = params => { return axios.get(`${base}/arrangement/listpage`, { params: params }); };
@@ -72,3 +61,7 @@ export const getCommunityDetail = () => { return axios.get(`${base}/community/de
 
 export const setCommunityDetail = params => { return axios.post(`${base}/community/set`, params); };
 
+// 业务统计
+export const getArrangementTimeDistribution = () => { return axios.get(`${base}/arrangement/statistics/time`)};
+
+export const getArrangementUserDistribution = () => { return axios.get(`${base}/arrangement/statistics/user`)};
