@@ -12,6 +12,7 @@ import software.practice.distribution.mapper.PackageMapper;
 import software.practice.distribution.mapper.UserMapper;
 
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
@@ -212,5 +213,27 @@ public class ArrangementService {
         // java.time.LocalDate -> java.sql.Date
         Date newDate = java.sql.Date.valueOf(localDate);
         return newDate;
+    }
+
+    // 获取所有arrangement_location in location_id s里,且arrangement_time大于今天日期的arrangement
+    public List<Arrangement> getArrangementsByLocationIdsAndNow(List<Integer> location_ids){
+        Date today = new Date();
+        ArrangementExample arrangementExample = new ArrangementExample();
+        ArrangementExample.Criteria ac = arrangementExample.createCriteria();
+        ac.andArrangementTimeGreaterThan(today);
+        for (Integer i:location_ids) {
+            ac.andArrangementLocationEqualTo(i);
+        }
+        return arrangementMapper.selectByExample(arrangementExample);
+    }
+
+    public String roundDownDate(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return simpleDateFormat.format(new Date());
+    }
+
+    public boolean insertArrangement(Arrangement arrangement){
+        return arrangementMapper.insert(arrangement) == 1;
+
     }
 }
