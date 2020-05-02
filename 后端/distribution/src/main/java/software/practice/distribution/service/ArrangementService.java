@@ -221,9 +221,7 @@ public class ArrangementService {
         ArrangementExample arrangementExample = new ArrangementExample();
         ArrangementExample.Criteria ac = arrangementExample.createCriteria();
         ac.andArrangementTimeGreaterThan(today);
-        for (Integer i:location_ids) {
-            ac.andArrangementLocationEqualTo(i);
-        }
+        ac.andArrangementLocationIn(location_ids);
         return arrangementMapper.selectByExample(arrangementExample);
     }
 
@@ -236,4 +234,5 @@ public class ArrangementService {
         return arrangementMapper.insert(arrangement) == 1;
 
     }
+
 }
