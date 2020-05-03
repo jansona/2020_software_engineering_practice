@@ -53,6 +53,9 @@ public class AllocateTimeService {
             Integer allocate_table[][] = new Integer[3][parts];
             //初始化二维数组，已经分配过的分区置1，未分配置0
             for (Arrangement a:arrangements) {
+                if(a.getArrangementLocation()!=id)
+                    continue;
+
                 Integer index = transformTimeToIndex(a.getArrangementTime(),parts);
 
                 Date arrange_date = a.getArrangementTime();
@@ -78,24 +81,50 @@ public class AllocateTimeService {
 
         Arrangement arrangement = null;
         Date now = new Date();
+        int index = 0;
         int now_index = transformTimeToIndex(now,parts);
-        for(int round = 0;round<5;round++){
+        if(favorite_index>=now_index)
+            index = favorite_index;
+        else
+            index = now_index;
+
+        f:for(int i=0;i<maps.get(0).length;i++){
+            if(i==1)
+                index = favorite_index;
+            for(int round=0;round<20;round++){
+                for(Integer id:location_ids){
+                    Integer a[][] = maps.get(id);
+                    if(a[i][index+round]==0){
+                        arrangement = new Arrangement();
+                        arrangement.setArrangementLocation(id);
+                        arrangement.setArrangementPackage(p.getPackageId());
+                        arrangement.setArrangementTime(getArrangementTime(now,i,index+round,community_interval));
+                        arrangementService.insertArrangement(arrangement);
+                        break f;
+                    }
+                }
+            }
+        }
+
+
+
+        /*f:for(int round = 0;round<5;round++){
             for (Integer id:location_ids) {
                 Integer a[][] = maps.get(id);
                 for(int i = 0;i<a.length;i++){
-                    for(int j = now_index+round;i<a[0].length;j++){
+                    for(int j = now_index+round;j<a[0].length;j++){
                         if(a[i][j]==0){
                             arrangement = new Arrangement();
                             arrangement.setArrangementLocation(id);
                             arrangement.setArrangementPackage(p.getPackageId());
                             arrangement.setArrangementTime(getArrangementTime(now,i,now_index,community_interval));
                             arrangementService.insertArrangement(arrangement);
-                            break;
+                            break f;
                         }
                     }
                 }
             }
-        }
+        }*/
 
         //还是没有空余时间段
         if(arrangement==null){
@@ -112,7 +141,7 @@ public class AllocateTimeService {
         String favorite = simpleDateFormat.format(new Date());
         int favorite_minutes = Integer.parseInt(favorite.substring(0,1))*60+Integer.parseInt(favorite.substring(3,4));
 
-        int index = (favorite_minutes - begin_minutes + 10)/parts;  //延迟10分钟以免出现bug
+        int index = (favorite_minutes - begin_minutes + 20)/parts;  //延迟20分钟以免出现bug
         return index;
     }
 
@@ -123,8 +152,6 @@ public class AllocateTimeService {
         // 获取月，这里需要需要月份的范围为0~11，因此获取月份的时候需要+1才是当前月份值
         int now_month = calendar.get(Calendar.MONTH)+1;
         int now_date = calendar.get(Calendar.DAY_OF_MONTH);
-        int now_hour = calendar.get(Calendar.HOUR_OF_DAY);
-        int now_minute = calendar.get(Calendar.MINUTE);
 
         int minutes = 480 + index * community_interval;
         int hour = minutes/60;

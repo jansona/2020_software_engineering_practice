@@ -42,7 +42,7 @@ public class ArrangementService {
     LocationMapper locationMapper;
     // private Object Pair;
 
-    public List<Arrangement> getArrangementsByLocationIdsAndNow(List<Location> locations){
+    public List<Arrangement> getArrangementsByLocationsAndNow(List<Location> locations){
         ArrangementExample arrangementExample = new ArrangementExample();
         ArrangementExample.Criteria ac = arrangementExample.createCriteria();
         List<Integer> locationIds = locations.stream().map(Location::getLocationId).collect(Collectors.toList());
@@ -229,7 +229,7 @@ public class ArrangementService {
         Date today = new Date();
         ArrangementExample arrangementExample = new ArrangementExample();
         ArrangementExample.Criteria ac = arrangementExample.createCriteria();
-        ac.andArrangementTimeGreaterThan(today);
+        ac.andArrangementTimeGreaterThanOrEqualTo(today);
         ac.andArrangementLocationIn(location_ids);
         return arrangementMapper.selectByExample(arrangementExample);
     }
