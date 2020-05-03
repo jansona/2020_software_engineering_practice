@@ -225,11 +225,10 @@ public class ArrangementService {
     }
 
     // 获取所有arrangement_location in location_id s里,且arrangement_time大于今天日期的arrangement
-    public List<Arrangement> getArrangementsByLocationIdsAndNow(List<Integer> location_ids){
-        Date today = new Date();
+    public List<Arrangement> getArrangementsByLocationIdsAndDate(List<Integer> location_ids,Date date){
         ArrangementExample arrangementExample = new ArrangementExample();
         ArrangementExample.Criteria ac = arrangementExample.createCriteria();
-        ac.andArrangementTimeGreaterThanOrEqualTo(today);
+        ac.andArrangementTimeGreaterThanOrEqualTo(date);
         ac.andArrangementLocationIn(location_ids);
         return arrangementMapper.selectByExample(arrangementExample);
     }

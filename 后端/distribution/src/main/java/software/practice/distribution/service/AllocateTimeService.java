@@ -21,7 +21,7 @@ public class AllocateTimeService {
     UserService userService;
 
     //可用时间段为早上8点到晚上20点
-    public void allocateTime(Package p){
+    public boolean allocateTime(Package p){
         //根据package获取user
         Integer user_id = p.getPackageUser();
         User user = userService.getUserByUserId(user_id);
@@ -41,7 +41,7 @@ public class AllocateTimeService {
         for (Location l:locations) {
             location_ids.add(l.getLocationId());
         }
-        List<Arrangement> arrangements = arrangementService.getArrangementsByLocationIdsAndNow(location_ids);
+        List<Arrangement> arrangements = arrangementService.getArrangementsByLocationIdsAndDate(location_ids,new Date());
 
         int parts = 720/community_interval;  //8:00-20:00可用分区的个数
         int favorite_index = transformTimeToIndex(favorite_startTime,parts);
@@ -87,27 +87,50 @@ public class AllocateTimeService {
             index = favorite_index;
         else
             index = now_index;
+        int round = parts-index-1;
+        int days = maps.get(0).length;
 
-        f:for(int i=0;i<maps.get(0).length;i++){
-            if(i==1)
+        f:for(int i = 0; i < days; i++){
+            //推迟一天需要更新index和round
+            if(i == 1){
                 index = favorite_index;
-            for(int round=0;round<20;round++){
+                round = parts- index -1;
+            }
+
+            for(int r = 0; r < round; r++){
                 for(Integer id:location_ids){
                     Integer a[][] = maps.get(id);
-                    if(a[i][index+round]==0){
+                    if(a[i][index + r]==0){
                         arrangement = new Arrangement();
                         arrangement.setArrangementLocation(id);
                         arrangement.setArrangementPackage(p.getPackageId());
-                        arrangement.setArrangementTime(getArrangementTime(now,i,index+round,community_interval));
+                        arrangement.setArrangementTime(getArrangementTime(now, i,index + r, community_interval));
                         arrangementService.insertArrangement(arrangement);
-                        break f;
+                        return true;
                     }
                 }
             }
         }
-
-
-
+        //所有天数内自提点都不可用，只能再往后推迟一天
+        //查询后一天该时间段是否被占有
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        Calendar cal2 = Calendar.getInstance();
+        cal2.setTime(favorite_startTime);
+        cal.set(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH)+1,cal.get(Calendar.DAY_OF_MONTH)+days,cal2.get(Calendar.HOUR_OF_DAY),cal2.get(Calendar.MINUTE));
+        List<Arrangement> as = arrangementService.getArrangementsByLocationIdsAndDate(location_ids,cal.getTime());
+        if(as==null){
+            arrangement = new Arrangement();
+            arrangement.setArrangementLocation(location_ids.get(0));
+            arrangement.setArrangementPackage(p.getPackageId());
+            arrangement.setArrangementTime(getArrangementTime(now, days,index, community_interval));
+            arrangementService.insertArrangement(arrangement);
+            return true;
+        }else{
+            //应该不会被占用的...考虑到订单时效性，再往后推迟也没有意义了
+            return false;
+        }
+        
         /*f:for(int round = 0;round<5;round++){
             for (Integer id:location_ids) {
                 Integer a[][] = maps.get(id);
@@ -125,11 +148,6 @@ public class AllocateTimeService {
                 }
             }
         }*/
-
-        //还是没有空余时间段
-        if(arrangement==null){
-            System.out.println("在您期望的自提时间段附近暂无空闲自提点");
-        }
 
     }
 
