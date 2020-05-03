@@ -41,6 +41,15 @@ public class ArrangementService {
     LocationMapper locationMapper;
     // private Object Pair;
 
+    public List<Arrangement> getArrangementsByLocationIdsAndNow(List<Location> locations){
+        ArrangementExample arrangementExample = new ArrangementExample();
+        ArrangementExample.Criteria ac = arrangementExample.createCriteria();
+        List<Integer> locationIds = locations.stream().map(Location::getLocationId).collect(Collectors.toList());
+        ac.andArrangementLocationIn(locationIds);
+        ac.andArrangementTimeGreaterThanOrEqualTo(new Date());
+        return arrangementMapper.selectByExample(arrangementExample);
+    }
+
     /*
     小程序端
      */
@@ -198,14 +207,14 @@ public class ArrangementService {
 
     public Date getPastDate(int past) {
         past -= 1;
-        Date today = changeDate(new Date());
+        Date today = roundDownDate(new Date());
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(today);
         calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) - past);
         return calendar.getTime();
     }
 
-    public Date changeDate(Date date) {
+    public Date roundDownDate(Date date) {
         Date now = new Date();
         // java.util.Date -> java.time.LocalDate
         LocalDate localDate = now.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
