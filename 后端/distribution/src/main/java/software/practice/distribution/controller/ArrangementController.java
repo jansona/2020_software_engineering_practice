@@ -77,6 +77,16 @@ public class ArrangementController {
     public Result getArrangementSum(HttpServletRequest request) {
         int communityId = (int)request.getSession().getAttribute("communityId");
         long sum = arrangementService.getArrangementNum(communityId);
-        return new Result(200,null,sum);
+        return new Result(200,null, sum);
+    }
+
+    @CrossOrigin
+    @GetMapping(value = "/arrangement/statistics/time")
+    public Result getArrangementCountByTime(HttpServletRequest request) {
+        int communityId = (int)request.getSession().getAttribute("communityId");
+        int[] counts = arrangementService.getArrangementCountByTime(communityId);
+        if (counts != null)
+            return new Result(200,null,counts);
+        return new Result(400,"无数据");
     }
 }

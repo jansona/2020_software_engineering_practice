@@ -15,10 +15,7 @@ import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -240,7 +237,44 @@ public class ArrangementService {
 
     public boolean insertArrangement(Arrangement arrangement){
         return arrangementMapper.insert(arrangement) == 1;
-
     }
 
+    public int[] getArrangementCountByTime(int id){
+        //根据user查package
+        UserExample userExample = new UserExample();
+        UserExample.Criteria uc = userExample.createCriteria();
+        //限定社区
+        uc.andUserCommunityEqualTo(id);
+        List<User> users = userMapper.selectByExample(userExample);
+        if (users == null || users.isEmpty()) {
+            return null;
+        }
+        //得到package
+        List<Integer> userIds = users.stream().map(User::getUserId).collect(Collectors.toList());
+        PackageExample packageExample = new PackageExample();
+        PackageExample.Criteria pc = packageExample.createCriteria();
+        pc.andPackageUserIn(userIds);
+        List<Package> packages = packageMapper.selectByExample(packageExample);
+        if (packages == null || packages.isEmpty()) {
+            return null;
+        }
+        List<Integer> packageIds = packages.stream().map(Package::getPackageId).collect(Collectors.toList());
+        ArrangementExample example = new ArrangementExample();
+        ArrangementExample.Criteria criteria = example.createCriteria();
+        criteria.andArrangementPackageIn(packageIds);
+        List<Arrangement> arrangements = arrangementMapper.selectByExample(example);
+
+        if (arrangements == null || arrangements.isEmpty()){
+            return null;
+        }
+
+        int[] ints = new int[24];
+        for (Arrangement arrangement:arrangements) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(arrangement.getArrangementTime());
+            int hour = calendar.get(Calendar.HOUR_OF_DAY);
+            ints[hour]++;
+        }
+        return ints;
+    }
 }

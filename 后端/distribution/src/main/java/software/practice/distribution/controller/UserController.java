@@ -32,7 +32,7 @@ public class UserController {
     @PostMapping(value = "/user/create")
     public Result createUser(@RequestBody User user,HttpServletRequest request){
         int userId = userService.createUser(user);
-        if(userId!=-1){
+        if(userId != -1){
             HttpSession session = request.getSession();
             session.setAttribute("userId",userId);
             user.setUserId(userId);

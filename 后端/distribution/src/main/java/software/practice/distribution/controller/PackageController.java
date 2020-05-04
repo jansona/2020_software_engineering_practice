@@ -13,6 +13,7 @@ import software.practice.distribution.service.PackageService;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author ：Chang Jiaxin
@@ -101,5 +102,15 @@ public class PackageController {
             }
         }
         else return new Result(400,"文件格式不正确，请确认是否为xls或xlsx");
+    }
+
+    @CrossOrigin
+    @GetMapping(value = "/package/statistics/user")
+    public Result getArrangementCountByUser(HttpServletRequest request) {
+        int communityId = (int)request.getSession().getAttribute("communityId");
+        Map<String, Long> map = packageService.getPackageCountByUser(communityId);
+        if (map != null)
+            return new Result(200,null,map);
+        return new Result(400,"无数据");
     }
 }
