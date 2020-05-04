@@ -15,8 +15,10 @@ import software.practice.distribution.mapper.PackageMapper;
 import software.practice.distribution.mapper.UserMapper;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author ：Chang Jiaxin
@@ -31,7 +33,6 @@ public class PackageService {
     UserMapper userMapper;
 
     public Pair<Long, List<Package>> getPackages(int page, Integer id, String user, String content, int communityId) {
-        List<Integer> userIds = new ArrayList<>();
         UserExample userExample = new UserExample();
         UserExample.Criteria uc = userExample.createCriteria();
         if (user != null && !user.isEmpty()) {
@@ -42,9 +43,8 @@ public class PackageService {
         if (users == null || users.isEmpty()) {
             return null;
         }
-        for (User user1 : users) {
-            userIds.add(user1.getUserId());
-        }
+        List<Integer> userIds = users.stream().map(User::getUserId).collect(Collectors.toList());
+
 
         PackageExample example = new PackageExample();
         PackageExample.Criteria criteria = example.createCriteria();
@@ -189,4 +189,23 @@ public class PackageService {
         return new Pair<>(false, err.toString());
     }
 
+    public Map<String, Long> getPackageCountByUser(int communityId){
+        UserExample userExample = new UserExample();
+        UserExample.Criteria uc = userExample.createCriteria();
+        uc.andUserCommunityEqualTo(communityId);
+        List<User> users = userMapper.selectByExample(userExample);
+        if (users == null || users.isEmpty()) {
+            return null;
+        }
+
+        Map<String, Long> map = new HashMap<>();
+        for (User user : users) {
+            PackageExample example = new PackageExample();
+            PackageExample.Criteria criteria = example.createCriteria();
+            criteria.andPackageUserEqualTo(user.getUserId());
+            long count = packageMapper.countByExample(example);
+            map.put(user.getUserName(),count);
+        }
+        return map;
+    }
 }

@@ -12,12 +12,10 @@ import software.practice.distribution.mapper.PackageMapper;
 import software.practice.distribution.mapper.UserMapper;
 
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -40,6 +38,15 @@ public class ArrangementService {
     @Autowired
     LocationMapper locationMapper;
     // private Object Pair;
+
+    public List<Arrangement> getArrangementsByLocationsAndNow(List<Location> locations){
+        ArrangementExample arrangementExample = new ArrangementExample();
+        ArrangementExample.Criteria ac = arrangementExample.createCriteria();
+        List<Integer> locationIds = locations.stream().map(Location::getLocationId).collect(Collectors.toList());
+        ac.andArrangementLocationIn(locationIds);
+        ac.andArrangementTimeGreaterThanOrEqualTo(new Date());
+        return arrangementMapper.selectByExample(arrangementExample);
+    }
 
     /*
     小程序端
@@ -198,19 +205,76 @@ public class ArrangementService {
 
     public Date getPastDate(int past) {
         past -= 1;
-        Date today = changeDate(new Date());
+        Date today = roundDownDate(new Date());
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(today);
         calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) - past);
         return calendar.getTime();
     }
 
-    public Date changeDate(Date date) {
+    public Date roundDownDate(Date date) {
         Date now = new Date();
         // java.util.Date -> java.time.LocalDate
         LocalDate localDate = now.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         // java.time.LocalDate -> java.sql.Date
         Date newDate = java.sql.Date.valueOf(localDate);
         return newDate;
+    }
+
+    // 获取所有arrangement_location in location_id s里,且arrangement_time大于今天日期的arrangement
+    public List<Arrangement> getArrangementsByLocationIdsAndDate(List<Integer> location_ids,Date date){
+        ArrangementExample arrangementExample = new ArrangementExample();
+        ArrangementExample.Criteria ac = arrangementExample.createCriteria();
+        ac.andArrangementTimeGreaterThanOrEqualTo(date);
+        ac.andArrangementLocationIn(location_ids);
+        return arrangementMapper.selectByExample(arrangementExample);
+    }
+
+    public String roundDownDate(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return simpleDateFormat.format(new Date());
+    }
+
+    public boolean insertArrangement(Arrangement arrangement){
+        return arrangementMapper.insert(arrangement) == 1;
+    }
+
+    public int[] getArrangementCountByTime(int id){
+        //根据user查package
+        UserExample userExample = new UserExample();
+        UserExample.Criteria uc = userExample.createCriteria();
+        //限定社区
+        uc.andUserCommunityEqualTo(id);
+        List<User> users = userMapper.selectByExample(userExample);
+        if (users == null || users.isEmpty()) {
+            return null;
+        }
+        //得到package
+        List<Integer> userIds = users.stream().map(User::getUserId).collect(Collectors.toList());
+        PackageExample packageExample = new PackageExample();
+        PackageExample.Criteria pc = packageExample.createCriteria();
+        pc.andPackageUserIn(userIds);
+        List<Package> packages = packageMapper.selectByExample(packageExample);
+        if (packages == null || packages.isEmpty()) {
+            return null;
+        }
+        List<Integer> packageIds = packages.stream().map(Package::getPackageId).collect(Collectors.toList());
+        ArrangementExample example = new ArrangementExample();
+        ArrangementExample.Criteria criteria = example.createCriteria();
+        criteria.andArrangementPackageIn(packageIds);
+        List<Arrangement> arrangements = arrangementMapper.selectByExample(example);
+
+        if (arrangements == null || arrangements.isEmpty()){
+            return null;
+        }
+
+        int[] ints = new int[24];
+        for (Arrangement arrangement:arrangements) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(arrangement.getArrangementTime());
+            int hour = calendar.get(Calendar.HOUR_OF_DAY);
+            ints[hour]++;
+        }
+        return ints;
     }
 }

@@ -56,4 +56,8 @@ public class CommunityService {
     public boolean setCommunity(Community community){
         return communityMapper.updateByPrimaryKeySelective(community) == 1;
     }
+
+    public int addCommunity(Community community){
+        return communityMapper.insert(community);
+    }
 }
