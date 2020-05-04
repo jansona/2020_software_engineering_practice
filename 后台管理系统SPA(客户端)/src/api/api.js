@@ -64,4 +64,4 @@ export const setCommunityDetail = params => { return axios.post(`${base}/communi
 // 业务统计
 export const getArrangementTimeDistribution = () => { return axios.get(`${base}/arrangement/statistics/time`)};
 
-export const getArrangementUserDistribution = () => { return axios.get(`${base}/arrangement/statistics/user`)};
+export const getArrangementUserDistribution = () => { return axios.get(`${base}/package/statistics/user`)};

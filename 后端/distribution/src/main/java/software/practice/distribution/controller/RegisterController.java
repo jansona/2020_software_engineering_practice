@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import software.practice.distribution.Utils.BasicUtil;
 import software.practice.distribution.entity.Community;
 import software.practice.distribution.result.Result;
 import software.practice.distribution.service.CommunityService;
@@ -34,7 +35,7 @@ public class RegisterController {
         int res = communityService.addCommunity(community);
         if (res >= 1){
             HttpSession session = request.getSession();
-            session.setAttribute("communityId", community);
+            session.setAttribute("communityId", community.getCommunityId());
             return new Result(200,null,community);
         }
         return new Result(400,"注册失败");

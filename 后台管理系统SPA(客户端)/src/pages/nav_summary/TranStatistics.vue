@@ -99,16 +99,33 @@
                     this.drawColumnChart()
                 });
                 getArrangementUserDistribution().then((res) => {
-                    this.pieData = res.data.content;
+                    debugger;
+                    let pieData = [];
+                    for(let k in res.data.content){
+                        pieData.push({value: res.data.content[k], name: k});
+                    }
+                    pieData = pieData.sort((a,b) => { return b.value - a.value; });
+                    let pieDataFiltered = [];
+                    for(let i=0; i<10; i++){
+                        pieDataFiltered.push(pieData[i]);
+                    }
+                    let otherValue = 0;
+                    for(let i=10; i<pieData.length; i++){
+                        otherValue += pieData[i].value;
+                    }
+                    if(otherValue > 0){
+                        pieDataFiltered.push({name: '其他', value: otherValue});
+                    }
+                    this.pieData = pieDataFiltered;
                     this.drawPieChart()
                 })
             },
         },
 
         mounted: function () {
-            // this.drawCharts()
-            this.drawColumnChart();
-            this.drawPieChart();
+            this.drawCharts()
+            // this.drawColumnChart();
+            // this.drawPieChart();
         },
         updated: function () {
             this.drawCharts()
