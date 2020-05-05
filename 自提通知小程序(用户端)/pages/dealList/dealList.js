@@ -1,6 +1,8 @@
 // pages/dealList/dealList.js
 
-import {request}  from "../../utils/request.js";
+import {
+  request
+} from "../../utils/request.js";
 
 Page({
 
@@ -8,26 +10,26 @@ Page({
    * 页面的初始数据
    */
   data: {
-    dealList:[],
+    dealList: [],
     ispass: 1,
-    currentPage:1,
-    pagesTotal:1,
+    currentPage: 1,
+    pagesTotal: 1,
   },
 
-  viewTap:function(e){
+  viewTap: function (e) {
     wx.navigateTo({
       url: '/pages/dealInfo/dealInfo?item=' + encodeURIComponent(JSON.stringify(e.currentTarget.dataset.value))
     })
   },
-  
+
   /**
    * 标签页切换
    * @param {*} e 
    */
-  changeTabs: function(e) {
+  changeTabs: function (e) {
     this.setData({
-      ispass: 1-e.detail.currentIndex,
-      currentPage:1,
+      ispass: 1 - e.detail.currentIndex,
+      currentPage: 1,
     })
     this.getData(0);
   },
@@ -39,10 +41,10 @@ Page({
     this.getData(0);
   },
 
-  getData: function(e) {
+  getData: function (e) {
     request({
       url: "/deal/list",
-      method:"POST",
+      method: "POST",
       data: {
         page: this.data.currentPage,
         dealIspass: this.data.ispass
@@ -54,9 +56,9 @@ Page({
     }).then(res => {
       if (res.data.code == 200) {
         var data = [];
-        if(e == 0){
+        if (e == 0) {
           data = res.data.content;
-        }else{
+        } else {
           data = [...this.data.dealList, ...res.data.content]
         }
         this.setData({
@@ -64,13 +66,14 @@ Page({
           pagesTotal: res.data.total
         })
       } else { //错误信息提示
-        if(res.data.code == 400)
-          this.setData({
-            dealList: [],
-            currentPage: 1,
-            pagesTotal: 1
-          })
-        else{
+        if (res.data.code == 400)
+          if (e == 0)
+            this.setData({
+              dealList: [],
+              currentPage: 1,
+              pagesTotal: 1
+            })
+        else if (res.data.message != '未找到') {
           wx.showModal({
             title: "提示",
             content: res.data.message,
@@ -122,13 +125,13 @@ Page({
   onReachBottom: function () {
     var current = this.data.currentPage
     var total = this.data.pagesTotal
-    if(current<total){
+    if (current < total) {
       current++;
       this.setData({
         currentPage: current
       })
       this.getData(1);
-    }else{
+    } else {
       wx.showToast({
         title: '啊哦，已经到底了',
         icon: 'none',

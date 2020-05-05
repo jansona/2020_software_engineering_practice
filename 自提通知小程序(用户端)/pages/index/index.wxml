@@ -17,3 +17,4 @@
 <l-list title="集群管理" data-dataset="community" bindtap="listTap" icon="edit" />
 <l-list title="自提通知" data-dataset="notificationList" bindtap="listTap" icon="notification" />
 <l-list title="特殊申请" data-dataset="dealList" bindtap="listTap" icon="order" />
+<l-list title="切换账户" data-dataset="login" bindtap="listTap" icon="ellipsis" />

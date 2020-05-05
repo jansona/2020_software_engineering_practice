@@ -78,12 +78,13 @@ Page({
         })
       } else { //错误信息提示
         if (res.data.code == 400)
-          this.setData({
-            notifications: [],
-            currentPage: 1,
-            totalPage: 1
-          })
-        else {
+          if (e == 0)
+            this.setData({
+              notifications: [],
+              currentPage: 1,
+              totalPage: 1
+            })
+        else if (res.data.message != '未找到') {
           wx.showModal({
             title: "提示",
             content: res.data.message,
@@ -134,7 +135,7 @@ Page({
    */
   onReachBottom: function () {
     var current = this.data.currentPage
-    var total = this.data.pagesTotal
+    var total = this.data.totalPage
     if (current < total) {
       current++;
       this.setData({
