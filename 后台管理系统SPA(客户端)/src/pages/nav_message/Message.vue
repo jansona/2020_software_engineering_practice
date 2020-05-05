@@ -1,6 +1,6 @@
 <template>
     <section>
-        <el-tabs v-model="activeName" @tab-click="handleClick">
+        <el-tabs v-model="activeName">
             <el-tab-pane label="集群消息" name="first">
                 <el-card v-if="communityMessage == null || communityMessage.length == 0">暂无消息</el-card>
                 <timeline :timeline="communityMessage">
