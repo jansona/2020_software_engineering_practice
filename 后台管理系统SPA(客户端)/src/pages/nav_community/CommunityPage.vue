@@ -30,18 +30,32 @@
             </div>
             <div>
                 <el-table :data="locationData" border fit highlight-current-row style="width: 100%">
-                <el-table-column min-width="300px" label="Title">
+                <el-table-column min-width="300px" label="自提点">
                     <template slot-scope="{row}">
-                    <template v-if="row.edit">
+                    <template v-if="row.status!=0">
                         <el-input v-model="row.locationName" class="edit-input" size="small"/>
                     </template>
                     <span v-else>{{ row.locationName }}</span>
                     </template>
                 </el-table-column>
 
-                <el-table-column align="center" label="Actions" width="170">
+                <el-table-column align="center" label="操作" width="170">
                     <template slot-scope="{row}">
-                        <template v-if="row.edit">
+                        <template v-if="row.status==0">
+                            <el-button
+                                type="primary"
+                                size="small"
+                                @click="editLocation(row)">
+                                编辑
+                            </el-button>
+                            <el-button
+                                type="danger"
+                                size="small"
+                                @click="removeLocation(row)">
+                                移除
+                            </el-button>
+                        </template>
+                        <template v-if="row.status==1">
                             <el-button
                                 type="success"
                                 size="small"
@@ -56,18 +70,12 @@
                                 取消
                             </el-button>
                         </template>
-                        <template v-else>
+                        <template v-if="row.status==2">
                             <el-button
-                                type="primary"
+                                type="success"
                                 size="small"
-                                @click="row.edit=!row.edit">
-                                编辑
-                            </el-button>
-                            <el-button
-                                type="danger"
-                                size="small"
-                                @click="row.edit=!row.edit">
-                                移除
+                                @click="addLocation(row)">
+                                新增
                             </el-button>
                         </template>
                     </template>
@@ -97,10 +105,7 @@ export default {
                 communityAddress: '',
                 communityInterval: 0,
             },
-            locationData: [{
-                locationName: '1hao',
-                edit: false,
-            }]
+            locationData: []
         }
     },
     methods: {
@@ -135,25 +140,57 @@ export default {
         },
         getLocations() {
             getCommunityLocations().then((res) => {
-                debugger;
-                this.locationData = res.data.content;
+                this.locationData = [];
+                res.data.content.forEach((item) => {
+                    item.status = 0;
+                    this.locationData.push(item);
+                    // this.locationData.push({
+                    //     locationId: item.locationId,
+                    //     locationName: item.locationName, 
+                    //     status: 0});
+                });
+                this.locationData.push({locationName: '', status: 2})
             });
         },
         cancelEdit(row) {
-        row.title = row.originalTitle
-        row.edit = false
-        this.$message({
-            message: '放弃修改自提点',
-            type: 'warning'
-        })
+            row.locationName = row.locationNameBackName;
+            row.status = 0;
+            this.$message({
+                message: '放弃修改自提点',
+                type: 'warning'
+            })
         },
         confirmEdit(row) {
-        row.edit = false
-        row.originalTitle = row.title
-        this.$message({
-            message: '自提点修改成功',
-            type: 'success'
-        })
+            row.status = 0;
+            setCommunityLocation(row).then((res) => {
+                this.getLocations();
+                this.$message({
+                    message: '自提点修改成功',
+                    type: 'success'
+                })
+            })
+        },
+        editLocation(row) {
+            row.status = 1;
+            row.locationNameBackName = row.locationName;
+        },
+        removeLocation(row) {
+            removeCommunityLocation({id: String(row.locationId)}).then(() => {
+                this.getLocations();
+                this.$message({
+                    message: '删除自提点',
+                    type: 'success'
+                })
+            })
+        },
+        addLocation(row) {
+            addCommunityLocation({name: row.locationName}).then((res => {
+                this.getLocations();
+                this.$message({
+                    message: '新增自提点',
+                    type: 'success'
+                })
+            }))
         },
     },
     mounted() {

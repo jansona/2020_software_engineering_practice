@@ -63,7 +63,7 @@ export const setCommunityDetail = params => { return axios.post(`${base}/communi
 
 export const getCommunityLocations = () => { return axios.get(`${base}/community/location/list`)};
 
-export const addCommunityLocation = params => { return axios.post(`${base}/community/location/add`, params); };
+export const addCommunityLocation = params => { return axios.post(`${base}/community/location/add`, Qs.stringify(params)); };
 
 export const removeCommunityLocation = params => { return axios.get(`${base}/community/location/remove`, { params: params })};
 
