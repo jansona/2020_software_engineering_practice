@@ -29,8 +29,12 @@ import java.util.stream.Collectors;
 public class PackageService {
     @Autowired
     PackageMapper packageMapper;
+
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    AllocateTimeService allocateTimeService;
 
     public Pair<Long, List<Package>> getPackages(int page, Integer id, String user, String content, int communityId) {
         UserExample userExample = new UserExample();
@@ -61,8 +65,15 @@ public class PackageService {
         return new Pair<>(totalPage,packages);
     }
 
-    public boolean addPackage(Package p) {
-        return packageMapper.insert(p) == 1;
+    public int addPackage(Package p) {
+        int id = packageMapper.insert(p);
+        if (id > 0){
+            if (allocateTimeService.allocateTime(p)){
+                return 1;
+            }
+            return 0;
+        }
+        return -1;
     }
 
     public boolean editPackage(Package p) {
@@ -168,9 +179,15 @@ public class PackageService {
                     if (users != null && !users.isEmpty()) {
                         int userId = users.get(0).getUserId();
                         p.setPackageUser(userId);
-                        addPackage(p);
+                        int res = addPackage(p);
+                        if (res == 1){
+                            continue;
+                        } else if (res == 0){
+                            err.append("第").append(rIndex).append("行数据添加成功，但分配时间失败\n");
+                        } else {
+                            err.append("第").append(rIndex).append("行数据添加失败\n");
+                        }
                         //添加成功就添加下一个
-                        continue;
                     }
                 } else {
                     err.append("第").append(rIndex).append("行数据手机号错误或系统中查无此人，并且没有身份证号，添加失败\n");

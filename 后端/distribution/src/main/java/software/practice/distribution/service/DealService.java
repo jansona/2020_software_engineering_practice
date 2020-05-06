@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import software.practice.distribution.entity.*;
 import software.practice.distribution.entity.Package;
+import software.practice.distribution.mapper.ArrangementMapper;
 import software.practice.distribution.mapper.DealMapper;
 import software.practice.distribution.mapper.PackageMapper;
 import software.practice.distribution.mapper.UserMapper;
@@ -31,6 +32,12 @@ public class DealService {
 
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    ArrangementMapper arrangementMapper;
+
+    @Autowired
+    AllocateTimeService allocateTimeService;
 
     //客户端
     public List<Deal> getDeals(int communityId){
@@ -104,12 +111,18 @@ public class DealService {
         if (dealMapper.updateByPrimaryKeySelective(deal) == 1){
             if (originalDeal.getDealType() == 0){
                 Package p = packageMapper.selectByPrimaryKey(originalDeal.getDealPackage());
-                // TODO 调用算法延迟package时间
-
-                return true;
+                ArrangementExample arrangementExample = new ArrangementExample();
+                ArrangementExample.Criteria criteria = arrangementExample.createCriteria();
+                criteria.andArrangementPackageEqualTo(p.getPackageId());
+                List<Arrangement> arrangements = arrangementMapper.selectByExample(arrangementExample);
+                if (arrangements != null && !arrangements.isEmpty()){
+                    for (Arrangement a: arrangements) {
+                        arrangementMapper.deleteByPrimaryKey(a.getArrangementId());
+                    }
+                }
+                return allocateTimeService.allocateTime(p);
             } else {
                 // TODO 调用算法送货上门
-
                 return true;
             }
         }
@@ -144,6 +157,6 @@ public class DealService {
                 new RowBounds((page - 1) * 10, 10));
         Collections.reverse(dealList);
 
-        return new Pair<Integer,List<Deal>>(total,dealList);
+        return new Pair<>(total, dealList);
     }
 }

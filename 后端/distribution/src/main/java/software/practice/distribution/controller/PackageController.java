@@ -43,8 +43,11 @@ public class PackageController {
     @CrossOrigin
     @PostMapping(value = "/package/add")
     public Result addPackage(@RequestBody Package p) {
-        if (packageService.addPackage(p)) {
+        int res = packageService.addPackage(p);
+        if (res == 1) {
             return new Result(200);
+        }else if (res == 0){
+            return new Result(400,"添加成功但是分配时间失败");
         }
         return new Result(400,"添加失败");
     }

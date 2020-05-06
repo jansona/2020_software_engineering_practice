@@ -217,8 +217,7 @@ public class ArrangementService {
         // java.util.Date -> java.time.LocalDate
         LocalDate localDate = now.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         // java.time.LocalDate -> java.sql.Date
-        Date newDate = java.sql.Date.valueOf(localDate);
-        return newDate;
+        return java.sql.Date.valueOf(localDate);
     }
 
     // 获取所有arrangement_location in location_id s里,且arrangement_time大于今天日期的arrangement

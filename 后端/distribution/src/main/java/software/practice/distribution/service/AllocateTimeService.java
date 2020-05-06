@@ -2,12 +2,11 @@ package software.practice.distribution.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import software.practice.distribution.entity.*;
 import software.practice.distribution.entity.Package;
+import software.practice.distribution.entity.*;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class AllocateTimeService {
@@ -44,19 +43,19 @@ public class AllocateTimeService {
         List<Arrangement> arrangements = arrangementService.getArrangementsByLocationIdsAndDate(location_ids,new Date());
 
         int parts = 720/community_interval;  //8:00-20:00可用分区的个数
-        int favorite_index = transformTimeToIndex(favorite_startTime,parts);
+        int favorite_index = transformTimeToIndex(parts);
 
 
         HashMap<Integer,Integer[][]> maps = new HashMap<>();  //location_id-天数时间段数组
         for (Integer id:location_ids) {
             //假设天数为3
-            Integer allocate_table[][] = new Integer[3][parts];
+            Integer[][] allocate_table = new Integer[3][parts];
             //初始化二维数组，已经分配过的分区置1，未分配置0
             for (Arrangement a:arrangements) {
-                if(a.getArrangementLocation()!=id)
+                if(!a.getArrangementLocation().equals(id))
                     continue;
 
-                Integer index = transformTimeToIndex(a.getArrangementTime(),parts);
+                int index = transformTimeToIndex(parts);
 
                 Date arrange_date = a.getArrangementTime();
                 Calendar arrange_calendar = Calendar.getInstance();
@@ -79,32 +78,29 @@ public class AllocateTimeService {
             maps.put(id,allocate_table);
         }
 
-        Arrangement arrangement = null;
+        Arrangement arrangement;
         Date now = new Date();
-        int index = 0;
-        int now_index = transformTimeToIndex(now,parts);
-        if(favorite_index>=now_index)
-            index = favorite_index;
-        else
-            index = now_index;
+        int index;
+        int now_index = transformTimeToIndex(parts);
+        index = Math.max(favorite_index, now_index);
         int round = parts-index-1;
         int days = maps.get(0).length;
 
-        f:for(int i = 0; i < days; i++){
+        for (int i = 0; i < days; i++) {
             //推迟一天需要更新index和round
-            if(i == 1){
+            if (i == 1) {
                 index = favorite_index;
-                round = parts- index -1;
+                round = parts - index - 1;
             }
 
-            for(int r = 0; r < round; r++){
-                for(Integer id:location_ids){
-                    Integer a[][] = maps.get(id);
-                    if(a[i][index + r]==0){
+            for (int r = 0; r < round; r++) {
+                for (Integer id : location_ids) {
+                    Integer[][] a = maps.get(id);
+                    if (a[i][index + r] == 0) {
                         arrangement = new Arrangement();
                         arrangement.setArrangementLocation(id);
                         arrangement.setArrangementPackage(p.getPackageId());
-                        arrangement.setArrangementTime(getArrangementTime(now, i,index + r, community_interval));
+                        arrangement.setArrangementTime(getArrangementTime(now, i, index + r, community_interval));
                         arrangementService.insertArrangement(arrangement);
                         return true;
                     }
@@ -117,7 +113,7 @@ public class AllocateTimeService {
         cal.setTime(new Date());
         Calendar cal2 = Calendar.getInstance();
         cal2.setTime(favorite_startTime);
-        cal.set(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH)+1,cal.get(Calendar.DAY_OF_MONTH)+days,cal2.get(Calendar.HOUR_OF_DAY),cal2.get(Calendar.MINUTE));
+        cal.set(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH)+days,cal2.get(Calendar.HOUR_OF_DAY),cal2.get(Calendar.MINUTE));
         List<Arrangement> as = arrangementService.getArrangementsByLocationIdsAndDate(location_ids,cal.getTime());
         if(as==null){
             arrangement = new Arrangement();
@@ -151,7 +147,7 @@ public class AllocateTimeService {
 
     }
 
-    public int transformTimeToIndex(Date date,int parts){
+    public int transformTimeToIndex(int parts){
         int begin_minutes = 480;  //早上八点：480分钟
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
@@ -159,8 +155,7 @@ public class AllocateTimeService {
         String favorite = simpleDateFormat.format(new Date());
         int favorite_minutes = Integer.parseInt(favorite.substring(0,1))*60+Integer.parseInt(favorite.substring(3,4));
 
-        int index = (favorite_minutes - begin_minutes + 20)/parts;  //延迟20分钟以免出现bug
-        return index;
+        return (favorite_minutes - begin_minutes + 20)/parts;
     }
 
     public Date getArrangementTime(Date now,int day,int index,int community_interval){
@@ -168,7 +163,7 @@ public class AllocateTimeService {
         calendar.setTime(now);
         int now_year = calendar.get(Calendar.YEAR);
         // 获取月，这里需要需要月份的范围为0~11，因此获取月份的时候需要+1才是当前月份值
-        int now_month = calendar.get(Calendar.MONTH)+1;
+        int now_month = calendar.get(Calendar.MONTH);
         int now_date = calendar.get(Calendar.DAY_OF_MONTH);
 
         int minutes = 480 + index * community_interval;
