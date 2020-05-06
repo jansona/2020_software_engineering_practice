@@ -114,7 +114,6 @@
                 getUsersListPage(para).then((res) => {
                     this.total = res.data.total;
                     this.users = res.data.content;
-                    debugger;
                     this.listLoading = false;
                 });
             },

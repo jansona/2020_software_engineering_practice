@@ -25,13 +25,13 @@
         <el-table :data="arrangements" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
             <el-table-column type="selection" width="55">
             </el-table-column>
-            <el-table-column type="index" width="60">
+            <el-table-column prop="packageEntity.userEntity.userId" label="住户账号" width="120" sortable>
             </el-table-column>
-            <el-table-column prop="arrangementUser" label="住户" width="120" sortable>
+            <el-table-column prop="packageEntity.userEntity.userName" label="住户姓名" width="200" sortable>
             </el-table-column>
-            <el-table-column prop="arrangementPackage" label="物资ID" width="200" sortable>
+            <el-table-column prop="arrangementPackage" label="物资ID" width="100" sortable>
             </el-table-column>
-            <el-table-column prop="arrangementLocation" label="住址" width="200" sortable>
+            <el-table-column prop="locationEntity.locationName" label="自提点" width="200" sortable>
             </el-table-column>
             <el-table-column prop="arrangementTime" label="期限" width="200" sortable>
             </el-table-column>

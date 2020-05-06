@@ -2,7 +2,7 @@ import axios from 'axios';
 import Qs from 'qs';
 axios.defaults.withCredentials = true;
 
-let base = 'http://localhost:8443';
+let base = '/api';
 
 // 注册登录
 export const requestLogin = params => { return axios.post(`${base}/login`, Qs.stringify(params) ); };
@@ -60,6 +60,14 @@ export const getArrangementNum = () => { return axios.get(`${base}/arrangement/s
 export const getCommunityDetail = () => { return axios.get(`${base}/community/detail`)};
 
 export const setCommunityDetail = params => { return axios.post(`${base}/community/set`, params); };
+
+export const getCommunityLocations = () => { return axios.get(`${base}/community/location/list`)};
+
+export const addCommunityLocation = params => { return axios.post(`${base}/community/location/add`, params); };
+
+export const removeCommunityLocation = params => { return axios.get(`${base}/community/location/remove`, { params: params })};
+
+export const setCommunityLocation = params => { return axios.post(`${base}/community/location/modify`, params); };
 
 // 业务统计
 export const getArrangementTimeDistribution = () => { return axios.get(`${base}/arrangement/statistics/time`)};

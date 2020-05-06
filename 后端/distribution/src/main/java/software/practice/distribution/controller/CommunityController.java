@@ -61,7 +61,7 @@ public class CommunityController {
     }
 
     @CrossOrigin
-    @GetMapping(value = "/community/location")
+    @GetMapping(value = "/community/location/list")
     public Result getLocation(HttpServletRequest request){
         int id = (int) request.getSession().getAttribute("communityId");
         List<Location> locations = locationService.getLocationsByCommunity(id);
