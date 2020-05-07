@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import software.practice.distribution.entity.Package;
 import software.practice.distribution.entity.*;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -39,7 +38,6 @@ public class AllocateTimeService {
         List<Integer> location_ids = new ArrayList<>();
         for (Location l:locations) {
             location_ids.add(l.getLocationId());
-            System.out.println(l.getLocationCommunity()+"小区"+l.getLocationName());
         }
         List<Arrangement> arrangements = arrangementService.getArrangementsByLocationIdsAndDate(location_ids,new Date());
 
@@ -79,18 +77,14 @@ public class AllocateTimeService {
             }
             maps.put(id,allocate_table);
             int[][] a = maps.get(id);
-            System.out.println(a[0][0]);
         }
 
         Arrangement arrangement;
         Date now = new Date();
         int index;
         int now_index = transformTimeToIndex(new Date(),community_interval);
-        System.out.println("now_index:"+now_index);
         index = Math.max(favorite_index, now_index);
-        System.out.println("index:"+index);
         int round = parts-index-1;
-        System.out.println("round:"+round);
         //int days = maps.get(0).length;
 
         for (int i = 0; i < days; i++) {
@@ -160,7 +154,6 @@ public class AllocateTimeService {
         calendar.setTime(date);
         int minutes = calendar.get(Calendar.HOUR_OF_DAY)*60+calendar.get(Calendar.MINUTE);
         int index = (minutes - begin_minutes + 20)/interval;
-        System.out.println("index："+index);
         return index;
     }
 

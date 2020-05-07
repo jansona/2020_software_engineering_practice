@@ -67,7 +67,6 @@ public class PackageService {
 
     public int addPackage(Package p) {
         int id = packageMapper.insert(p);
-        p.setPackageId(id);
         if (id > 0){
             if (allocateTimeService.allocateTime(p)){
                 return 1;
