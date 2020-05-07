@@ -38,17 +38,14 @@ public class AllocateTimeService {
         Date now = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(now);
-
-        if(calendar.get(Calendar.HOUR_OF_DAY)>=11){
+        calendar.add(Calendar.HOUR_OF_DAY,8);
+        if(calendar.get(Calendar.HOUR_OF_DAY)>=19){
             //把时间改为第二天早上8点
             calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)+1,8,calendar.get(Calendar.MINUTE));
-        }else if(calendar.get(Calendar.HOUR_OF_DAY)<0){
+        }else if(calendar.get(Calendar.HOUR_OF_DAY)<8){
             //把时间改为今天8点
             calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH),8,calendar.get(Calendar.MINUTE));
-        } else{
-            calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH),calendar.get(Calendar.HOUR_OF_DAY)+8,calendar.get(Calendar.MINUTE));
         }
-        System.out.println(calendar.getTime());
         //根据location_id和当前日期查询arrangement表
         // 获取所有arrangement_location in location_id s里,且arrangement_time大于今天日期的arrangement
         List<Integer> location_ids = new ArrayList<>();

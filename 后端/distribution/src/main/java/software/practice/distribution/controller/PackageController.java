@@ -44,7 +44,6 @@ public class PackageController {
     @PostMapping(value = "/package/add")
     public Result addPackage(@RequestBody Package p) {
         int res = packageService.addPackage(p);
-        System.out.println("package_id"+p.getPackageId());
         if (res == 1) {
             return new Result(200);
         }else if (res == 0){
