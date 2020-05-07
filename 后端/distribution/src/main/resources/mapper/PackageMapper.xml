@@ -137,7 +137,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="software.practice.distribution.entity.Package">
+  <insert id="insert" parameterType="software.practice.distribution.entity.Package" useGeneratedKeys="true" keyProperty="packageId" keyColumn="package_id">
     <selectKey resultType="java.lang.Integer" keyProperty="packageId" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -151,7 +151,7 @@
     values (#{packageId,jdbcType=INTEGER}, #{packageUser,jdbcType=INTEGER}, #{packageContent,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="software.practice.distribution.entity.Package">
+  <insert id="insertSelective" parameterType="software.practice.distribution.entity.Package" useGeneratedKeys="true" keyProperty="packageId" keyColumn="package_id">
     <selectKey resultType="java.lang.Integer" keyProperty="packageId" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
