@@ -33,13 +33,29 @@ public class AllocateTimeService {
         Date favorite_startTime = user.getUserFavoriteStarttime();
         //根据community_id查询location表，获取所有location
         List<Location> locations = locationService.getLocationsByCommunity(community.getCommunityId());
+
+        Arrangement arrangement;
+        Date now = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(now);
+
+        if(calendar.get(Calendar.HOUR_OF_DAY)>=11){
+            //把时间改为第二天早上8点
+            calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)+1,8,calendar.get(Calendar.MINUTE));
+        }else if(calendar.get(Calendar.HOUR_OF_DAY)<0){
+            //把时间改为今天8点
+            calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH),8,calendar.get(Calendar.MINUTE));
+        } else{
+            calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH),calendar.get(Calendar.HOUR_OF_DAY)+8,calendar.get(Calendar.MINUTE));
+        }
+        System.out.println(calendar.getTime());
         //根据location_id和当前日期查询arrangement表
         // 获取所有arrangement_location in location_id s里,且arrangement_time大于今天日期的arrangement
         List<Integer> location_ids = new ArrayList<>();
         for (Location l:locations) {
             location_ids.add(l.getLocationId());
         }
-        List<Arrangement> arrangements = arrangementService.getArrangementsByLocationIdsAndDate(location_ids,new Date());
+        List<Arrangement> arrangements = arrangementService.getArrangementsByLocationIdsAndDate(location_ids,calendar.getTime());
 
         int parts = 720/community_interval;  //8:00-20:00可用分区的个数
         int favorite_index = transformTimeToIndex(favorite_startTime,community_interval);
@@ -47,9 +63,9 @@ public class AllocateTimeService {
         HashMap<Integer,int[][]> maps = new HashMap<>();  //location_id-天数时间段数组
         int days = 0;
         for (Integer id:location_ids) {
-            //假设天数为3
-            int[][] allocate_table = new int[3][parts];
-            days = 3 ;
+            //假设天数为5
+            int[][] allocate_table = new int[5][parts];
+            days = 5 ;
             //初始化二维数组，已经分配过的分区置1，未分配置0
             for (Arrangement a:arrangements) {
                 if(!a.getArrangementLocation().equals(id))
@@ -62,14 +78,11 @@ public class AllocateTimeService {
                 arrange_calendar.setTime(arrange_date);
                 int arrange_month = arrange_calendar.get(Calendar.MONTH)+1;
 
-                Date now_date = new Date();
-                Calendar now_calendar = Calendar.getInstance();
-                now_calendar.setTime(now_date);
-                int now_month = now_calendar.get(Calendar.MONTH)+1;
+                int now_month = calendar.get(Calendar.MONTH)+1;
 
                 //如果分配时间在今天之前就不用考虑了
                 if(arrange_month>=now_month){
-                    int betweenDays = (int)((a.getArrangementTime().getTime()-now_date.getTime()) / (1000L*3600L*24L));
+                    int betweenDays = (int)((a.getArrangementTime().getTime()-calendar.getTime().getTime()) / (1000L*3600L*24L));
                     if(betweenDays>=0){
                         allocate_table[betweenDays][index] = 1;
                     }
@@ -79,13 +92,9 @@ public class AllocateTimeService {
             int[][] a = maps.get(id);
         }
 
-        Arrangement arrangement;
-        Date now = new Date();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(now);
-        calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH),calendar.get(Calendar.HOUR_OF_DAY)+8,calendar.get(Calendar.MINUTE));
+
         int index;
-        int now_index = transformTimeToIndex(new Date(),community_interval);
+        int now_index = transformTimeToIndex(calendar.getTime(),community_interval);
         index = Math.max(favorite_index, now_index);
         int round = parts-index-1;
         //int days = maps.get(0).length;
@@ -97,14 +106,14 @@ public class AllocateTimeService {
                 round = parts - index - 1;
             }
 
-            for (int r = 0; r < round; r++) {
+            for (int r = 0; r <= round; r++) {
                 for (Integer id : location_ids) {
                     int[][] a = maps.get(id);
                     if (a[i][index + r] == 0) {
                         arrangement = new Arrangement();
                         arrangement.setArrangementLocation(id);
                         arrangement.setArrangementPackage(p.getPackageId());
-                        arrangement.setArrangementTime(getArrangementTime(now, i, index + r, community_interval));
+                        arrangement.setArrangementTime(getArrangementTime(calendar.getTime(), i, index + r, community_interval));
                         arrangementService.insertArrangement(arrangement);
                         return true;
                     }
