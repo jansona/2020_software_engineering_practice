@@ -25,3 +25,6 @@
 	</block>
 	<view wx:else>啊哦，未找到相关内容</view>
 </view>
+<view wx:if="{{communityName != '' && ispass == 0}}">
+	<l-button class="submit" style="display: flex;justify-content:center;margin-top:20rpx" size="large" bindtap="submitForm" disabled="{{disable}}">重新申请</l-button>
+</view>

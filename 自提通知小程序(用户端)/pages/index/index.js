@@ -87,6 +87,13 @@ Page({
 
   },
 
+  reLogin: function(){
+    app.globalData.reLogin = true
+    wx.navigateTo({
+      url: '/pages/login/login?reLogin=1',
+    })
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
