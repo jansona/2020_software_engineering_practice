@@ -153,41 +153,48 @@ public class PackageService {
                 p.setPackageContent(content);
                 boolean isSucceed = false;
                 if (phoneIndex != -1) {
-                    Cell phoneCell = row.getCell(phoneIndex);
-                    String phone = phoneCell.getStringCellValue();
-                    UserExample example = new UserExample();
-                    UserExample.Criteria criteria = example.createCriteria();
-                    criteria.andUserPhoneEqualTo(phone);
-                    List<User> users = userMapper.selectByExample(example);
-                    if (users != null && !users.isEmpty()) {
-                        int userId = users.get(0).getUserId();
-                        p.setPackageUser(userId);
-                        addPackage(p);
-                        isSucceed = true;
+                    try{
+                        Cell phoneCell = row.getCell(phoneIndex);
+                        String phone = phoneCell.getStringCellValue();
+                        UserExample example = new UserExample();
+                        UserExample.Criteria criteria = example.createCriteria();
+                        criteria.andUserPhoneEqualTo(phone);
+                        List<User> users = userMapper.selectByExample(example);
+                        if (users != null && !users.isEmpty()) {
+                            int userId = users.get(0).getUserId();
+                            p.setPackageUser(userId);
+                            addPackage(p);
+                            isSucceed = true;
+                        }
                     }
+                    catch (Exception ignored){}
                 }
                 //如果手机号读取成功就直接读下一行
                 if (isSucceed) continue;
                 //否则判断是否有身份证数据
                 if (idCardIndex != -1) {
-                    Cell idCardCell = row.getCell(idCardIndex);
-                    String idCard = idCardCell.getStringCellValue();
-                    UserExample example = new UserExample();
-                    UserExample.Criteria criteria = example.createCriteria();
-                    criteria.andUserIdcardEqualTo(idCard);
-                    List<User> users = userMapper.selectByExample(example);
-                    if (users != null && !users.isEmpty()) {
-                        int userId = users.get(0).getUserId();
-                        p.setPackageUser(userId);
-                        int res = addPackage(p);
-                        if (res == 1){
-                            continue;
-                        } else if (res == 0){
-                            err.append("第").append(rIndex).append("行数据添加成功，但分配时间失败\n");
-                        } else {
-                            err.append("第").append(rIndex).append("行数据添加失败\n");
+                    try{
+                        Cell idCardCell = row.getCell(idCardIndex);
+                        String idCard = idCardCell.getStringCellValue();
+                        UserExample example = new UserExample();
+                        UserExample.Criteria criteria = example.createCriteria();
+                        criteria.andUserIdcardEqualTo(idCard);
+                        List<User> users = userMapper.selectByExample(example);
+                        if (users != null && !users.isEmpty()) {
+                            int userId = users.get(0).getUserId();
+                            p.setPackageUser(userId);
+                            int res = addPackage(p);
+                            if (res == 1){
+                                continue;
+                            } else if (res == 0){
+                                err.append("第").append(rIndex).append("行数据添加成功，但分配时间失败\n");
+                            } else {
+                                err.append("第").append(rIndex).append("行数据添加失败\n");
+                            }
+                            //添加成功就添加下一个
                         }
-                        //添加成功就添加下一个
+                    } catch (Exception ignored){
+                        err.append("第").append(rIndex).append("行数据手机号和身份证号都错误或系统中查无此人，添加失败\n");
                     }
                 } else {
                     err.append("第").append(rIndex).append("行数据手机号错误或系统中查无此人，并且没有身份证号，添加失败\n");
