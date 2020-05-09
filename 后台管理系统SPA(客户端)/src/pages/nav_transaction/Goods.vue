@@ -7,7 +7,7 @@
                     <el-input v-model="filters.id" placeholder="物资ID"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-input v-model="filters.user" placeholder="住户"></el-input>
+                    <el-input v-model="filters.user" placeholder="住户账号"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-input v-model="filters.content" placeholder="内容"></el-input>
@@ -33,9 +33,9 @@
             </el-table-column>
             <el-table-column prop="packageId" label="物资ID" width="200" sortable>
             </el-table-column>
-            <el-table-column prop="packageUser" label="住户" width="100" sortable>
+            <el-table-column prop="packageUser" label="住户账号" width="150" sortable>
             </el-table-column>
-            <el-table-column prop="packageContent" label="内容" width="500" sortable>
+            <el-table-column prop="packageContent" label="内容" width="450" sortable>
             </el-table-column>
             <el-table-column label="操作" width="150">
                 <template slot-scope="scope">
@@ -251,7 +251,7 @@
                 }).then(() => {
                     this.listLoading = true;
                     let para = { ids: ids };
-                    batchremoveGoods(para).then((res) => {
+                    batchRemoveGoods(para).then((res) => {
                         this.listLoading = false;
                         this.$message({
                             message: '删除成功',

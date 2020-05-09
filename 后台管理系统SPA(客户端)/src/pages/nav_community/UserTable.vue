@@ -4,7 +4,7 @@
         <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
             <el-form :inline="true" :model="filters">
                 <el-form-item>
-                    <el-input v-model="filters.name" placeholder="住户"></el-input>
+                    <el-input v-model="filters.name" placeholder="姓名"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-input v-model="filters.location" placeholder="住址"></el-input>
@@ -21,13 +21,13 @@
             </el-table-column> -->
             <!-- <el-table-column type="index" width="60">
             </el-table-column> -->
-            <el-table-column prop="userId" label="账号" width="70" sortable>
+            <el-table-column prop="userId" label="账号" width="100" sortable>
             </el-table-column>
-            <el-table-column prop="userName" label="姓名" width="100" sortable>
+            <el-table-column prop="userName" label="姓名" width="150" sortable>
             </el-table-column>
             <el-table-column prop="userIdcard" label="身份证号" width="200" sortable>
             </el-table-column>
-            <el-table-column prop="userAddress" label="住址" width="500" sortable>
+            <el-table-column prop="userAddress" label="住址" width="450" sortable>
             </el-table-column>
             <el-table-column label="操作" width="100">
                 <template slot-scope="scope">
