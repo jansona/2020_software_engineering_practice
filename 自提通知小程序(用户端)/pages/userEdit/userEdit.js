@@ -12,8 +12,8 @@ Page({
   data: {
     type: "",
     user: {},
-    starttime: "00:00",
-    endtime: "23:59",
+    starttime: "08:00",
+    endtime: "20:00",
     disable: true,
     stay: 0,
     url: "/user/edit",

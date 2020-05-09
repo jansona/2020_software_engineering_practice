@@ -52,6 +52,18 @@ Page({
     })
   },
 
+    /**
+   * 用户点击重新申请按钮时，重新加载页面
+   */
+  submitForm: function () {
+    this.setData({
+      communityName: "",
+      communityAddress:"",
+      application: null,
+    })
+    this.getAddr()
+  },
+
   /**
    * 进行加入集群申请
    * @param {*} e 
@@ -141,28 +153,36 @@ Page({
         })
       }else{
         //如没有application，就获取集群列表
-        request({
-          url: "/community/list",
-          method: "POST",
-          header: {
-            "Cookie": getApp().globalData.cookie
-          }
-        }).then(res => {
-          if (res.data.code == 200) {
-            var addr = [...new Set(res.data.content.map(item => item.communityAddress))]
-            this.setData({
-              communities: res.data.content,
-              addr_results: res.data.content,
-              results: res.data.content,
-              addresses: ['全部',...addr] 
-            })
-          } else { //错误信息提示
-            wx.showModal({
-              title: "提示",
-              content: res.data.message,
-              showCancel: false,
-            })
-          }
+        this.getAddr()
+      }
+    })
+  },
+
+
+  /**
+   * 获取地址信息
+   */
+  getAddr: function(){
+    request({
+      url: "/community/list",
+      method: "POST",
+      header: {
+        "Cookie": getApp().globalData.cookie
+      }
+    }).then(res => {
+      if (res.data.code == 200) {
+        var addr = [...new Set(res.data.content.map(item => item.communityAddress))]
+        this.setData({
+          communities: res.data.content,
+          addr_results: res.data.content,
+          results: res.data.content,
+          addresses: ['全部',...addr] 
+        })
+      } else { //错误信息提示
+        wx.showModal({
+          title: "提示",
+          content: res.data.message,
+          showCancel: false,
         })
       }
     })

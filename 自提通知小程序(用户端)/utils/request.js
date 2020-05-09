@@ -7,7 +7,7 @@ export const request=(params)=>{
       ...params,
       url:baseUrl+params.url,
       success:(res)=>{
-        if(!getApp().globalData.cookie && res.cookies[0]){
+        if(!getApp().globalData.cookie && res.cookies[0] || getApp().globalData.reLogin){
           getApp().globalData.cookie = res.cookies[0].split(";")[0]
         }
         resolve(res);
@@ -19,6 +19,11 @@ export const request=(params)=>{
           showCancel: false,
         })
         reject(err);
+      },
+      complete:()=>{
+        if(getApp().globalData.reLogin){
+          getApp().globalData.reLogin = false
+        }
       }
     })
   })

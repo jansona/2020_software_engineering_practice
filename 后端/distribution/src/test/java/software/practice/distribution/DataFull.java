@@ -6,7 +6,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import software.practice.distribution.entity.Package;
 import software.practice.distribution.entity.*;
 import software.practice.distribution.mapper.*;
+import software.practice.distribution.service.PackageService;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -25,7 +27,7 @@ public class DataFull {
     UserMapper userMapper;
 
     @Autowired
-    PackageMapper packageMapper;
+    PackageService packageService;
 
     @Autowired
     DealMapper dealMapper;
@@ -64,7 +66,7 @@ public class DataFull {
                 User user = new User();
                 user.setUserId(j + 20 * i + 1);
                 user.setUserName("用户" + (j + 20 * i + 1));
-                if(i != 4) user.setUserCommunity(i + 1);
+                user.setUserCommunity(i + 1);
                 user.setUserAddress((i + 1) +"号楼 门牌号" + (j + 1));
                 user.setUserPassword("123456");
                 String x = String.valueOf(j);
@@ -73,7 +75,7 @@ public class DataFull {
                 user.setUserIdcard(idCard);
                 String phone = "139000" + i + "00" + x;
                 user.setUserPhone(phone);
-                user.setUserFavoriteStarttime(new Date());
+                user.setUserFavoriteStarttime(new Date(2020, Calendar.JANUARY, 1, j/2+8, 0, 0));
                 user.setUserTimeStay(3600);
                 userMapper.insert(user);
 
@@ -83,48 +85,45 @@ public class DataFull {
                 application.setApplicationTime(new Date());
                 application.setApplicationUser(j + 20 * i + 1);
                 application.setApplicationCommunity(i + 1);
-                // 第五号社区全都不处理community
-                if(i != 4) application.setApplicationIspass((byte)1);
-                else application.setApplicationIspass((byte)-1);
+                application.setApplicationIspass((byte)1);
                 applicationMapper.insertSelective(application);
 
                 // 每个人3个包裹，共300个包裹
                 for (int k = 0; k < 3; k++) {
                     Package p = new Package();
-                    p.setPackageId(60 * i + 3 * j + k + 1);
                     p.setPackageUser(20 * i + j + 1);
                     p.setPackageContent("口罩"+ (60 * i + 3 * j + k + 1) +"个");
-                    packageMapper.insert(p);
+                    packageService.addPackage(p);
                 }
             }
         }
 
-        // 30个包裹有特殊请求，10个有回复
-        for (int i = 0; i < 30; i++) {
-            Deal deal = new Deal();
-            deal.setDealId(i + 1);
-            deal.setDealTime(new Date());
-            deal.setDealPackage(10 * i + 1);
-            deal.setDealContent("我想晚点拿");
-            deal.setDealType((byte)0);
-            if (i % 3 == 0){
-                deal.setDealIspass((byte)1);
-                deal.setDealResponse("可以，凌晨3点来拿吧");
-            } else {
-                deal.setDealIspass((byte)-1);
-            }
-            dealMapper.insert(deal);
-        }
+//        // 30个包裹有特殊请求，10个有回复
+//        for (int i = 0; i < 30; i++) {
+//            Deal deal = new Deal();
+//            deal.setDealId(i + 1);
+//            deal.setDealTime(new Date());
+//            deal.setDealPackage(10 * i + 1);
+//            deal.setDealContent("我想晚点拿");
+//            deal.setDealType((byte)0);
+//            if (i % 3 == 0){
+//                deal.setDealIspass((byte)1);
+//                deal.setDealResponse("可以，凌晨3点来拿吧");
+//            } else {
+//                deal.setDealIspass((byte)-1);
+//            }
+//            dealMapper.insert(deal);
+//        }
 
 
-        // 针对100个包裹有安排
-        for (int i = 0; i < 100; i++) {
-            Arrangement arrangement = new Arrangement();
-            arrangement.setArrangementId(i + 1);
-            arrangement.setArrangementTime(new Date());
-            arrangement.setArrangementLocation(i/2 + 1);
-            arrangement.setArrangementPackage(3 * i + 1);
-            arrangementMapper.insert(arrangement);
-        }
+//        // 针对100个包裹有安排
+//        for (int i = 0; i < 100; i++) {
+//            Arrangement arrangement = new Arrangement();
+//            arrangement.setArrangementId(i + 1);
+//            arrangement.setArrangementTime(new Date());
+//            arrangement.setArrangementLocation(i/2 + 1);
+//            arrangement.setArrangementPackage(3 * i + 1);
+//            arrangementMapper.insert(arrangement);
+//        }
     }
 }
