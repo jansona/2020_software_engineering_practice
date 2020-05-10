@@ -1,5 +1,6 @@
 package software.practice.distribution.service;
 
+import javafx.util.Pair;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,7 @@ public class UserService {
         return userMapper.updateByPrimaryKeySelective(user) == 1;
     }
 
-    public List<User> getUsers(int page, Integer id, String name, String home, int communityId){
+    public Pair<Long, List<User>> getUsers(int page, Integer id, String name, String home, int communityId){
         UserExample example = new UserExample();
         UserExample.Criteria criteria = example.createCriteria();
         criteria.andUserCommunityEqualTo(communityId);
@@ -53,11 +54,12 @@ public class UserService {
         for (User user :users){
             user.setUserPassword(null);
         }
-        return users;
+        long totalPage = getTotalPage(example);
+        return new Pair<>(totalPage, users);
     }
 
-    public long getTotalPage(){
-        return userMapper.countByExample(new UserExample())/10;
+    public long getTotalPage(UserExample example){
+        return userMapper.countByExample(example);
     }
 
     public User getUserInfoByUserId(int userId){

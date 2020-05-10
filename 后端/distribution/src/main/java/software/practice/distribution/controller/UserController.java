@@ -1,5 +1,6 @@
 package software.practice.distribution.controller;
 
+import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import software.practice.distribution.Utils.BasicUtil;
@@ -20,10 +21,10 @@ public class UserController {
     @GetMapping(value = "/users/listpage")
     public Result getUser(int page, String id, String name, String home, HttpServletRequest request){
         int communityId = (int) request.getSession().getAttribute("communityId");
-        List<User> users = userService.getUsers(page, BasicUtil.covertStrInt(id), name, home, communityId);
-        long total = userService.getTotalPage();
-        if(users != null && !users.isEmpty()){
-            return new Result(200,total,users);
+        Pair<Long, List<User>> pair = userService.getUsers(page, BasicUtil.covertStrInt(id), name, home, communityId);
+
+        if(pair != null && pair.getKey() != 0 && pair.getValue() != null && !pair.getValue().isEmpty()){
+            return new Result(200,pair.getKey(),pair.getValue());
         }
         return new Result(400,"未找到");
     }
