@@ -1,11 +1,20 @@
 import axios from 'axios';
 import Qs from 'qs';
 axios.defaults.withCredentials = true;
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 let base = '/api';
 
 // 注册登录
-export const requestLogin = params => { return axios.post(`${base}/login`, Qs.stringify(params) ); };
+// export const requestLogin = params => { return axios.post(`${base}/login`, Qs.stringify(params) ); };
+export const requestLogin = params => { return axios({
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        method: 'post',
+        url: `${base}/login`,
+        data: Qs.stringify(params)
+    })}
 // export const requestLogin = params => { debugger; return axios({
 //     method: 'POST',
 //     url: `${base}/login`,

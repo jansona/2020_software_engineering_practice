@@ -2,10 +2,11 @@
     <section class="chart-container">
         <el-row>
             <el-col :span="12">
-                <div id="arrangementDistribution" style="width:120%; height:400px;"></div>
+                <div id="arrangementDistribution" style="width:130%; height:400px;"></div>
             </el-col>
-            <el-col :span="12">
-                <div id="chartPie" style="width:80%; height:400px;"></div>
+            <el-col :span="1"></el-col>
+            <el-col :span="11">
+                <div id="chartPie" style="width:100%; height:400px;"></div>
             </el-col>
         </el-row>
     </section>
@@ -47,11 +48,14 @@
                   xAxis: {
                       data: times,
                       name: "时间/h",
-                    //   type: 'category',
+                      type: 'category',
+                      axisTick: {
+                        alignWithLabel: true
+                    }
                   },
                   yAxis: {
                       name: "订单数目/个",
-                    //   type: 'value',
+                      type: 'value',
                   },
                   tooltip: {
                         trigger: 'item',

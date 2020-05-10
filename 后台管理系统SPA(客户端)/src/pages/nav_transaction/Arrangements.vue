@@ -4,13 +4,13 @@
         <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
             <el-form :inline="true" :model="filters">
                 <el-form-item>
-                    <el-input v-model="filters.user" placeholder="住户"></el-input>
+                    <el-input v-model="filters.user" placeholder="住户姓名"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-input v-model="filters.goods_id" placeholder="物资ID"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-input v-model="filters.location" placeholder="地点"></el-input>
+                    <el-input v-model="filters.location" placeholder="自提点"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-input v-model="filters.time" placeholder="期限"></el-input>
