@@ -66,8 +66,13 @@ public class ApplicationService {
         ApplicationExample.Criteria criteria = example.createCriteria();
         criteria.andApplicationUserEqualTo(userId);
         List<Application> applicationList = applicationMapper.selectByExample(example);
-        Application application = applicationList.get(applicationList.size()-1);
-        Community community = communityMapper.selectByPrimaryKey(application.getApplicationCommunity());
-        return new Pair<>(applicationList.get(0),community);
+        if(applicationList.size() > 0){
+            Application application = applicationList.get(applicationList.size()-1);
+            Community community = communityMapper.selectByPrimaryKey(application.getApplicationCommunity());
+            return new Pair<>(application,community);
+        }
+        else{
+            return  null;
+        }
     }
 }
