@@ -11,6 +11,7 @@ import software.practice.distribution.mapper.ApplicationMapper;
 import software.practice.distribution.mapper.CommunityMapper;
 import software.practice.distribution.mapper.UserMapper;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -26,7 +27,10 @@ public class ApplicationService {
     CommunityMapper communityMapper;
 
     public boolean createApplication(Application application){
-        application.setApplicationTime(new Date());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.HOUR_OF_DAY,8);
+        application.setApplicationTime(calendar.getTime());
         return applicationMapper.insertSelective(application) == 1;
     }
 
