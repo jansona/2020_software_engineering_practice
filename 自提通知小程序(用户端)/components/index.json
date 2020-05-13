@@ -1,9 +1,0 @@
-{
-  "usingComponents": {
-    "form": "./form/form",
-    "cell": "./cell/cell",
-    "cells": "./cells/cells",
-    "checkbox": "./checkbox/checkbox",
-    "checkbox-group": "./checkbox-group/checkbox-group"
-  }
-}
