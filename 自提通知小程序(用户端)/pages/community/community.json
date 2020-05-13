@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "l-search-bar":"/dist/search-bar/index"
+  }
+}

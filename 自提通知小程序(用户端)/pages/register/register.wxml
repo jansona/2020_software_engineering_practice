@@ -1,0 +1,6 @@
+<!--pages/register/register.wxml-->
+<l-input label="手机号"  placeholder="请输入11位手机号"  maxlength="11" type="text"  bind:lininput="inputChange" data-field="userphone" />
+<l-input label="密码"  placeholder="请输入密码"  type="password" maxlength="15" bind:lininput="inputChange" data-field="password1"/>
+<l-input label="确认密码"  placeholder="请再次输入密码"  type="password" maxlength="15" bind:lininput="inputChange" data-field="password2"/>
+<l-button size="large" style="display: flex;justify-content:center;margin-top:20rpx" bindtap="nextTap" >下一步</l-button>
+<navigator open-type="redirect" url="/pages/login/login" style="margin-top:20rpx;">已有账户，去登录</navigator>

@@ -1,0 +1,34 @@
+<!--物资自提通知列表-->
+<!-- 引入wxs脚本 -->
+<wxs src="../../wxs/subUtil.wxs" module="tools" />
+
+<l-tabs bind:linchange="changeTabs">
+	<l-tabpanel tab="当天" key="one" slot="one">
+	</l-tabpanel>
+	<l-tabpanel tab="本周" key="two" slot="two">
+		<!-- <view class="tab-content">本周</view> -->
+	</l-tabpanel>
+	<l-tabpanel tab="全部" key="three" slot="three">
+		<!-- <view class="tab-content">全部</view> -->
+	</l-tabpanel>
+</l-tabs>
+
+	<block wx:if="{{notifications.length != 0}}">
+		<view class="content_wrap" wx:for="{{notifications}}" wx:key="arrangementId" bindtap="viewTap" data-value="{{item}}">
+			<view class="name">
+				<text class="left">物资内容</text>					
+				<view class="right">
+				<text class='content'>{{tools.sub(item.packageEntity.packageContent)}}</text>
+				</view>
+			</view>
+			<view class="time">
+				<text class="left">取用时间</text>
+				<text class='right'>{{item.arrangementTime}}</text>
+			</view>
+			<view class="location">
+				<text class="left">取用地点</text>
+				<text class='right'>{{item.locationEntity.locationName}}</text>
+			</view>
+		</view>
+	</block>
+	<view wx:else>啊哦，没有相关通知</view>
