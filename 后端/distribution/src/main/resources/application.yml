@@ -1,5 +1,10 @@
 server:
-  port: 8444
+  port: 8443
+  ssl:
+    key-store: classpath:www.liyiersan.club.jks
+    key-store-password: efdpvi3k05s11
+    key-store-type: JKS
+
 
 spring:
   jackson:
