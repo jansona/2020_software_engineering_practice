@@ -73,9 +73,9 @@ public class AllocateTimeService {
                 Date arrange_date = a.getArrangementTime();
                 Calendar arrange_calendar = Calendar.getInstance();
                 arrange_calendar.setTime(arrange_date);
-                int arrange_month = arrange_calendar.get(Calendar.MONTH)+1;
+                int arrange_month = arrange_calendar.get(Calendar.MONTH);
 
-                int now_month = calendar.get(Calendar.MONTH)+1;
+                int now_month = calendar.get(Calendar.MONTH);
 
                 //如果分配时间在今天之前就不用考虑了
                 if(arrange_month>=now_month){

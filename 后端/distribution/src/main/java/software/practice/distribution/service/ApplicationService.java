@@ -11,6 +11,7 @@ import software.practice.distribution.mapper.ApplicationMapper;
 import software.practice.distribution.mapper.CommunityMapper;
 import software.practice.distribution.mapper.UserMapper;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -26,7 +27,10 @@ public class ApplicationService {
     CommunityMapper communityMapper;
 
     public boolean createApplication(Application application){
-        application.setApplicationTime(new Date());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.HOUR_OF_DAY,8);
+        application.setApplicationTime(calendar.getTime());
         return applicationMapper.insertSelective(application) == 1;
     }
 
@@ -62,8 +66,13 @@ public class ApplicationService {
         ApplicationExample.Criteria criteria = example.createCriteria();
         criteria.andApplicationUserEqualTo(userId);
         List<Application> applicationList = applicationMapper.selectByExample(example);
-        Application application = applicationList.get(applicationList.size()-1);
-        Community community = communityMapper.selectByPrimaryKey(application.getApplicationCommunity());
-        return new Pair<>(applicationList.get(0),community);
+        if(applicationList.size() > 0){
+            Application application = applicationList.get(applicationList.size()-1);
+            Community community = communityMapper.selectByPrimaryKey(application.getApplicationCommunity());
+            return new Pair<>(application,community);
+        }
+        else{
+            return  null;
+        }
     }
 }

@@ -77,8 +77,7 @@ Page({
       content: "您将要加入" + name,
       success(res) {
         if (res.confirm) {
-          //用户点击确定后，向服务器发送请求加入集群】
-          console.log(getApp().globalData.user)
+          //用户点击确定后，向服务器发送请求加入集群
           request({
             url: "/application/add",
             data: {

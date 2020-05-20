@@ -1,13 +1,13 @@
 //promise方法发送请求
 export const request=(params)=>{
   //定义公共url
-  const baseUrl = "http://121.199.47.228:8444"
+  const baseUrl = "https://www.liyiersan.club:8443"
   return new Promise((resolve, reject)=>{
     wx.request({
       ...params,
       url:baseUrl+params.url,
       success:(res)=>{
-        if(!getApp().globalData.cookie && res.cookies[0] || getApp().globalData.reLogin){
+        if(!getApp().globalData.cookie && res.cookies[0] || getApp().globalData.reLogin && res.cookies[0]){
           getApp().globalData.cookie = res.cookies[0].split(";")[0]
         }
         resolve(res);

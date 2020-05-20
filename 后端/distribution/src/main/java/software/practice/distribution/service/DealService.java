@@ -11,10 +11,7 @@ import software.practice.distribution.mapper.DealMapper;
 import software.practice.distribution.mapper.PackageMapper;
 import software.practice.distribution.mapper.UserMapper;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -130,7 +127,10 @@ public class DealService {
     }
 
     public boolean addDeal(Deal deal){
-        deal.setDealTime(new Date());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.HOUR_OF_DAY,8);
+        deal.setDealTime(calendar.getTime());
         return dealMapper.insert(deal) == 1;
     }
 
