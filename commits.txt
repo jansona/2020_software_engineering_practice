@@ -1,0 +1,1107 @@
+commit fd0857f44a40d468a019cae02375bb20a3be7305
+Merge: 431f42c 6d3b637
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Sun May 10 13:00:06 2020 +0800
+
+    Merge branch 'master' of https://github.com/jansona/2020_software_engineering_practice
+
+commit 431f42c3455b66b5a122b2fa303cd74d2ede71c2
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Sun May 10 13:00:01 2020 +0800
+
+    user分页问题修复
+
+commit 6d3b637b911520d032deddae05c08a53411051ad
+Merge: 13bc876 0b4e3f1
+Author: jansona <alelipona121@gmail.com>
+Date:   Sat May 9 23:38:16 2020 +0800
+
+    Merge branch 'master' of https://github.com/jansona/2020_software_engineering_practice
+
+commit 13bc8762a6da0c60b20cf907857b715c4f732432
+Author: jansona <alelipona121@gmail.com>
+Date:   Sat May 9 23:37:47 2020 +0800
+
+    一些调整 & label、布局调整
+
+commit 0b4e3f15bd02d5424c943fb9d74f4024009bf5d2
+Author: whu-lisan <522440242@qq.com>
+Date:   Fri May 8 00:10:07 2020 +0800
+
+    修复小程序端bug，完善用户切换功能
+
+commit dbb7d52770120f01da07773eca6cc06657bd986a
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Thu May 7 23:06:27 2020 +0800
+
+    bug全改完了应该，datafull重写
+
+commit 4812fe9fb33c55425c8931c504ab49aa26158a8a
+Merge: 951454c ce462e3
+Author: pink1999 <969909834@qq.com>
+Date:   Thu May 7 22:04:48 2020 +0800
+
+    Merge branch 'master' of https://github.com/jansona/2020_software_engineering_practice
+
+commit 951454c01ec98daef166950f524782a750810399
+Author: pink1999 <969909834@qq.com>
+Date:   Thu May 7 22:04:42 2020 +0800
+
+    debug
+
+commit ce462e3051ff0efbff54255b02f7a61885fe5834
+Author: okjer <398384796@qq.com>
+Date:   Thu May 7 21:28:17 2020 +0800
+
+    application/info 接口修改
+
+commit 84d3377f02e8860cc37402607b481c723afbf832
+Merge: e09b56a b72f00b
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Thu May 7 20:14:59 2020 +0800
+
+    Merge branch 'master' of https://github.com/jansona/2020_software_engineering_practice
+
+commit e09b56a2b071ee6118ef36b0de54fa9806f398d2
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Thu May 7 20:13:45 2020 +0800
+
+    Revert "尝试解决自增id"
+    
+    This reverts commit 4c4f7cd4b91ddfb864eec02cc8ba2e19860dbc6d.
+
+commit b72f00b9a1ea77bc65e798fd560cba9eb569d288
+Merge: 235ac28 4c4f7cd
+Author: pink1999 <969909834@qq.com>
+Date:   Thu May 7 19:59:53 2020 +0800
+
+    Merge branch 'master' of https://github.com/jansona/2020_software_engineering_practice
+
+commit 235ac282a21886c9fb067c39656357dc9b16cad4
+Author: pink1999 <969909834@qq.com>
+Date:   Thu May 7 19:59:32 2020 +0800
+
+    1
+
+commit 4c4f7cd4b91ddfb864eec02cc8ba2e19860dbc6d
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Thu May 7 19:49:37 2020 +0800
+
+    尝试解决自增id
+
+commit 45f78841ae5d136329cba65a237fc43f567b64f8
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Thu May 7 19:21:08 2020 +0800
+
+    时区统一为UTC
+
+commit 8a1025d265386de9e5146b2b02c6e17da114613f
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Thu May 7 19:11:39 2020 +0800
+
+    导入物资bug修复
+
+commit 0aeb5084ce9e7cdb0e30385510af3156031725bd
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Thu May 7 18:04:09 2020 +0800
+
+    基本没bug了吧应该
+
+commit ce3bc873bc5bf02902d136ea3bd7da5469be9bfd
+Author: pink1999 <969909834@qq.com>
+Date:   Thu May 7 17:43:40 2020 +0800
+
+    1
+
+commit 0b4d4d6893d217857c6577e4d368f553b41c3385
+Author: jansona <alelipona121@gmail.com>
+Date:   Wed May 6 19:24:27 2020 +0800
+
+    完成自提点设置页面
+
+commit a5802072ff7c0e8683f6304bc241c364e3a8b807
+Author: jansona <alelipona121@gmail.com>
+Date:   Wed May 6 18:46:11 2020 +0800
+
+    添加proxyTable & 修复折叠的bug & 调整工作安排的显示 & 添加自提点设置基j
+
+commit a6012c70f5c2b94ee25c450f2a5222fe0458e966
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Wed May 6 17:48:29 2020 +0800
+
+    调用分配时间算法以及location接口完成
+
+commit e2f05d16b9b9eb65a13f930267d12aa6e6f66f12
+Author: whu-lisan <522440242@qq.com>
+Date:   Tue May 5 21:17:17 2020 +0800
+
+    修复小程序端bug，完善功能
+
+commit 224ec6c6b700efbfef1025739d9db65156205aa1
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Tue May 5 20:54:13 2020 +0800
+
+    Update DistributionApplication.java
+
+commit 9ff24c021c3b4ad563ef6bbd8a5ac0b36ab605fa
+Merge: b273bcc b4fbc66
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Tue May 5 20:14:22 2020 +0800
+
+    Merge branch 'master' of https://github.com/jansona/2020_software_engineering_practice
+
+commit b273bcc80ad0cb9badb09a63b35fe4ed3845e6a3
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Tue May 5 20:13:56 2020 +0800
+
+    删除无用内容
+
+commit b4fbc66bc6e6c581365638895a0b3d3b9953f254
+Author: jansona <alelipona121@gmail.com>
+Date:   Tue May 5 18:01:28 2020 +0800
+
+    问题的突然解决
+
+commit 22a03ebe3f2ce6351c315d06d4ca8a31cbc95d2c
+Author: jansona <alelipona121@gmail.com>
+Date:   Tue May 5 13:18:50 2020 +0800
+
+    改变客户端前端端口 为部署
+
+commit ea3d8643d3384a7e09c22c48693ea665b6ca60f5
+Author: jansona <alelipona121@gmail.com>
+Date:   Tue May 5 00:26:59 2020 +0800
+
+    完成注册、统计接口对接（最后）:star2:
+
+commit d726d51aa0304a71167846ca331df2eee7358f2c
+Merge: 3cbcd3b 20ab500
+Author: jansona <alelipona121@gmail.com>
+Date:   Mon May 4 23:53:59 2020 +0800
+
+    Merge branch 'master' of https://github.com/jansona/2020_software_engineering_practice
+
+commit 3cbcd3bd93494c06576fd9f2868074db737c9398
+Author: jansona <alelipona121@gmail.com>
+Date:   Mon May 4 23:53:47 2020 +0800
+
+    useless modification for building
+
+commit 20ab50094337babcb4658aed4a152cdd671735b1
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Mon May 4 23:18:16 2020 +0800
+
+    注册接口，统计接口完成
+
+commit 4393aa0423051dce6a67cda0a04dcc280c020794
+Author: pink1999 <969909834@qq.com>
+Date:   Sun May 3 14:47:01 2020 +0800
+
+    debug
+
+commit cd16a06f00c8229d5b17a199bc0108d9717aaca7
+Author: pink1999 <969909834@qq.com>
+Date:   Sun May 3 14:10:19 2020 +0800
+
+    分配算法
+
+commit 520dd85a09f1c7ab0e7b268405bd5efd1857d43c
+Merge: 1912ba1 7abfbc5
+Author: okjer <398384796@qq.com>
+Date:   Sun May 3 12:20:58 2020 +0800
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 1912ba1dba070d93f123221524842784ae8b27cd
+Author: okjer <398384796@qq.com>
+Date:   Sun May 3 12:14:02 2020 +0800
+
+    xx
+
+commit 7abfbc5092ac758d292e1f3a3f43509b137d8cc4
+Author: pink1999 <969909834@qq.com>
+Date:   Sat May 2 16:52:29 2020 +0800
+
+    1
+
+commit b0bbc63d201b5abf1f7361a9ab6d3a996732d17f
+Author: pink1999 <969909834@qq.com>
+Date:   Sat May 2 15:02:02 2020 +0800
+
+    分配算法
+
+commit 9b18aa3e2c8376913b0720fd8bbc64f973d32b9b
+Author: okjer <398384796@qq.com>
+Date:   Sat May 2 00:47:38 2020 +0800
+
+    完成getArrangementsByLocationIdsAndNow函数
+
+commit fd4e90f9351e7170315ae5a5280993487f620da6
+Author: jansona <alelipona121@gmail.com>
+Date:   Fri May 1 18:54:12 2020 +0800
+
+    调整登录接口返回结果 & 完善登录页面及代码 & 基本完成注册页面 & 基本完成业务统计页面
+
+commit df79eb089cea6e3313bf80b99a89e700032492a5
+Author: pink1999 <969909834@qq.com>
+Date:   Fri May 1 10:54:49 2020 +0800
+
+    部分，待完成
+
+commit e61eb8ab1ecdfe1c37583d70dff23239b77546e3
+Merge: 1745a4d baf615c
+Author: okjer <398384796@qq.com>
+Date:   Wed Apr 29 21:12:55 2020 +0800
+
+    Merge branch 'master' of https://github.com/jansona/2020_software_engineering_practice
+
+commit 1745a4d3eb1b8df13027ff73292f8554fb3f74d7
+Author: okjer <398384796@qq.com>
+Date:   Wed Apr 29 21:11:23 2020 +0800
+
+    xxx
+
+commit baf615cc7413a64ea6efe0c5fe3e13353f6ed422
+Author: jansona <alelipona121@gmail.com>
+Date:   Wed Apr 29 16:13:09 2020 +0800
+
+    删除废弃代码
+
+commit a02e68ba50029f1d5ad03740882d97b5c7bd2902
+Merge: cdc6e61 eb80987
+Author: jansona <alelipona121@gmail.com>
+Date:   Wed Apr 29 16:10:17 2020 +0800
+
+    Merge branch 'master' of https://github.com/jansona/2020_software_engineering_practice
+
+commit cdc6e6106049e2419b079cd5a6b804e88242f6d6
+Author: jansona <alelipona121@gmail.com>
+Date:   Wed Apr 29 16:09:58 2020 +0800
+
+    增加友善的跳转和title icon
+
+commit eb809872f31ed5e145393f7505ae8ed8722d8b3a
+Author: whu-lisan <522440242@qq.com>
+Date:   Wed Apr 29 16:04:21 2020 +0800
+
+    修复小程度端bug
+
+commit e4a49a37017a1c26763563bc375e55320c3fd0c6
+Merge: ca8165a fec2aa4
+Author: whu-lisan <522440242@qq.com>
+Date:   Wed Apr 29 15:37:51 2020 +0800
+
+    Merge branch 'master' of https://github.com/jansona/2020_software_engineering_practice
+
+commit ca8165a9e7bd12807b547173873086bc4d2878df
+Author: whu-lisan <522440242@qq.com>
+Date:   Wed Apr 29 15:28:41 2020 +0800
+
+    修改application/add接口和user/create接口的bug
+
+commit fec2aa4ae6ddd1ca979fe23715c733efc298bcf9
+Author: jansona <alelipona121@gmail.com>
+Date:   Wed Apr 29 00:16:18 2020 +0800
+
+    改善客户端用户体验
+
+commit 19078fd88bf7e841ed95bfb857546e5d466b6ba8
+Author: okjer <398384796@qq.com>
+Date:   Tue Apr 28 12:20:08 2020 +0800
+
+    修改bug
+
+commit 2f21bcb2fd82eb82a90aa69d1c0e890a920cd218
+Author: okjer <398384796@qq.com>
+Date:   Tue Apr 28 11:43:11 2020 +0800
+
+    修改arrangement时间bug,增加deal/list按时间排序
+
+commit 60521273c089fd371ae04f27bae1b84e5f7d08d4
+Author: okjer <398384796@qq.com>
+Date:   Tue Apr 28 11:40:44 2020 +0800
+
+    修改arrangement时间bug,增加deal/list按时间排序
+
+commit 0341c2a863a8ed995e82e3428efd2f742d2a1ade
+Merge: de3d825 0ab1fca
+Author: okjer <398384796@qq.com>
+Date:   Tue Apr 28 11:37:44 2020 +0800
+
+    Merge remote-tracking branch 'origin/master'
+
+commit de3d825c666109b2b0be61c00c859961daaa82d8
+Author: okjer <398384796@qq.com>
+Date:   Tue Apr 28 11:15:54 2020 +0800
+
+    修改arrangement时间bug,增加deal/list按时间排序
+
+commit 0ab1fca7f25c54a11a9e422084a05acf7f56e0c1
+Merge: 2a5b19f 15e094e
+Author: whu-lisan <522440242@qq.com>
+Date:   Tue Apr 28 09:38:36 2020 +0800
+
+    Merge branch 'master' of https://github.com/jansona/2020_software_engineering_practice
+
+commit 2a5b19fa61621597dc2d7d208b678e77daba1df9
+Author: whu-lisan <522440242@qq.com>
+Date:   Tue Apr 28 09:38:30 2020 +0800
+
+    添加页面触底提示，完善按时间获取消息通知
+
+commit 15e094ef587e05abcefb9b738ed0d2250514c0ad
+Author: 小潜倩 <35948100+whu-lisan@users.noreply.github.com>
+Date:   Mon Apr 27 23:46:35 2020 +0800
+
+    Delete .DS_Store
+
+commit 74cda6fc793dc6ecb7abdde4603905184732f082
+Author: whu-lisan <522440242@qq.com>
+Date:   Mon Apr 27 23:44:55 2020 +0800
+
+    添加集群地址选择和特殊申请列表标签页切换和底部加载
+    
+    还剩通知的标签切换和页面的细节
+
+commit e000c90a5612540a34a9ead3f2b1ecbd5fce6816
+Author: okjer <398384796@qq.com>
+Date:   Mon Apr 27 20:15:31 2020 +0800
+
+    增加时间排序
+
+commit 24db634c93447645ee4dc4e56ad0a5b7ba759787
+Author: okjer <398384796@qq.com>
+Date:   Mon Apr 27 19:47:55 2020 +0800
+
+    修改后端bug 7
+
+commit d0062507c9715e269fc49d2e5a0f4f92c37eb5f8
+Author: okjer <398384796@qq.com>
+Date:   Mon Apr 27 19:44:42 2020 +0800
+
+    修改后端bug 6
+
+commit 93597b1683d4e5a4f663fe50a8a9df3cc3681dec
+Author: jansona <alelipona121@gmail.com>
+Date:   Sun Apr 26 15:22:41 2020 +0800
+
+    对接物资文件批量导入接口
+
+commit 1dde1d53b4f87ad8f01419fed5be58649389ebe6
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Sun Apr 26 14:30:49 2020 +0800
+
+    上传文件导入包裹
+
+commit 500ef0cde3e35c5c408ba5bab88deec86bb33e56
+Author: whu-lisan <522440242@qq.com>
+Date:   Sat Apr 25 21:44:10 2020 +0800
+
+    完成小程序端基本功能，还差：界面细节修改、部分细节功能实现
+
+commit 0643745b9e74f684b1f6152a1c0f5c3716479d85
+Author: jansona <alelipona121@gmail.com>
+Date:   Sat Apr 25 16:17:56 2020 +0800
+
+    完成特殊处理、社区属性配置页面对接
+
+commit 0dc78c7fe1e7b4124e69e0c04a9fa4b31c7b702c
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Sat Apr 25 15:51:34 2020 +0800
+
+    Update DealService.java
+
+commit b97c04704b810668c3a8a11220102859a4225cd2
+Merge: 327733e 733d4b3
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Sat Apr 25 15:39:09 2020 +0800
+
+    Merge branch 'master' of https://github.com/jansona/2020_software_engineering_practice
+
+commit 327733e06905ea45d8c85d1fa867f5b501de293b
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Sat Apr 25 15:38:20 2020 +0800
+
+    fix bug
+
+commit 733d4b37e8e09f413fa02a5816fefce143f32ca7
+Author: whu-lisan <522440242@qq.com>
+Date:   Sat Apr 25 15:11:50 2020 +0800
+
+    恢复客户端代码
+
+commit 46258adc77e0b257cea3d0b935a9e52f8289f5fb
+Merge: 5959366 5ce7a5e
+Author: whu-lisan <522440242@qq.com>
+Date:   Sat Apr 25 15:02:36 2020 +0800
+
+    Merge branch 'master' of https://github.com/jansona/2020_software_engineering_practice
+
+commit 5959366f91d5e4d0463d91a5046990f3508fd685
+Author: whu-lisan <522440242@qq.com>
+Date:   Sat Apr 25 15:02:08 2020 +0800
+
+    基本完成小程序端功能，只剩一些界面细节和细节需求
+
+commit 5ce7a5e7293080a0562d8b6b76292868e286b98f
+Merge: 6b264c5 a8b649d
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Sat Apr 25 14:54:54 2020 +0800
+
+    Merge branch 'master' of https://github.com/jansona/2020_software_engineering_practice
+
+commit 6b264c52d615c0e9659d43c6d7b2233066cfedbd
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Sat Apr 25 14:54:49 2020 +0800
+
+    客户端community需求完成
+
+commit a8b649d564aa9759c5ba6f338ee98fdd6763d7db
+Author: 小潜倩 <35948100+whu-lisan@users.noreply.github.com>
+Date:   Sat Apr 25 14:47:10 2020 +0800
+
+    Delete .DS_Store
+
+commit 54e2cd35733c3e1b28de881628172dbef3807162
+Author: whu-lisan <522440242@qq.com>
+Date:   Sat Apr 25 14:41:35 2020 +0800
+
+    删除dealService的add方法的冗余
+
+commit 8796aa2c26f4ac28f937023a42e14fce854252b9
+Merge: f9f57ae c0fb4c9
+Author: whu-lisan <522440242@qq.com>
+Date:   Sat Apr 25 14:36:39 2020 +0800
+
+    Merge branch 'master' of https://github.com/jansona/2020_software_engineering_practice
+
+commit f9f57ae6667e09368a6a9bb51f8ad6be18af4838
+Author: whu-lisan <522440242@qq.com>
+Date:   Sat Apr 25 14:36:20 2020 +0800
+
+    修改deal/add接口中dealIspass的默认值
+
+commit c0fb4c9b11bbee7a4865aa2db9d448e667230fc2
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Sat Apr 25 14:19:55 2020 +0800
+
+    deal和application新增时默认ispass为-1，deal获取接口只获取未处理的
+
+commit 8e94773ae5297fe0465cd8869c80c466799b40fc
+Merge: 199a754 604fe63
+Author: jansona <alelipona121@gmail.com>
+Date:   Sat Apr 25 01:08:04 2020 +0800
+
+    Merge branch 'master' of https://github.com/jansona/2020_software_engineering_practice
+
+commit 199a754c48fa1c4846c14f99d80d266c241732d4
+Author: jansona <alelipona121@gmail.com>
+Date:   Sat Apr 25 01:07:38 2020 +0800
+
+    基本完成小区/社区属性配置面板:sparkles:
+
+commit 604fe6303d2369e2cb1316e1694c448943aca75d
+Author: whu-lisan <522440242@qq.com>
+Date:   Sat Apr 25 00:04:41 2020 +0800
+
+    进一步完善小程序端功能：还差注册、提出特殊申请、修改用户信息
+
+commit cf755a4fec055e0c8636ac52cfdb387a1ea5d063
+Author: jansona <alelipona121@gmail.com>
+Date:   Fri Apr 24 23:12:44 2020 +0800
+
+    对接/deal/community
+
+commit f022b0824d53a204ac39ae0ddf601f6109f271bb
+Author: jansona <alelipona121@gmail.com>
+Date:   Fri Apr 24 22:31:08 2020 +0800
+
+    适配user属性调整 & 完善UserTable页面
+
+commit f9327e5f02976ff98213f5834d6dd6814a6f7e5c
+Author: whu-lisan <522440242@qq.com>
+Date:   Fri Apr 24 21:32:13 2020 +0800
+
+    修复application/info接口的bug
+
+commit aedd592ef0a5cdc3abd87fdac5c3b7e801ccb1d1
+Author: okjer <398384796@qq.com>
+Date:   Fri Apr 24 21:15:16 2020 +0800
+
+    修改后端bug 5
+
+commit b0e8a91e56cbc71d022a64b55194b7747ce69d1d
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Fri Apr 24 17:46:52 2020 +0800
+
+    Update .gitignore
+
+commit a38ba7758810119a96e901da79a0874f293fc710
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Fri Apr 24 17:45:01 2020 +0800
+
+    删除arrangement冗余user，从package里面取
+
+commit dee7d4d3f9124266483b460448f327944ccfe03f
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Fri Apr 24 17:37:46 2020 +0800
+
+    数据填充bug修复，community数据库bug修复
+
+commit 2b41e05c1db25479d96c2c7e6f02b4a65ca39baf
+Merge: 0fa8649 8c715e9
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Fri Apr 24 17:04:59 2020 +0800
+
+    Merge branch 'master' of https://github.com/jansona/2020_software_engineering_practice
+
+commit 0fa8649831d1b1d32f9068caf53ab69be70f5d8d
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Fri Apr 24 17:03:44 2020 +0800
+
+    更新数据库，增加自提点，修改arrangement和community
+
+commit 8c715e977999e3c17efe6a3466edd402f009dc01
+Author: whu-lisan <522440242@qq.com>
+Date:   Fri Apr 24 16:54:17 2020 +0800
+
+    修复arrangement/list接口的bug
+
+commit 824e2f190f42e1c794da98064e96f8b0e2a79a0c
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Fri Apr 24 16:11:00 2020 +0800
+
+    deal客户端需求完成
+
+commit 080a4243683812be732635cf6d873b9f87b634e7
+Merge: 2db7246 1144f8d
+Author: okjer <398384796@qq.com>
+Date:   Fri Apr 24 15:55:18 2020 +0800
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 2db7246fe8d089ac8d1b57f7e6c547c95f578b12
+Author: okjer <398384796@qq.com>
+Date:   Fri Apr 24 15:55:05 2020 +0800
+
+    修改后端bug 4
+
+commit 1144f8deeaf039e4ae9de85df9fdb950e1fefa27
+Author: jansona <alelipona121@gmail.com>
+Date:   Fri Apr 24 15:05:00 2020 +0800
+
+    大致完成特殊申请处理页面
+
+commit e2cdbd53ebfa78dbf4ee32e9bc79d7a64a86f481
+Author: okjer <398384796@qq.com>
+Date:   Fri Apr 24 01:12:48 2020 +0800
+
+    修改后端bug 3
+
+commit 942eef9a1b4ee36e289edf241adc51ac3bcae9f0
+Author: okjer <398384796@qq.com>
+Date:   Fri Apr 24 01:09:37 2020 +0800
+
+    后端bug修改3
+
+commit 7a64b050f0a7e568ea1db385f633eab6d50e5043
+Author: okjer <398384796@qq.com>
+Date:   Thu Apr 23 22:18:25 2020 +0800
+
+    修改后端bug 2
+
+commit 8e69d312d2bd04f75a06c33055dff86d8f085d0c
+Author: whu-lisan <522440242@qq.com>
+Date:   Thu Apr 23 00:14:07 2020 +0800
+
+    完善集群管理界面
+
+commit 569900ac93e6edd69719823ed9742c62a39bfae0
+Author: okjer <398384796@qq.com>
+Date:   Wed Apr 22 22:33:16 2020 +0800
+
+    修改后端bug
+
+commit 17ffc5d64138e1c04998b822748c70bd5b4a1039
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Wed Apr 22 20:57:31 2020 +0800
+
+    登录返回user
+
+commit 60af2baef344770f4aff8f14abb16660e86cd595
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Wed Apr 22 19:14:53 2020 +0800
+
+    数据库更新user phone
+
+commit de65094b3d02ad90af3901b45d79e3d304bcfe82
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Wed Apr 22 19:08:18 2020 +0800
+
+    user增加电话号码，登录传入电话号并返回User，arrangement增加package
+
+commit e65c99e5d55144d9e98e609953046e0324e0e178
+Merge: 153d449 79948b5
+Author: whu-lisan <522440242@qq.com>
+Date:   Tue Apr 21 19:09:17 2020 +0800
+
+    Merge branch 'master' of https://github.com/jansona/2020_software_engineering_practice
+
+commit 153d4495d37627d585ec5c2c3a0d5e9d36a2ea09
+Author: whu-lisan <522440242@qq.com>
+Date:   Tue Apr 21 19:08:52 2020 +0800
+
+    添加注册登录界面
+
+commit 79948b58f46d9a6840c43123a60d7dcfb773e43b
+Merge: 9b37705 f76de19
+Author: jansona <alelipona121@gmail.com>
+Date:   Tue Apr 21 15:48:35 2020 +0800
+
+    resolve conflict
+
+commit 9b37705c91198f49db7aadce73dbe4462ddfd7f6
+Author: jansona <alelipona121@gmail.com>
+Date:   Tue Apr 21 15:35:40 2020 +0800
+
+    commit before pull
+
+commit f76de199d6a1237fb2fff5aab82a10a2b8054521
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Mon Apr 20 22:26:53 2020 +0800
+
+    实体类添加字段
+
+commit 1072c7085f80f6e341a1e0148ae8480b62b696a4
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Mon Apr 20 22:20:14 2020 +0800
+
+    arrangement和package根据用户名筛选时使用模糊搜索
+
+commit 9658c3df1f91e71ec70293c76e9c8ee63b6b9ad1
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Mon Apr 20 21:57:25 2020 +0800
+
+    修复一大波bug
+
+commit ad390bfe283afa459797a603fbeaf0291b2b5ee2
+Merge: ce81725 05854aa
+Author: okjer <398384796@qq.com>
+Date:   Mon Apr 20 19:51:42 2020 +0800
+
+    Merge remote-tracking branch 'origin/master'
+    
+    # Conflicts:
+    #       后端/distribution/src/main/java/software/practice/distribution/controller/ArrangementController.java
+
+commit ce81725598995e1512a33799e97a69335830f30f
+Author: okjer <398384796@qq.com>
+Date:   Mon Apr 20 19:48:11 2020 +0800
+
+    zfq完善小程序端接口3
+
+commit 05854aac707397b4691b4127f6836ac5da3da1f4
+Merge: 8d78eaa 82ca9b2
+Author: jansona <alelipona121@gmail.com>
+Date:   Mon Apr 20 19:08:39 2020 +0800
+
+    merge
+
+commit 8d78eaa30aa81f49e63e4288f80ae5d1e74c8bc4
+Author: jansona <alelipona121@gmail.com>
+Date:   Mon Apr 20 19:02:54 2020 +0800
+
+    注意DealTest和Arrangement下存在部分接口被注释，因内部函数变动
+
+commit 82ca9b23033d726a60d819ecbf7b0768f93a3a14
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Mon Apr 20 19:01:30 2020 +0800
+
+    Update DataFull.java
+
+commit 50ac16baa704282c215c84e03f27ae6f00c3966c
+Author: jansona <alelipona121@gmail.com>
+Date:   Mon Apr 20 18:59:46 2020 +0800
+
+    完成入群申请接口对接
+
+commit 347f2f465a0c4f5ff1ea96a172d07161eb4cadc5
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Mon Apr 20 18:55:43 2020 +0800
+
+    申请入群bug修改
+
+commit 8f00ba54a4a20108f0755aad72fad61d79864d59
+Merge: 1d73fe2 024e848
+Author: jansona <alelipona121@gmail.com>
+Date:   Mon Apr 20 18:29:23 2020 +0800
+
+    Merge branch 'master' of https://github.com/jansona/2020_software_engineering_practice
+
+commit 1d73fe2fecc5abe59e59f68159e301a2e9ad90f9
+Author: jansona <alelipona121@gmail.com>
+Date:   Mon Apr 20 18:29:17 2020 +0800
+
+    commit before merge
+
+commit 024e848eb00f1c213d0c0ce875245ce08da21d2c
+Merge: c5dd42f 44c1602
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Mon Apr 20 11:40:26 2020 +0800
+
+    Merge branch 'master' of https://github.com/jansona/2020_software_engineering_practice
+
+commit c5dd42fe3647ee03535635aba733ab3599f02ebe
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Mon Apr 20 11:37:59 2020 +0800
+
+    application处理过的不返回，添加user信息并掩盖掉密码
+
+commit 44c1602a17a7c709938fc4fa1fd62a45782b65a8
+Author: okjer <398384796@qq.com>
+Date:   Mon Apr 20 04:15:38 2020 +0800
+
+    完善小程序端接口2
+
+commit d148ce87c9c90522e5277b6abaf4fe7580d6e99d
+Merge: ea8bc4f b19764b
+Author: whu-lisan <522440242@qq.com>
+Date:   Sun Apr 19 20:43:46 2020 +0800
+
+    Merge branch 'master' of https://github.com/jansona/2020_software_engineering_practice
+
+commit ea8bc4f49216199e05328a4df40863e0b3bc08d4
+Author: whu-lisan <522440242@qq.com>
+Date:   Sun Apr 19 20:43:30 2020 +0800
+
+    针对新数据库更改小程序界面，完善主页
+
+commit b19764b2d6300091aa9920f234a6278fb1d7e99b
+Author: jansona <alelipona121@gmail.com>
+Date:   Sun Apr 19 18:00:43 2020 +0800
+
+    预留前端消息接口 & 对接login接口
+
+commit 1db2821d57c256802d75c2749432d0b6f6c63316
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Sun Apr 19 16:14:19 2020 +0800
+
+    Update material_distribution v1.5.sql
+
+commit a564a15bc7c4d4de162de0b76ae35af89ef4bbd7
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Sun Apr 19 15:55:55 2020 +0800
+
+    纠错
+
+commit 508b0b481893c0664a144cee77689f65cd2bc4fb
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Sun Apr 19 15:32:45 2020 +0800
+
+    登录时存储session
+
+commit a9672da1228d07ecca65d8c398e8d19f3005b4b4
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Sun Apr 19 12:27:31 2020 +0800
+
+    deal增加type
+
+commit ae6720386a78a30c4508d60832600354a4f4ccbb
+Merge: 56eabf5 007de96
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Sun Apr 19 11:19:24 2020 +0800
+
+    Merge branch 'master' of https://github.com/jansona/2020_software_engineering_practice
+
+commit 56eabf542ba6a1a83835c3c4b1255e6eb6f06c84
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Sun Apr 19 11:10:43 2020 +0800
+
+    修改数据库
+
+commit 007de9654054e88058aa7d849454c36a6dffa957
+Author: whu-lisan <522440242@qq.com>
+Date:   Sat Apr 18 23:52:14 2020 +0800
+
+    添加消息通知列表界面和特殊处理列表界面
+
+commit af3536766146c97555a49135a1990987ec899355
+Author: jansona <alelipona121@gmail.com>
+Date:   Sat Apr 18 21:12:16 2020 +0800
+
+    完善Timeline组件及其插槽 & 基本完成入/退群页面
+
+commit 9596205625d228d9b0d670070e32462d7d52b63b
+Author: jansona <alelipona121@gmail.com>
+Date:   Sat Apr 18 13:31:09 2020 +0800
+
+    助推小程序
+
+commit 52b01ad7fa28932c6ce61400870bed8eeeb30656
+Merge: 77b05a6 f4e892a
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Sat Apr 18 10:34:32 2020 +0800
+
+    Merge branch 'master' of https://github.com/jansona/2020_software_engineering_practice
+
+commit 77b05a678994638dc8217c600540b5ac084fd526
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Sat Apr 18 10:34:27 2020 +0800
+
+    数据库修改
+
+commit f4e892a6f11fc107eec6cd11576c9cafddf2ab01
+Author: jansona <alelipona121@gmail.com>
+Date:   Fri Apr 17 23:10:02 2020 +0800
+
+    调整前后端，基本完成对接
+
+commit 2ad90f4f21e5e96f789a3f23863469d4aa2852b7
+Merge: 9950736 ae6ac5d
+Author: jansona <alelipona121@gmail.com>
+Date:   Fri Apr 17 22:07:31 2020 +0800
+
+    listpage的显示
+
+commit 9950736e1f608334ba73ffa131804c5129e4e778
+Merge: 63a1b10 0f4527a
+Author: jansona <alelipona121@gmail.com>
+Date:   Fri Apr 17 22:02:11 2020 +0800
+
+    nothing to say
+
+commit ae6ac5dd936d36343b7948a189245b3b4095bce4
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Fri Apr 17 21:57:01 2020 +0800
+
+    user的list返回总页数，arrangement添加用户id
+
+commit 63a1b104915f491fd4878671d2a5d67358897370
+Author: jansona <alelipona121@gmail.com>
+Date:   Fri Apr 17 21:32:09 2020 +0800
+
+    adjust para *id and time
+
+commit 0f4527a444b6254f82f6705ce300df18f69b27e0
+Merge: bf6bf9b 3f6a0db
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Fri Apr 17 21:27:07 2020 +0800
+
+    Merge branch 'master' of https://github.com/jansona/2020_software_engineering_practice
+
+commit bf6bf9b89794383b6e0ac9b24118a209d84a63d1
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Fri Apr 17 21:25:15 2020 +0800
+
+    Service层Integer不为null判断，uesr添加listpage接口
+
+commit 3f6a0db5dcf2764e08a4cef74afa2d17437656eb
+Author: jansona <alelipona121@gmail.com>
+Date:   Fri Apr 17 20:56:34 2020 +0800
+
+    adjust front-end and back-end
+
+commit 5adbd8e1cf5bf9ee64590add21b82a3f6974dd97
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Fri Apr 17 13:54:05 2020 +0800
+
+    填充测试数据
+
+commit c0f64a973a9f9aabb4c57d640e7c42559f233f53
+Merge: ebe07d4 55b71bb
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Thu Apr 16 22:17:44 2020 +0800
+
+    Merge branch 'master' of https://github.com/jansona/2020_software_engineering_practice
+
+commit ebe07d425f45e1ce508383a3af699d7a39171a56
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Thu Apr 16 22:17:27 2020 +0800
+
+    客户端需求完成
+
+commit 55b71bb920714ad41e623fd085546469b17189bf
+Merge: b7ca228 787b12f
+Author: okjer <398384796@qq.com>
+Date:   Thu Apr 16 22:07:32 2020 +0800
+
+    Merge branch 'master' of https://github.com/jansona/2020_software_engineering_practice
+
+commit b7ca228685c959c10aac536630a8d7cdc9c27d58
+Author: okjer <398384796@qq.com>
+Date:   Thu Apr 16 22:06:22 2020 +0800
+
+    zfq完善接口
+
+commit 787b12fab4821a1940ca61488f3afba8004ebe33
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Thu Apr 16 22:00:43 2020 +0800
+
+    arrangement需求完成
+
+commit cb7658256ad9b81e9e0ddbc0dfa29b110b2fa6ba
+Author: okjer <398384796@qq.com>
+Date:   Thu Apr 16 21:52:50 2020 +0800
+
+    zfq完善接口
+
+commit c40efc65b5dacf7c5f1b5a44b9e85709a6ef6a5b
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Thu Apr 16 21:11:31 2020 +0800
+
+    package需求完成
+
+commit f14c0aba4ccedaba68be6c31a2ed833ba2fb2c2b
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Thu Apr 16 15:46:04 2020 +0800
+
+    适配最新数据库
+
+commit d0129ab7c008b866f8beac33811b01193e95c6af
+Author: okjer <398384796@qq.com>
+Date:   Thu Apr 16 15:41:29 2020 +0800
+
+    zfq再次上传第一次接口代码
+
+commit 4a28e272fc5c32e10e6f1a168780fff3f7bc79ea
+Author: okjer <398384796@qq.com>
+Date:   Thu Apr 16 15:26:20 2020 +0800
+
+    zfq完成接口
+
+commit 28b57bfffe1265e5135abf5cde5aad9db2478236
+Merge: fbe7698 a3da28b
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Thu Apr 16 13:09:54 2020 +0800
+
+    Merge branch 'master' of https://github.com/jansona/2020_software_engineering_practice
+
+commit fbe7698c9dc5789b48100373653bb8b5563d6fa6
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Thu Apr 16 13:09:29 2020 +0800
+
+    删除notification
+
+commit a3da28b8b6ee4c29bca57221218f0498d9644e9d
+Merge: b5a3ce3 a9dea99
+Author: jansona <alelipona121@gmail.com>
+Date:   Wed Apr 15 23:04:53 2020 +0800
+
+    merge & turn POST to GET
+
+commit b5a3ce38fe281a6144dac607b19d90ab5efae3e9
+Author: jansona <alelipona121@gmail.com>
+Date:   Wed Apr 15 22:51:45 2020 +0800
+
+    adapt
+
+commit a9dea999a8d2466059ca819fb6b1bd1ed8e31c68
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Wed Apr 15 21:51:11 2020 +0800
+
+    删除无用文件
+
+commit aa7261b0191c1491865534765c2c23e4014b079a
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Wed Apr 15 21:24:35 2020 +0800
+
+    package查询需求完成
+
+commit 3b5e963a04f4d5183f1476a8b850d114c10a460f
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Wed Apr 15 18:18:32 2020 +0800
+
+    完成package/listpage
+
+commit 9e54ebeaccaa5e84c7b0597dabffe5a24e00fc41
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Wed Apr 15 17:43:03 2020 +0800
+
+    调通MyBatis，完成Deal的需求
+
+commit b7fd62830a1694b205ed043af1a5cae17845bc2b
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Wed Apr 15 11:10:07 2020 +0800
+
+    修改数据库
+
+commit e00b89b9b0a537b2fad49ff359670b33a0d98297
+Author: jansona <alelipona121@gmail.com>
+Date:   Tue Apr 14 20:15:25 2020 +0800
+
+    跑通前后端:sob:
+
+commit eb268ab9bd7f52a5616be43251184371a768ec94
+Author: okjer <398384796@qq.com>
+Date:   Tue Apr 14 19:37:33 2020 +0800
+
+    login test
+
+commit fc086ea905c3569ba3b99bd89c4cea8bffe5f445
+Author: Jasonix <ccjjxx99@qq.com>
+Date:   Tue Apr 14 17:19:02 2020 +0800
+
+    后端环境搭建，数据库连接
+
+commit 107f942874ff1afc08a0ad27ef61676ae9e8cb5b
+Merge: 609e0b2 4810659
+Author: jansona <alelipona121@gmail.com>
+Date:   Tue Apr 14 01:57:41 2020 +0800
+
+    Merge branch 'master' of https://github.com/jansona/2020_software_engineering_practice
+
+commit 609e0b201c034a05f27e2b8586148660ab6a28ab
+Author: jansona <alelipona121@gmail.com>
+Date:   Tue Apr 14 01:57:21 2020 +0800
+
+    ListPage类页面基本完成:wink:
+
+commit 48106591489348ba4f337736c8b707ff6c0b3b3d
+Merge: 2c234fc a2e1255
+Author: jansona <alelipona121@gmail.com>
+Date:   Wed Apr 8 20:37:05 2020 +0800
+
+    Merge pull request #1 from jansona/dependabot/npm_and_yarn/SPA()/webpack-bundle-analyzer-3.3.2
+    
+    Bump webpack-bundle-analyzer from 2.13.1 to 3.3.2 in /后台管理系统SPA(客户端)
+
+commit 2c234fc35fcb90d9e3327169d192efe7de9b3aef
+Merge: edadfd5 6c38078
+Author: jansona <alelipona121@gmail.com>
+Date:   Wed Apr 8 20:36:50 2020 +0800
+
+    Merge pull request #2 from jansona/dependabot/npm_and_yarn/SPA()/axios-0.18.1
+    
+    Bump axios from 0.15.3 to 0.18.1 in /后台管理系统SPA(客户端)
+
+commit a2e1255e14061c8a61d90a5c95f553980e2438eb
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Wed Apr 8 04:13:46 2020 +0000
+
+    Bump webpack-bundle-analyzer from 2.13.1 to 3.3.2 in /后台管理系统SPA(客户端)
+    
+    Bumps [webpack-bundle-analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer) from 2.13.1 to 3.3.2.
+    - [Release notes](https://github.com/webpack-contrib/webpack-bundle-analyzer/releases)
+    - [Changelog](https://github.com/webpack-contrib/webpack-bundle-analyzer/blob/master/CHANGELOG.md)
+    - [Commits](https://github.com/webpack-contrib/webpack-bundle-analyzer/compare/v2.13.1...v3.3.2)
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+
+commit 6c38078f15dd0beaf8ba8d4826992a87c11e0edb
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Wed Apr 8 04:13:46 2020 +0000
+
+    Bump axios from 0.15.3 to 0.18.1 in /后台管理系统SPA(客户端)
+    
+    Bumps [axios](https://github.com/axios/axios) from 0.15.3 to 0.18.1.
+    - [Release notes](https://github.com/axios/axios/releases)
+    - [Changelog](https://github.com/axios/axios/blob/v0.18.1/CHANGELOG.md)
+    - [Commits](https://github.com/axios/axios/compare/v0.15.3...v0.18.1)
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+
+commit edadfd526074f0899eff99c4e54ec28de749f8d4
+Author: jansona <alelipona121@gmail.com>
+Date:   Fri Apr 3 22:15:53 2020 +0800
+
+    setup background management system & implement some pages and components

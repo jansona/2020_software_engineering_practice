@@ -155,7 +155,7 @@
                     if(item.dealType == 0) {
                         item.title = '延时自提';
                     }else {
-                        item.title = '送货上门';
+                        item.title = '送货上门';    
                     }
                     item.timestamp = item.dealTime;
                 })

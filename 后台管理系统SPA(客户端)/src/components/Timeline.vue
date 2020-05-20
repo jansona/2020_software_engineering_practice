@@ -16,7 +16,7 @@
 
 <script>
 export default {
-    name: 'timeline',
+    name: 'Timeline',
     props: {
         timeline: [],
     },
