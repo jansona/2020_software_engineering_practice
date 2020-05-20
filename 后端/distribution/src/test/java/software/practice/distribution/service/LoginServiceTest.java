@@ -19,11 +19,13 @@ public class LoginServiceTest {
 
     @Test
     public void communityLogin() {
+
         Assert.assertEquals(loginService.CommunityLogin("1","123456"),1);
     }
 
     @Test
     public void userLogin() {
+
         Assert.assertEquals(loginService.UserLogin("1","123456"),1);
     }
 }
